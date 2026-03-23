@@ -17,7 +17,10 @@
 
 .header,
 .hero,
-.layout {
+.signalStrip,
+.trackGrid,
+.layout,
+.resourceShelf {
   width: min(1220px, 100%);
   margin: 0 auto;
 }
@@ -43,7 +46,8 @@
   flex-wrap: wrap;
 }
 
-.headerLinks a {
+.headerLinks a,
+.resourceActions a {
   padding: 10px 14px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -51,7 +55,7 @@
 }
 
 .hero {
-  padding: 24px 0 36px;
+  padding: 24px 0 28px;
 }
 
 .eyebrow {
@@ -71,19 +75,105 @@
   background: linear-gradient(90deg, transparent, currentColor);
 }
 
-.hero h1 {
+.hero h1,
+.resourceHeading h2 {
   margin: 18px 0;
-  max-width: 840px;
+  max-width: 900px;
   font-family: var(--font-display), sans-serif;
   font-size: clamp(2.6rem, 7vw, 5.4rem);
   line-height: 0.95;
   letter-spacing: -0.05em;
 }
 
-.hero p {
-  max-width: 760px;
+.hero p,
+.resourceHeading p {
+  max-width: 800px;
   color: var(--muted);
   line-height: 1.75;
+}
+
+.signalStrip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  padding-bottom: 18px;
+}
+
+.signalCard,
+.trackCard,
+.sidebar,
+.viewer,
+.resourceCard {
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(16, 30, 46, 0.88), rgba(9, 20, 32, 0.74));
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow);
+}
+
+.signalCard {
+  padding: 18px;
+  border-radius: 24px;
+}
+
+.signalCard span,
+.sampleIndex,
+.sampleButton small,
+.fileLabel,
+.resourceTag {
+  color: var(--muted);
+}
+
+.signalCard strong {
+  display: block;
+  margin: 10px 0 8px;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+}
+
+.signalCard p {
+  line-height: 1.65;
+  color: #d6e4f0;
+}
+
+.trackGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  padding: 18px 0 28px;
+}
+
+.trackCard {
+  padding: 22px;
+  border-radius: 28px;
+}
+
+.trackCard h2 {
+  margin: 0 0 12px;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  letter-spacing: -0.03em;
+}
+
+.trackCard p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.trackPoints,
+.resourcePoints {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.trackPoint,
+.resourcePoint {
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #d6e4f0;
+  line-height: 1.6;
 }
 
 .layout {
@@ -92,20 +182,18 @@
   gap: 24px;
 }
 
-.sidebar,
-.viewer {
-  border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(16, 30, 46, 0.88), rgba(9, 20, 32, 0.74));
-  backdrop-filter: blur(18px);
-  box-shadow: var(--shadow);
-}
-
 .sidebar {
   display: grid;
   gap: 12px;
   align-self: start;
   padding: 16px;
   border-radius: 26px;
+}
+
+.sidebarTop {
+  display: grid;
+  gap: 6px;
+  padding: 6px 4px 10px;
 }
 
 .sampleButton {
@@ -127,12 +215,6 @@
   transform: translateY(-2px);
   border-color: rgba(120, 242, 223, 0.28);
   background: rgba(120, 242, 223, 0.08);
-}
-
-.sampleIndex,
-.sampleButton small,
-.fileLabel {
-  color: var(--muted);
 }
 
 .sampleButton strong {
@@ -240,11 +322,60 @@
   font-family: "Consolas", "SFMono-Regular", monospace;
 }
 
-@media (max-width: 960px) {
-  .layout {
+.resourceShelf {
+  padding-top: 30px;
+}
+
+.resourceHeading {
+  margin-bottom: 18px;
+}
+
+.resourceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.resourceCard {
+  padding: 22px;
+  border-radius: 28px;
+}
+
+.resourceCard h3 {
+  margin: 10px 0 12px;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  letter-spacing: -0.03em;
+}
+
+.resourceCard p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.resourceActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+@media (max-width: 1100px) {
+  .signalStrip,
+  .resourceGrid {
     grid-template-columns: 1fr;
   }
 
+  .trackGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 960px) {
   .notesGrid {
     grid-template-columns: 1fr;
   }
@@ -261,9 +392,31 @@
 
   .header {
     padding-bottom: 22px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .headerLinks {
-    justify-content: flex-end;
+    width: 100%;
+  }
+
+  .headerLinks a,
+  .resourceActions a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .viewer,
+  .trackCard,
+  .resourceCard,
+  .signalCard,
+  .sidebar {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .codeBlock {
+    padding: 16px;
+    font-size: 0.85rem;
   }
 }

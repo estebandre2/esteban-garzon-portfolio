@@ -37,6 +37,18 @@ export type ResourceItem = {
   repoHref?: string;
 };
 
+export type LabSignal = {
+  label: string;
+  value: string;
+  detail: string;
+};
+
+export type LabTrack = {
+  title: string;
+  summary: string;
+  points: string[];
+};
+
 export const profile = {
   name: "Esteban Garzon",
   role: "CTO - Data, Automation, and AI Systems",
@@ -114,6 +126,19 @@ export const resources: ResourceItem[] = [
     downloadHref: "/downloads/outlook-attachment-extractor-source.zip",
     repoHref: "https://github.com/estebandre2/esteban-garzon-portfolio",
   },
+  {
+    title: "Live Data Integration Lab",
+    tag: "Public Source Bundle",
+    summary:
+      "A curated package of sanitized integration scripts covering Moraware, RFMS, Microsoft Graph, Samsara, and Excel-based ingestion patterns.",
+    points: [
+      "Built from real operational automations, rewritten to remove secrets, internal IDs, private paths, and raw business data.",
+      "Useful for demonstrating ETL, API authentication, batch backfills, desktop automation, and schema-shaping patterns.",
+      "Safe to share as a public engineering sample without exposing the original `livedataproj` workspace.",
+    ],
+    downloadHref: "/downloads/live-data-integration-lab-source.zip",
+    repoHref: "https://github.com/estebandre2/esteban-garzon-portfolio",
+  },
 ];
 
 export const resumeHighlights = [
@@ -148,6 +173,67 @@ export const resumeItems: ResumeItem[] = [
     title: "Civil Engineer + Master's in Data Science and Business Intelligence",
     description:
       "Blending engineering discipline with analytics, machine learning, business intelligence, and applied data strategy to solve real-world operational problems.",
+  },
+];
+
+export const codeLabSignals: LabSignal[] = [
+  {
+    label: "Public Samples",
+    value: "9",
+    detail: "Curated excerpts across ETL, APIs, telemetry, Graph, Excel automation, and cleanup flows.",
+  },
+  {
+    label: "Integration Families",
+    value: "5",
+    detail: "Moraware, RFMS, Microsoft Graph, Samsara, and spreadsheet-driven shop-floor pipelines.",
+  },
+  {
+    label: "Download Bundles",
+    value: "2",
+    detail: "Sanitized public utilities and source packages that are safe to share in a portfolio context.",
+  },
+];
+
+export const codeLabTracks: LabTrack[] = [
+  {
+    title: "Operational Ingestion",
+    summary:
+      "Patterns for turning shop-floor logs, ERP signals, and structured exports into cleaner analytical layers.",
+    points: [
+      "Spreadsheet normalization and sheet harmonization.",
+      "Controlled joins between job, slab, and activity records.",
+      "Incremental exports that preserve business context without leaking raw internals.",
+    ],
+  },
+  {
+    title: "API Orchestration",
+    summary:
+      "Session handling, credential flows, pagination, and defensive parsing across vendor APIs and cloud services.",
+    points: [
+      "RFMS session bootstrap and estimate hydration.",
+      "Microsoft Graph client-credentials token exchange.",
+      "Samsara polling windows built for historical backfills.",
+    ],
+  },
+  {
+    title: "Reliability Layers",
+    summary:
+      "The code emphasizes safe writes, deduplication, placeholder handling, and shape checks before records hit storage.",
+    points: [
+      "Completeness scoring before duplicate removal.",
+      "Batch inserts and time-window chunking for long runs.",
+      "Selective updates instead of blunt full-table churn where possible.",
+    ],
+  },
+  {
+    title: "Desktop + Internal Tooling",
+    summary:
+      "Not everything lives in a web app. Some of the strongest leverage comes from automating the awkward middle ground.",
+    points: [
+      "PythonNET bridges into .NET-based vendor tooling.",
+      "Excel automation with `xlwings` and downstream dataframe cleanup.",
+      "Utilities packaged for non-technical operators when needed.",
+    ],
   },
 ];
 
@@ -271,5 +357,206 @@ while workers_done < len(chunks):
         }
 
     pg_cur.execute(insert_sql, data)`,
+  },
+  {
+    id: "moraware-bridge",
+    title: "Moraware Activity Bridge",
+    file: "live-data-integration-lab/moraware_activity_sync.py",
+    category: ".NET Interop",
+    summary:
+      "A PythonNET flow that connects to a .NET vendor SDK, shapes activity metadata, and persists job-level signals for reporting.",
+    notes: [
+      "Bridges Python and .NET rather than relying on flat exports.",
+      "Converts vendor date objects into safe ISO timestamps.",
+      "Extracts structured fields from noisy activity notes.",
+    ],
+    snippet: `def convert_to_iso_string(value):
+    if value is None:
+        return None
+    if isinstance(value, datetime):
+        return value.isoformat()
+    try:
+        return datetime(
+            value.Year, value.Month, value.Day, value.Hour, value.Minute, value.Second
+        ).isoformat()
+    except AttributeError:
+        return None
+
+for activity in job_activities:
+    activity_name = activity.JobActivityTypeName
+    if activity_name in activity_data:
+        if "assigned_to" in activity_data[activity_name]:
+            assignees = []
+            enumerator = activity.Assignees.GetEnumerator()
+            while enumerator.MoveNext():
+                assignee = enumerator.Current
+                assignees.append(str(assignee.AssigneeName))
+            activity_data[activity_name]["assigned_to"] = ", ".join(assignees)
+
+        if "date" in activity_data[activity_name]:
+            activity_data[activity_name]["date"] = convert_to_iso_string(activity.StartDate)`,
+  },
+  {
+    id: "rfms-session",
+    title: "RFMS Session + Estimate Hydration",
+    file: "live-data-integration-lab/rfms_estimate_bridge.py",
+    category: "API Ingestion",
+    summary:
+      "A vendor session bootstrap followed by estimate-level hydration and schema-friendly extraction for local storage.",
+    notes: [
+      "Uses Basic auth only for session creation, then pivots into a short-lived session token.",
+      "Parses nested customer fields defensively.",
+      "Computes useful derived values like total square-foot area.",
+    ],
+    snippet: `def get_session_token():
+    auth_string = f"{STORE_QUEUE}:{API_KEY}"
+    auth_base64 = base64.b64encode(auth_string.encode()).decode()
+    headers = {"Authorization": f"Basic {auth_base64}"}
+
+    response = requests.post(f"{BASE_URL}/session/begin", headers=headers, timeout=30)
+    response.raise_for_status()
+    return response.json().get("sessionToken")
+
+def get_estimate_data(estimate_number, session_token):
+    headers = {
+        "Authorization": f"Basic {base64.b64encode(f'{STORE_QUEUE}:{session_token}'.encode()).decode()}",
+        "Content-Type": "application/json",
+    }
+
+    response = requests.get(f"{BASE_URL}/estimate/{estimate_number}?locked=false", headers=headers, timeout=30)
+    response.raise_for_status()
+    result = response.json().get("result") or {}
+    lines = result.get("lines", [])
+    total_area = sum(line.get("quantity", 0) for line in lines if line.get("saleUnits", "").upper() == "SF")
+    return {
+        "job_number": result.get("jobNumber"),
+        "line_count": len(lines),
+        "total_area": total_area,
+    }`,
+  },
+  {
+    id: "teams-graph",
+    title: "Microsoft Graph Timecard Sync",
+    file: "live-data-integration-lab/teams_timecards_sync.py",
+    category: "Cloud Automation",
+    summary:
+      "An OAuth client-credentials flow that exchanges app credentials for a token and pulls shift/timecard records from Microsoft Graph.",
+    notes: [
+      "Uses app-level auth for service-style automation.",
+      "Keeps token acquisition separate from data collection.",
+      "Demonstrates comfort with enterprise APIs beyond simpler webhook use cases.",
+    ],
+    snippet: `def get_access_token():
+    token_url = f"https://login.microsoftonline.com/{TENANT_ID}/oauth2/v2.0/token"
+    data = {
+        "grant_type": "client_credentials",
+        "client_id": CLIENT_ID,
+        "client_secret": CLIENT_SECRET,
+        "scope": "https://graph.microsoft.com/.default",
+    }
+    response = requests.post(token_url, data=data, timeout=30)
+    response.raise_for_status()
+    return response.json()["access_token"]
+
+def get_time_cards(access_token):
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/json",
+    }
+    response = requests.get(f"{GRAPH_URL}/teams/{TEAM_ID}/schedule/timeCards", headers=headers, timeout=30)
+    response.raise_for_status()
+    return response.json().get("value", [])`,
+  },
+  {
+    id: "samsara-backfill",
+    title: "Telemetry Backfill Windowing",
+    file: "live-data-integration-lab/samsara_history_backfill.py",
+    category: "Telemetry Pipelines",
+    summary:
+      "A time-sliced polling loop that backfills vehicle history in manageable windows rather than making one brittle bulk request.",
+    notes: [
+      "Chunks historical ranges into predictable intervals.",
+      "Supports long-running recovery jobs and partial reruns.",
+      "Pairs cleanly with batch inserts downstream.",
+    ],
+    snippet: `def fetch_and_store_historical_data(start_date, end_date):
+    current_start = start_date
+    while current_start < end_date:
+        current_end = min(current_start + timedelta(minutes=30), end_date)
+        start_ms = int(current_start.timestamp() * 1000)
+        end_ms = int(current_end.timestamp() * 1000)
+
+        vehicle_data = get_vehicle_data(start_ms, end_ms)
+        if vehicle_data:
+            save_to_postgres(vehicle_data)
+
+        current_start = current_end`,
+  },
+  {
+    id: "excel-normalize",
+    title: "Excel Cut Log Normalization",
+    file: "live-data-integration-lab/excel_cutlog_normalizer.py",
+    category: "Spreadsheet Automation",
+    summary:
+      "A multi-sheet cleanup flow that standardizes inconsistent headers and merges shop-floor exports into one usable dataset.",
+    notes: [
+      "Maps variant column names into a unified schema.",
+      "Keeps only the fields needed for downstream analysis.",
+      "Shows practical Excel automation where APIs do not exist.",
+    ],
+    snippet: `COLUMN_ALIASES = {
+    "Date": ["Date", "DATE"],
+    "SF Utilized": ["SF Utilized", "SFT"],
+    "Material Name": ["Marerial Name", "Material Name"],
+    "Job Name": ["Job Name", "JOB NAME ", "JOB NAME"],
+}
+
+def normalize_columns(df, aliases):
+    mapped = {}
+    for canonical_name, variants in aliases.items():
+        for variant in variants:
+            if variant in df.columns:
+                mapped[variant] = canonical_name
+    return df.rename(columns=mapped)
+
+for sheet in TARGET_SHEETS:
+    df = pd.read_csv(export_path_for(sheet))
+    df = normalize_columns(df, COLUMN_ALIASES)
+    df = df[[col for col in COLUMN_ALIASES if col in df.columns]]
+    df["Source"] = sheet
+    frames.append(df)`,
+  },
+  {
+    id: "duplicate-cleanup",
+    title: "Normalized Duplicate Cleanup",
+    file: "live-data-integration-lab/job_cleanup.py",
+    category: "Data Quality",
+    summary:
+      "A cleanup pass that compares normalized job names in SQL so duplicate operational records can be removed deterministically.",
+    notes: [
+      "Uses trimmed, lower-cased keys instead of fragile direct matches.",
+      "Keeps one survivor row per logical job.",
+      "Pairs raw ingestion with controlled post-load cleanup.",
+    ],
+    snippet: `find_duplicates_query = """
+SELECT LOWER(TRIM(job_name)) AS normalized_name, COUNT(*)
+FROM job_data
+GROUP BY LOWER(TRIM(job_name))
+HAVING COUNT(*) > 1;
+"""
+
+delete_query = """
+DELETE FROM job_data
+WHERE ctid IN (
+    SELECT ctid
+    FROM job_data
+    WHERE LOWER(TRIM(job_name)) = LOWER(TRIM(%s))
+      AND ctid NOT IN (
+          SELECT MIN(ctid)
+          FROM job_data
+          WHERE LOWER(TRIM(job_name)) = LOWER(TRIM(%s))
+      )
+);
+"""`,
   },
 ];

@@ -15,7 +15,7 @@ const body = Manrope({
 export const metadata: Metadata = {
   title: "Esteban Garzon | Automation Engineer",
   description:
-    "Esteban Garzon - CTO focused on automation, data engineering, AI-driven systems, ETL pipelines, business intelligence, and modern operational software.",
+    "Esteban Garzon - CTO focused on automation, data engineering, ETL pipelines, AI-driven systems, API integrations, telemetry workflows, Microsoft Graph, RFMS, Moraware, and modern operational software.",
   keywords: [
     "Esteban Garzon",
     "CTO",
@@ -27,6 +27,12 @@ export const metadata: Metadata = {
     "Python",
     "Portfolio",
     "Outlook Attachment Extractor",
+    "Code Lab",
+    "Moraware",
+    "RFMS",
+    "Microsoft Graph",
+    "Samsara",
+    "Excel Automation",
   ],
   authors: [{ name: "Esteban Garzon" }],
   creator: "Esteban Garzon",
@@ -37,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Esteban Garzon | CTO - Data, Automation, and AI Systems",
     description:
-      "Portfolio, resume snapshot, technical projects, and downloadable tools built by Esteban Garzon.",
+      "Portfolio, resume snapshot, technical projects, Code Lab samples, and downloadable tools built by Esteban Garzon.",
     url: "https://www.estebangarzon.com",
     siteName: "Esteban Garzon",
     locale: "en_US",
@@ -47,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Esteban Garzon | CTO - Data, Automation, and AI Systems",
     description:
-      "Portfolio, resume snapshot, technical projects, and downloadable tools built by Esteban Garzon.",
+      "Portfolio, resume snapshot, technical projects, Code Lab samples, and downloadable tools built by Esteban Garzon.",
   },
   robots: {
     index: true,

@@ -49,6 +49,26 @@ export type LabTrack = {
   points: string[];
 };
 
+export type LabRequirement = {
+  title: string;
+  detail: string;
+};
+
+export type LabWorkflowStep = {
+  step: string;
+  title: string;
+  detail: string;
+};
+
+export type LabGuide = {
+  title: string;
+  audience: string;
+  summary: string;
+  requirements: string[];
+  steps: string[];
+  outputs: string[];
+};
+
 export const profile = {
   name: "Esteban Garzon",
   role: "CTO - Data, Automation, and AI Systems",
@@ -179,8 +199,8 @@ export const resumeItems: ResumeItem[] = [
 export const codeLabSignals: LabSignal[] = [
   {
     label: "Public Samples",
-    value: "9",
-    detail: "Curated excerpts across ETL, APIs, telemetry, Graph, Excel automation, and cleanup flows.",
+    value: "13",
+    detail: "Curated excerpts across ETL, APIs, telemetry, Graph, Excel automation, schema bridges, and batching flows.",
   },
   {
     label: "Integration Families",
@@ -191,6 +211,11 @@ export const codeLabSignals: LabSignal[] = [
     label: "Download Bundles",
     value: "2",
     detail: "Sanitized public utilities and source packages that are safe to share in a portfolio context.",
+  },
+  {
+    label: "Usage Guides",
+    value: "2",
+    detail: "Step-by-step instructions, prerequisites, and expected outputs for the public downloads.",
   },
 ];
 
@@ -233,6 +258,113 @@ export const codeLabTracks: LabTrack[] = [
       "PythonNET bridges into .NET-based vendor tooling.",
       "Excel automation with `xlwings` and downstream dataframe cleanup.",
       "Utilities packaged for non-technical operators when needed.",
+    ],
+  },
+];
+
+export const codeLabRequirements: LabRequirement[] = [
+  {
+    title: "Python 3.11+",
+    detail:
+      "Most samples assume a modern Python runtime and common data tooling such as `requests`, `pandas`, and `psycopg2-binary`.",
+  },
+  {
+    title: "Windows-first utilities",
+    detail:
+      "The Outlook tool and some spreadsheet or desktop flows are designed around Windows environments and local desktop automation.",
+  },
+  {
+    title: "Service credentials",
+    detail:
+      "Public packages replace all secrets with placeholders. To run them, you must provide your own API keys, database credentials, and tenant identifiers.",
+  },
+  {
+    title: "External systems",
+    detail:
+      "Some samples expect access to third-party systems such as Moraware, Microsoft Graph, RFMS, SQL Server, PostgreSQL, or Samsara.",
+  },
+];
+
+export const codeLabWorkflow: LabWorkflowStep[] = [
+  {
+    step: "01",
+    title: "Choose a bundle",
+    detail:
+      "Pick the public package that matches your need: Outlook extraction for email attachments or Live Data Integration Lab for ETL and API examples.",
+  },
+  {
+    step: "02",
+    title: "Read the guide first",
+    detail:
+      "Each bundle is sanitized and intentionally selective. Start with the README to understand the expected environment and what has been redacted.",
+  },
+  {
+    step: "03",
+    title: "Install prerequisites",
+    detail:
+      "Create a clean environment, install the listed packages, and replace placeholders like `***` with your own safe local configuration.",
+  },
+  {
+    step: "04",
+    title: "Run a narrow test",
+    detail:
+      "Begin with a single script or a reduced date range so you can validate connectivity, schema behavior, and output shape before scaling up.",
+  },
+  {
+    step: "05",
+    title: "Adapt to your stack",
+    detail:
+      "The samples are meant to be templates. Rename tables, adjust schemas, and route outputs to your own storage and monitoring setup.",
+  },
+];
+
+export const codeLabGuides: LabGuide[] = [
+  {
+    title: "How to use the Live Data Integration Lab",
+    audience: "For engineers exploring ETL, API sync, and data-platform patterns",
+    summary:
+      "This package is best used as a reference implementation. It shows structure, flow control, and integration techniques rather than pretending to be a plug-and-play app.",
+    requirements: [
+      "Python 3.11 or newer",
+      "A virtual environment",
+      "Your own PostgreSQL or SQL-compatible destination",
+      "Your own vendor credentials for whichever script you want to test",
+    ],
+    steps: [
+      "Download the zip and extract it into a clean folder.",
+      "Create a virtual environment and install `requirements.txt`.",
+      "Open the script you want to study first, such as the RFMS bridge or the Microsoft Graph sync.",
+      "Replace the placeholder values with your own local configuration.",
+      "Run a small test scope first, then expand the date range or dataset size once the shape looks correct.",
+    ],
+    outputs: [
+      "Understanding of auth flows, polling windows, and ETL control patterns",
+      "Reusable code structure for ingestion jobs",
+      "A safe starting point for adapting to your own systems",
+    ],
+  },
+  {
+    title: "How to use the Outlook Attachment Extractor",
+    audience: "For teams or operators who need a practical attachment-export utility",
+    summary:
+      "This package is intended as a usable Windows utility sample. It demonstrates both packaging discipline and a real-world local workflow.",
+    requirements: [
+      "Windows environment",
+      "Python installed locally if running from source",
+      "Access to an OST file you are authorized to inspect",
+      "Enough local disk space for exported attachments",
+    ],
+    steps: [
+      "Download the source package and extract it locally.",
+      "Review the README and install the dependencies if you plan to run it from source.",
+      "Launch the GUI or CLI entrypoint depending on your workflow.",
+      "Point the tool to your OST file, filter by the criteria you need, and choose an export folder.",
+      "Verify a small sample export first before running a broader extraction.",
+    ],
+    outputs: [
+      "Structured attachment exports",
+      "A reusable local utility for mailbox recovery or audit workflows",
+      "A reference implementation for GUI-driven Python tooling",
     ],
   },
 ];
@@ -558,5 +690,129 @@ WHERE ctid IN (
       )
 );
 """`,
+  },
+  {
+    id: "schema-bootstrap",
+    title: "Schema Bootstrap for Operational Tables",
+    file: "livedataproj/RFMSorders.py",
+    category: "Database Design",
+    summary:
+      "A lightweight schema bootstrap pattern that creates the target table before ingestion and avoids brittle manual setup.",
+    notes: [
+      "Ensures the destination exists before the fetch loop starts.",
+      "Useful for internal tools that must be deployable by operators.",
+      "Pairs cleanly with insert-on-conflict or append-only workflows.",
+    ],
+    snippet: `create_table_query = """
+CREATE TABLE IF NOT EXISTS purchase_orders_rfms (
+    id SERIAL PRIMARY KEY,
+    document_number VARCHAR(255) NOT NULL
+);
+"""
+
+alter_queries = [
+    "DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='purchase_orders_rfms' AND column_name='document_number') THEN ALTER TABLE purchase_orders_rfms ADD COLUMN document_number VARCHAR(255) NOT NULL; END IF; END $$;"
+]
+
+cursor.execute(create_table_query)
+for query in alter_queries:
+    cursor.execute(query)
+    connection.commit()`,
+  },
+  {
+    id: "scheduler-orchestration",
+    title: "Scheduled Pipeline Orchestration",
+    file: "livedataproj/Scheduledopen2.py",
+    category: "Automation Ops",
+    summary:
+      "A simple but effective scheduler that chains multiple scripts into one recurring operational workflow.",
+    notes: [
+      "Good example of pragmatic orchestration before introducing a full scheduler stack.",
+      "Useful for internal recurring jobs that need fast deployment.",
+      "Shows comfort with turning separate scripts into a repeatable pipeline.",
+    ],
+    snippet: `def ejecutar_programa():
+    try:
+        comando1 = ["python", "Slabsmithfinal.py"]
+        subprocess.run(comando1, check=True)
+
+        comando2 = ["python", "cutlogsconv.py"]
+        subprocess.run(comando2, check=True)
+
+        comando3 = ["python", "cutlogsinslabsmith.py"]
+        subprocess.run(comando3, check=True)
+
+        hora_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print(f"Programas ejecutados exitosamente a las {hora_actual}.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error al ejecutar un programa: {e}")
+
+schedule.every(15).minutes.do(ejecutar_programa)`,
+  },
+  {
+    id: "sqlserver-bridge",
+    title: "SQL Server to PostgreSQL Bridge",
+    file: "livedataproj/Slabsmithfinal.py",
+    category: "Cross-Database Sync",
+    summary:
+      "A cross-database bridge that reads from SQL Server, reshapes units, and lands the result into PostgreSQL for downstream analytics.",
+    notes: [
+      "Practical pattern for moving line-of-business data out of an operational database.",
+      "Includes unit conversion before persistence so downstream consumers get analytics-ready fields.",
+      "Demonstrates comfort with ODBC, pandas, and SQLAlchemy in one flow.",
+    ],
+    snippet: `query = """
+SELECT
+    slabs.[InventoryID],
+    slabs.[Material],
+    slabs.[Manufacturer],
+    slabs.[Product],
+    slabs.[Area$Usable],
+    jobslabs.[Utilized],
+    jobslabs.[Reserved],
+    jobslabs.[Waste],
+    jobs.[ID] AS JobName
+FROM [SSSlabBrowser].[All Slabs] slabs
+INNER JOIN [dbo].[JobSlabs] jobslabs ON slabs.[SlabID] = jobslabs.[SlabUID]
+INNER JOIN [dbo].[JobItems] jobitems ON jobslabs.[JobItemUID] = jobitems.[JobItemID]
+INNER JOIN [dbo].[Jobs] jobs ON jobitems.[JobUID] = jobs.[JobID];
+"""
+
+for column in ["Area$Usable", "Utilized", "Reserved", "Waste"]:
+    data[column] = data[column] * 10.7639
+
+data.to_sql("job_slabs_data", engine, if_exists="replace", index=False)`,
+  },
+  {
+    id: "batch-insert",
+    title: "Batch Event Insert Pattern",
+    file: "livedataproj/Samsara2.py",
+    category: "Write Throughput",
+    summary:
+      "A batching pattern that accumulates event rows and persists them in one database operation instead of writing one row at a time.",
+    notes: [
+      "Reduces overhead on long-running event ingestion jobs.",
+      "Improves clarity by separating event parsing from persistence.",
+      "Good foundation for later swapping in COPY or queue-based writes.",
+    ],
+    snippet: `def guardar_eventos_lote(entries):
+    if not entries:
+        print("No hay eventos para guardar.")
+        return
+
+    cursor.executemany(
+        """
+        INSERT INTO vehiculos_ubicacion (vehiculo_id, tipo_evento, timestamp, latitud, longitud, ubicacion)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        """,
+        entries
+    )
+    conn.commit()
+
+for evento in eventos:
+    tipo_evento = evento.get("type", "Desconocido")
+    timestamp = datetime.fromisoformat(evento["time"].replace("Z", "+00:00"))
+    ubicacion = evento.get("location", {})
+    entries.append((vehiculo_id, tipo_evento, timestamp, latitud, longitud, direccion))`,
   },
 ];

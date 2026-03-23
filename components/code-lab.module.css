@@ -19,6 +19,8 @@
 .hero,
 .signalStrip,
 .trackGrid,
+.dualSection,
+.guideSection,
 .layout,
 .resourceShelf {
   width: min(1220px, 100%);
@@ -142,9 +144,38 @@
   padding: 18px 0 28px;
 }
 
+.dualSection {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  padding-bottom: 28px;
+}
+
 .trackCard {
   padding: 22px;
   border-radius: 28px;
+}
+
+.panelCard,
+.guideCard {
+  padding: 22px;
+  border-radius: 28px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(16, 30, 46, 0.88), rgba(9, 20, 32, 0.74));
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow);
+}
+
+.panelHeading {
+  margin-bottom: 16px;
+}
+
+.panelHeading h2,
+.guideCard h3 {
+  margin: 12px 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  letter-spacing: -0.03em;
 }
 
 .trackCard h2 {
@@ -159,8 +190,58 @@
   line-height: 1.7;
 }
 
+.requirementGrid,
+.workflowList {
+  display: grid;
+  gap: 12px;
+}
+
+.requirementCard,
+.workflowItem,
+.guideListItem {
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.requirementCard strong,
+.workflowItem strong,
+.guideCard strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.requirementCard p,
+.workflowItem p,
+.guideCard p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.workflowItem {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.workflowItem span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border-radius: 14px;
+  background: rgba(120, 242, 223, 0.08);
+  border: 1px solid rgba(120, 242, 223, 0.18);
+  color: var(--cyan);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
 .trackPoints,
-.resourcePoints {
+.resourcePoints,
+.guideList {
   display: grid;
   gap: 10px;
   margin-top: 16px;
@@ -326,17 +407,23 @@
   padding-top: 30px;
 }
 
+.guideSection {
+  padding-bottom: 30px;
+}
+
 .resourceHeading {
   margin-bottom: 18px;
 }
 
-.resourceGrid {
+.resourceGrid,
+.guideGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 
-.resourceCard {
+.resourceCard,
+.guideCard {
   padding: 22px;
   border-radius: 28px;
 }
@@ -353,6 +440,13 @@
   line-height: 1.7;
 }
 
+.guideColumns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
 .resourceActions {
   display: flex;
   gap: 12px;
@@ -362,11 +456,14 @@
 
 @media (max-width: 1100px) {
   .signalStrip,
-  .resourceGrid {
+  .resourceGrid,
+  .guideGrid {
     grid-template-columns: 1fr;
   }
 
-  .trackGrid {
+  .trackGrid,
+  .dualSection,
+  .guideColumns {
     grid-template-columns: 1fr;
   }
 
@@ -408,11 +505,17 @@
 
   .viewer,
   .trackCard,
+  .panelCard,
+  .guideCard,
   .resourceCard,
   .signalCard,
   .sidebar {
     padding: 18px;
     border-radius: 22px;
+  }
+
+  .workflowItem {
+    grid-template-columns: 1fr;
   }
 
   .codeBlock {

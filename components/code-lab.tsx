@@ -3,8 +3,11 @@
 import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import {
+  codeLabGuides,
+  codeLabRequirements,
   codeLabSignals,
   codeLabTracks,
+  codeLabWorkflow,
   codeSamples,
   profile,
   resources,
@@ -44,12 +47,12 @@ export function CodeLab() {
           transition={{ duration: 0.6 }}
         >
           <span className={styles.eyebrow}>Code Lab</span>
-          <h1>Selective code access, architecture context, and sanitized engineering proof.</h1>
+          <h1>Selective code access, architecture context, step-by-step usage, and sanitized engineering proof.</h1>
           <p>
             This page intentionally exposes curated slices of the work rather than a
             full repository dump. The goal is to show engineering thinking,
-            integration breadth, and problem-solving range without over-sharing
-            operational details, credentials, or raw business data.
+            integration breadth, execution flow, and practical usage guidance
+            without over-sharing credentials, internal identifiers, or raw business data.
           </p>
         </motion.div>
       </section>
@@ -92,6 +95,102 @@ export function CodeLab() {
             </div>
           </motion.article>
         ))}
+      </section>
+
+      <section className={styles.dualSection}>
+        <article className={styles.panelCard}>
+          <div className={styles.panelHeading}>
+            <span className={styles.eyebrow}>Requirements</span>
+            <h2>What you need before using the public bundles.</h2>
+          </div>
+
+          <div className={styles.requirementGrid}>
+            {codeLabRequirements.map((item) => (
+              <div key={item.title} className={styles.requirementCard}>
+                <strong>{item.title}</strong>
+                <p>{item.detail}</p>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <article className={styles.panelCard}>
+          <div className={styles.panelHeading}>
+            <span className={styles.eyebrow}>Workflow</span>
+            <h2>How to use this material step by step.</h2>
+          </div>
+
+          <div className={styles.workflowList}>
+            {codeLabWorkflow.map((item) => (
+              <div key={item.step} className={styles.workflowItem}>
+                <span>{item.step}</span>
+                <div>
+                  <strong>{item.title}</strong>
+                  <p>{item.detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </article>
+      </section>
+
+      <section className={styles.guideSection}>
+        <div className={styles.resourceHeading}>
+          <span className={styles.eyebrow}>Playbooks</span>
+          <h2>Bundle-specific instructions with prerequisites, steps, and expected outputs.</h2>
+        </div>
+
+        <div className={styles.guideGrid}>
+          {codeLabGuides.map((guide, index) => (
+            <motion.article
+              key={guide.title}
+              className={styles.guideCard}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.45, delay: index * 0.08 }}
+            >
+              <span className={styles.resourceTag}>{guide.audience}</span>
+              <h3>{guide.title}</h3>
+              <p>{guide.summary}</p>
+
+              <div className={styles.guideColumns}>
+                <div>
+                  <strong>Requirements</strong>
+                  <div className={styles.guideList}>
+                    {guide.requirements.map((item) => (
+                      <div key={item} className={styles.guideListItem}>
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <strong>Step by step</strong>
+                  <div className={styles.guideList}>
+                    {guide.steps.map((item) => (
+                      <div key={item} className={styles.guideListItem}>
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <strong>Expected outputs</strong>
+                  <div className={styles.guideList}>
+                    {guide.outputs.map((item) => (
+                      <div key={item} className={styles.guideListItem}>
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
       </section>
 
       <section className={styles.layout}>

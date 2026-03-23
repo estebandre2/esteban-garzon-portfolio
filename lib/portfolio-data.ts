@@ -28,6 +28,15 @@ export type ResumeItem = {
   description: string;
 };
 
+export type ResourceItem = {
+  title: string;
+  tag: string;
+  summary: string;
+  points: string[];
+  downloadHref: string;
+  repoHref?: string;
+};
+
 export const profile = {
   name: "Esteban Garzon",
   role: "CTO - Data, Automation, and AI Systems",
@@ -89,6 +98,22 @@ export const capabilities = [
   "Business intelligence dashboards",
   "Machine learning and predictive analytics",
   "Interactive frontends for complex systems",
+];
+
+export const resources: ResourceItem[] = [
+  {
+    title: "Outlook Attachment Extractor",
+    tag: "Free Utility",
+    summary:
+      "A Windows-based OST attachment extraction utility with GUI and CLI workflows, designed to browse Outlook data files, filter messages, and export attachments in a structured way.",
+    points: [
+      "Sanitized public package with source code only.",
+      "No client data, extracted mail content, temporary mailboxes, or build artifacts included.",
+      "Useful as a practical download for teams that need OST attachment extraction workflows.",
+    ],
+    downloadHref: "/downloads/outlook-attachment-extractor-source.zip",
+    repoHref: "https://github.com/estebandre2/esteban-garzon-portfolio",
+  },
 ];
 
 export const resumeHighlights = [

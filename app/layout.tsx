@@ -15,7 +15,44 @@ const body = Manrope({
 export const metadata: Metadata = {
   title: "Esteban Garzon | Automation Engineer",
   description:
-    "Portfolio of Esteban Garzon: automation engineering, ETL systems, integrations, and modern operational software.",
+    "Esteban Garzon - CTO focused on automation, data engineering, AI-driven systems, ETL pipelines, business intelligence, and modern operational software.",
+  keywords: [
+    "Esteban Garzon",
+    "CTO",
+    "Automation Engineer",
+    "Data Engineer",
+    "Business Intelligence",
+    "ETL",
+    "AI Systems",
+    "Python",
+    "Portfolio",
+    "Outlook Attachment Extractor",
+  ],
+  authors: [{ name: "Esteban Garzon" }],
+  creator: "Esteban Garzon",
+  metadataBase: new URL("https://www.estebangarzon.com"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Esteban Garzon | CTO - Data, Automation, and AI Systems",
+    description:
+      "Portfolio, resume snapshot, technical projects, and downloadable tools built by Esteban Garzon.",
+    url: "https://www.estebangarzon.com",
+    siteName: "Esteban Garzon",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Esteban Garzon | CTO - Data, Automation, and AI Systems",
+    description:
+      "Portfolio, resume snapshot, technical projects, and downloadable tools built by Esteban Garzon.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

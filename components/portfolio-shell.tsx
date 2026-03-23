@@ -7,6 +7,7 @@ import {
   metrics,
   profile,
   projects,
+  resources,
   resumeHighlights,
   resumeItems,
   type Project,
@@ -142,6 +143,7 @@ export function PortfolioShell() {
 
         <nav className={styles.nav}>
           <a href="#work">Work</a>
+          <a href="#resources">Resources</a>
           <a href="#resume">Resume</a>
           <a href="/code">Code Lab</a>
           <a href="#contact">Contact</a>
@@ -330,6 +332,56 @@ export function PortfolioShell() {
             >
               {item}
             </motion.div>
+          ))}
+        </div>
+      </section>
+
+      <section className={`${styles.section} ${styles.resourcesSection}`} id="resources">
+        <motion.div
+          className={styles.sectionHeading}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.35 }}
+          variants={reveal}
+          transition={{ duration: 0.6 }}
+        >
+          <span>Resources & Contributions</span>
+          <h2>Useful public downloads, packaged cleanly and safe to share.</h2>
+        </motion.div>
+
+        <div className={styles.resourcesGrid}>
+          {resources.map((resource, index) => (
+            <motion.article
+              key={resource.title}
+              className={styles.resourceCard}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+            >
+              <div className={styles.resourceTop}>
+                <span className={styles.resourceTag}>{resource.tag}</span>
+                <h3>{resource.title}</h3>
+                <p>{resource.summary}</p>
+              </div>
+
+              <div className={styles.resourcePoints}>
+                {resource.points.map((point) => (
+                  <div key={point} className={styles.resourcePoint}>
+                    {point}
+                  </div>
+                ))}
+              </div>
+
+              <div className={styles.resourceActions}>
+                <MagneticLink href={resource.downloadHref}>Download source package</MagneticLink>
+                {resource.repoHref ? (
+                  <MagneticLink href={resource.repoHref} variant="ghost" target="_blank" rel="noreferrer">
+                    View repository
+                  </MagneticLink>
+                ) : null}
+              </div>
+            </motion.article>
           ))}
         </div>
       </section>

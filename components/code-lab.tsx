@@ -33,6 +33,7 @@ export function CodeLab() {
 
         <div className={styles.headerLinks}>
           <a href="/">Home</a>
+          <a href="/analytics">Analytics</a>
           <a href="/#resources">Resources</a>
           <a href={profile.linkedin} target="_blank" rel="noreferrer">
             LinkedIn

@@ -816,3 +816,236 @@ for evento in eventos:
     entries.append((vehiculo_id, tipo_evento, timestamp, latitud, longitud, direccion))`,
   },
 ];
+
+export type AnalyticsSignal = {
+  label: string;
+  value: string;
+  detail: string;
+};
+
+export type AnalyticsProject = {
+  title: string;
+  tag: string;
+  summary: string;
+  outcome: string;
+  stack: string[];
+  accent: string;
+  href: string;
+  hrefLabel: string;
+};
+
+export type AnalyticsArchiveItem = {
+  title: string;
+  tag: string;
+  summary: string;
+  format: string;
+  href: string;
+};
+
+export const analyticsSignals: AnalyticsSignal[] = [
+  {
+    label: "Portfolio Layer",
+    value: "20",
+    detail: "Visible analytics deliverables across forecasting, BI, visualization, graph analysis, databases, and optimization.",
+  },
+  {
+    label: "Featured Cases",
+    value: "6",
+    detail: "The strongest pieces are separated from the broader archive so the main narrative stays sharp.",
+  },
+  {
+    label: "Download Types",
+    value: "PDF / PBIX / TWB / PPTX / DOCX",
+    detail: "The page includes source files and supporting reports without disrupting the current premium portfolio style.",
+  },
+];
+
+export const analyticsFeatured: AnalyticsProject[] = [
+  {
+    title: "Predictive Model for Residential Construction Activity in Texas",
+    tag: "Forecasting Thesis",
+    summary:
+      "A forecasting-focused thesis project designed around construction permits, planning uncertainty, inventory timing, workforce decisions, and commercial readiness.",
+    outcome:
+      "Frames Esteban as someone who can connect time-series analysis with operational planning and business value.",
+    stack: ["Forecasting", "Time Series", "Planning", "Business Context"],
+    accent: "var(--cyan)",
+    href: "/downloads/analytics-portfolio/tesis-proyecto-construccion-texas.pdf",
+    hrefLabel: "Open thesis brief",
+  },
+  {
+    title: "TTS Countertops Cycle-Time and Rework Optimization",
+    tag: "Applied Analytics",
+    summary:
+      "An applied analytics case centered on cycle-time prediction, rework risk, process mining, and KPI-driven operations improvement for TTS Countertops.",
+    outcome:
+      "Adds predictive and operations-oriented depth without overlapping the current ETL and automation portfolio.",
+    stack: ["Operations Analytics", "ML Strategy", "KPI Design", "Process Improvement"],
+    accent: "var(--amber)",
+    href: "/downloads/analytics-portfolio/estrategia-big-data-tts.pdf",
+    hrefLabel: "Open strategy deck",
+  },
+  {
+    title: "Executive BI Dashboard for Commissions, Market, Pareto, and Traders",
+    tag: "Power BI",
+    summary:
+      "A multi-page Power BI project covering commissions, market participation, Pareto logic, decomposition views, and trader-level reporting.",
+    outcome:
+      "Shows that Esteban can translate data into managerial dashboards, not only backend systems.",
+    stack: ["Power BI", "Executive Reporting", "Market Analysis", "Dashboards"],
+    accent: "var(--rose)",
+    href: "/downloads/analytics-portfolio/proyecto-power-bi-fase-3.pbix",
+    hrefLabel: "Download PBIX",
+  },
+  {
+    title: "Property and Price Exploration in Tableau",
+    tag: "Data Visualization",
+    summary:
+      "A Tableau workbook focused on property-level analysis, pricing patterns, housing attributes, and real-estate-oriented visual storytelling.",
+    outcome:
+      "Expands the public portfolio into analytics communication and exploratory visualization.",
+    stack: ["Tableau", "Real Estate", "Visual Analysis", "Storytelling"],
+    accent: "var(--cyan)",
+    href: "/downloads/analytics-portfolio/proyecto-tableau-fase-3.twb",
+    hrefLabel: "Download TWB",
+  },
+  {
+    title: "Fraud Detection Through Graph Analytics",
+    tag: "Neo4j",
+    summary:
+      "A Cypher-based report exploring duplicated cards, shared identity data, overlapping products, and risky loan balances in a fraud scenario.",
+    outcome:
+      "Introduces graph thinking and pattern analysis without repeating the existing code-lab samples.",
+    stack: ["Neo4j", "Cypher", "Fraud Analysis", "Graph Modeling"],
+    accent: "var(--amber)",
+    href: "/downloads/analytics-portfolio/reporte-fraude-neo4j.pdf",
+    hrefLabel: "Open fraud report",
+  },
+  {
+    title: "Healthcare Relationships and Conflict-of-Interest Analysis",
+    tag: "Graph Analysis",
+    summary:
+      "A graph-based healthcare case focused on pharmaceutical influence, overloaded doctors, incompatible treatments, and relational risks.",
+    outcome:
+      "Broadens the analytical range of the site while staying aligned with structured problem solving.",
+    stack: ["Neo4j", "Healthcare", "Risk Analysis", "Relational Data"],
+    accent: "var(--rose)",
+    href: "/downloads/analytics-portfolio/reporte-medicina-neo4j.pdf",
+    hrefLabel: "Open healthcare report",
+  },
+];
+
+export const analyticsArchive: AnalyticsArchiveItem[] = [
+  {
+    title: "Big Data Use in TTS Flooring and Countertops",
+    tag: "Big Data",
+    summary:
+      "Applied essay on operational, customer, logistics, HR, and financial data inside a U.S. manufacturing context.",
+    format: "PDF",
+    href: "/downloads/analytics-portfolio/big-data-uso-tts.pdf",
+  },
+  {
+    title: "Factors Affecting Big Data Adoption in Ecuassist",
+    tag: "Big Data",
+    summary:
+      "Technology and organization analysis using TOE and UTAUT perspectives.",
+    format: "PDF",
+    href: "/downloads/analytics-portfolio/big-data-factores-adopcion.pdf",
+  },
+  {
+    title: "Comparative Review of Big Data Technologies",
+    tag: "Big Data",
+    summary:
+      "Comparison across storage, NoSQL, batch, real-time, ML, and visualization platforms.",
+    format: "PDF",
+    href: "/downloads/analytics-portfolio/big-data-cuadro-comparativo.pdf",
+  },
+  {
+    title: "Case Analysis S1",
+    tag: "Analytics",
+    summary:
+      "Case-based analysis of analytics applications in Ecuador with a business-value lens.",
+    format: "PDF",
+    href: "/downloads/analytics-portfolio/analitica-caso-s1.pdf",
+  },
+  {
+    title: "Case Analysis S2 on Public Procurement",
+    tag: "Analytics",
+    summary:
+      "Descriptive and associative analysis of Ecuador's public procurement market using Python.",
+    format: "DOCX",
+    href: "/downloads/analytics-portfolio/analitica-caso-s2.docx",
+  },
+  {
+    title: "Innovative Analytics Solution S4",
+    tag: "Analytics",
+    summary:
+      "Presentation on cycle prediction, rework risk, and phased implementation planning.",
+    format: "PPTX",
+    href: "/downloads/analytics-portfolio/analitica-soluciones-innovadoras-s4.pptx",
+  },
+  {
+    title: "Business Intelligence Concept Map",
+    tag: "BI",
+    summary:
+      "Conceptual support piece that complements the applied BI work with a clear structural overview.",
+    format: "PDF",
+    href: "/downloads/analytics-portfolio/bi-mapa-conceptual.pdf",
+  },
+  {
+    title: "Power BI Integrated Project - Phase 1",
+    tag: "BI",
+    summary:
+      "Initial dashboard structure and model setup for the larger reporting workflow.",
+    format: "PBIX",
+    href: "/downloads/analytics-portfolio/bi-proyecto-fase-1.pbix",
+  },
+  {
+    title: "Power BI Integrated Project - Phase 2",
+    tag: "BI",
+    summary:
+      "Intermediate iteration with more developed layout and expanded analytical views.",
+    format: "PBIX",
+    href: "/downloads/analytics-portfolio/bi-proyecto-fase-2.pbix",
+  },
+  {
+    title: "Data Visualization Assignment 1",
+    tag: "Visualization",
+    summary:
+      "Additional visual work included to broaden the portfolio footprint beyond one Tableau project.",
+    format: "PDF",
+    href: "/downloads/analytics-portfolio/visualizacion-tarea-1.pdf",
+  },
+  {
+    title: "Graph Database Design and Exploration Task",
+    tag: "Graph Databases",
+    summary:
+      "Neo4j modeling work using the movies dataset, meta-model design, and Cypher exploration.",
+    format: "PDF",
+    href: "/downloads/analytics-portfolio/analisis-red-tarea-s2.pdf",
+  },
+  {
+    title: "MongoDB Exploration and Querying Task",
+    tag: "Databases",
+    summary:
+      "Collection exploration, filters, counts, and query interpretation in a document database setting.",
+    format: "PDF",
+    href: "/downloads/analytics-portfolio/bases-datos-mongodb.pdf",
+  },
+  {
+    title: "Linear Programming Task S1",
+    tag: "Optimization",
+    summary:
+      "Production-planning model solved with Excel Solver and AMPL.",
+    format: "PDF",
+    href: "/downloads/analytics-portfolio/optimizacion-lineal-s1.pdf",
+  },
+  {
+    title: "Integer Programming Task S3",
+    tag: "Optimization",
+    summary:
+      "Capacity-constrained product-mix optimization with multiple what-if scenarios.",
+    format: "PDF",
+    href: "/downloads/analytics-portfolio/optimizacion-lineal-s3.pdf",
+  },
+];

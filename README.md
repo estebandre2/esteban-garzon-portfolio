@@ -1,6 +1,6 @@
 # Portfolio
 
-Modern English portfolio in Next.js, ready for Vercel.
+Portfolio in Next.js, ready for Vercel.
 
 ## Local development
 

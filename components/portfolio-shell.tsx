@@ -3,6 +3,7 @@
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { CSSProperties, useEffect, useState } from "react";
 import {
+  analyticsFeatured,
   capabilities,
   metrics,
   profile,
@@ -143,9 +144,11 @@ export function PortfolioShell() {
 
         <nav className={styles.nav}>
           <a href="#work">Work</a>
+          <a href="#analytics">Analytics</a>
           <a href="#resources">Resources</a>
           <a href="#resume">Resume</a>
           <a href="/code">Code Lab</a>
+          <a href="/analytics">Analytics Lab</a>
           <a href="#contact">Contact</a>
           <a href={profile.linkedin} target="_blank" rel="noreferrer">
             LinkedIn
@@ -240,6 +243,33 @@ export function PortfolioShell() {
           {projects.map((project, index) => (
             <ProjectCard key={project.title} project={project} index={index} />
           ))}
+        </div>
+      </section>
+
+      <section className={styles.section} id="analytics">
+        <motion.div
+          className={styles.sectionHeading}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.35 }}
+          variants={reveal}
+          transition={{ duration: 0.6 }}
+        >
+          <span>Applied Analytics</span>
+          <h2>A separate analytics layer that adds forecasting, BI, visualization, and graph-driven case work.</h2>
+        </motion.div>
+
+        <div className={styles.projectsGrid}>
+          {analyticsFeatured.slice(0, 3).map((project, index) => (
+            <ProjectCard key={project.title} project={project} index={index} />
+          ))}
+        </div>
+
+        <div className={styles.ctaRow}>
+          <MagneticLink href="/analytics">Open Analytics Portfolio</MagneticLink>
+          <MagneticLink href={analyticsFeatured[0].href} variant="ghost">
+            {analyticsFeatured[0].hrefLabel}
+          </MagneticLink>
         </div>
       </section>
 

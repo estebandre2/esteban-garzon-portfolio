@@ -874,10 +874,10 @@ export const analyticsFeatured: AnalyticsProject[] = [
     hrefLabel: "Open thesis brief",
   },
   {
-    title: "TTS Countertops Cycle-Time and Rework Optimization",
+    title: "Cycle-Time and Rework Optimization for a Custom Manufacturing Operation",
     tag: "Applied Analytics",
     summary:
-      "An applied analytics case centered on cycle-time prediction, rework risk, process mining, and KPI-driven operations improvement for TTS Countertops.",
+      "An applied analytics case centered on cycle-time prediction, rework risk, process mining, and KPI-driven operations improvement for a custom manufacturing business.",
     outcome:
       "Adds predictive and operations-oriented depth without overlapping the current ETL and automation portfolio.",
     stack: ["Operations Analytics", "ML Strategy", "KPI Design", "Process Improvement"],
@@ -937,7 +937,7 @@ export const analyticsFeatured: AnalyticsProject[] = [
 
 export const analyticsArchive: AnalyticsArchiveItem[] = [
   {
-    title: "Big Data Use in TTS Flooring and Countertops",
+    title: "Big Data Use in a Custom Manufacturing Operation",
     tag: "Big Data",
     summary:
       "Applied essay on operational, customer, logistics, HR, and financial data inside a U.S. manufacturing context.",
@@ -945,7 +945,7 @@ export const analyticsArchive: AnalyticsArchiveItem[] = [
     href: "/downloads/analytics-portfolio/big-data-uso-tts.pdf",
   },
   {
-    title: "Factors Affecting Big Data Adoption in Ecuassist",
+    title: "Factors Affecting Big Data Adoption in a Service Operations Company",
     tag: "Big Data",
     summary:
       "Technology and organization analysis using TOE and UTAUT perspectives.",

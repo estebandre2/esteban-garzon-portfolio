@@ -18,3 +18,4 @@ slab_project/
 Outlook extractor project/
 livedataproj/
 livedataproj.zip
+!public/**/*.pdf

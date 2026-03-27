@@ -845,45 +845,33 @@ export type AnalyticsArchiveItem = {
 export const analyticsSignals: AnalyticsSignal[] = [
   {
     label: "Portfolio Layer",
-    value: "20",
-    detail: "Visible analytics deliverables across forecasting, BI, visualization, graph analysis, databases, and optimization.",
+    value: "11",
+    detail: "Visible analytics deliverables across BI, visualization, graph analysis, applied reporting, and academic case work.",
   },
   {
     label: "Featured Cases",
     value: "6",
-    detail: "The strongest pieces are separated from the broader archive so the main narrative stays sharp.",
+    detail: "The strongest pieces are separated from the broader archive so the narrative stays sharp and every link stays live.",
   },
   {
     label: "Download Types",
     value: "PDF / PBIX / TWB / PPTX / DOCX",
-    detail: "The page includes source files and supporting reports without disrupting the current premium portfolio style.",
+    detail: "The page includes only public files that exist inside the deployed repository.",
   },
 ];
 
 export const analyticsFeatured: AnalyticsProject[] = [
   {
-    title: "Predictive Model for Residential Construction Activity in Texas",
-    tag: "Forecasting Thesis",
+    title: "Applied Analytics Final Report",
+    tag: "Analytics Report",
     summary:
-      "A forecasting-focused thesis project designed around construction permits, planning uncertainty, inventory timing, workforce decisions, and commercial readiness.",
+      "A polished long-form analytics report included as a public artifact to show structured analysis, report composition, and executive-facing presentation.",
     outcome:
-      "Frames Esteban as someone who can connect time-series analysis with operational planning and business value.",
-    stack: ["Forecasting", "Time Series", "Planning", "Business Context"],
+      "Adds a substantial document to the portfolio that shows Esteban can package analysis into a complete deliverable, not only dashboards and code.",
+    stack: ["Applied Analytics", "Reporting", "Business Framing", "Documentation"],
     accent: "var(--cyan)",
-    href: "/downloads/analytics-portfolio/tesis-proyecto-construccion-texas.pdf",
-    hrefLabel: "Open thesis brief",
-  },
-  {
-    title: "Cycle-Time and Rework Optimization for a Custom Manufacturing Operation",
-    tag: "Applied Analytics",
-    summary:
-      "An applied analytics case centered on cycle-time prediction, rework risk, process mining, and KPI-driven operations improvement for a custom manufacturing business.",
-    outcome:
-      "Adds predictive and operations-oriented depth without overlapping the current ETL and automation portfolio.",
-    stack: ["Operations Analytics", "ML Strategy", "KPI Design", "Process Improvement"],
-    accent: "var(--amber)",
-    href: "/downloads/analytics-portfolio/estrategia-big-data-tts.pdf",
-    hrefLabel: "Open strategy deck",
+    href: "/downloads/analytics-portfolio/reporte-final-analitica-aplicada.pdf",
+    hrefLabel: "Open final report",
   },
   {
     title: "Executive BI Dashboard for Commissions, Market, Pareto, and Traders",
@@ -933,41 +921,21 @@ export const analyticsFeatured: AnalyticsProject[] = [
     href: "/downloads/analytics-portfolio/reporte-medicina-neo4j.pdf",
     hrefLabel: "Open healthcare report",
   },
+  {
+    title: "Business Intelligence Concept Map",
+    tag: "Conceptual Design",
+    summary:
+      "A visual support piece that complements the applied BI work with a structured overview of business intelligence concepts and relationships.",
+    outcome:
+      "Shows that Esteban can communicate analytical structure clearly, not only deliver implementation files.",
+    stack: ["BI", "Concept Mapping", "Analytical Communication", "Structure"],
+    accent: "var(--cyan)",
+    href: "/downloads/analytics-portfolio/bi-mapa-conceptual.pdf",
+    hrefLabel: "Open concept map",
+  },
 ];
 
 export const analyticsArchive: AnalyticsArchiveItem[] = [
-  {
-    title: "Big Data Use in a Custom Manufacturing Operation",
-    tag: "Big Data",
-    summary:
-      "Applied essay on operational, customer, logistics, HR, and financial data inside a U.S. manufacturing context.",
-    format: "PDF",
-    href: "/downloads/analytics-portfolio/big-data-uso-tts.pdf",
-  },
-  {
-    title: "Factors Affecting Big Data Adoption in a Service Operations Company",
-    tag: "Big Data",
-    summary:
-      "Technology and organization analysis using TOE and UTAUT perspectives.",
-    format: "PDF",
-    href: "/downloads/analytics-portfolio/big-data-factores-adopcion.pdf",
-  },
-  {
-    title: "Comparative Review of Big Data Technologies",
-    tag: "Big Data",
-    summary:
-      "Comparison across storage, NoSQL, batch, real-time, ML, and visualization platforms.",
-    format: "PDF",
-    href: "/downloads/analytics-portfolio/big-data-cuadro-comparativo.pdf",
-  },
-  {
-    title: "Case Analysis S1",
-    tag: "Analytics",
-    summary:
-      "Case-based analysis of analytics applications in Ecuador with a business-value lens.",
-    format: "PDF",
-    href: "/downloads/analytics-portfolio/analitica-caso-s1.pdf",
-  },
   {
     title: "Case Analysis S2 on Public Procurement",
     tag: "Analytics",
@@ -983,14 +951,6 @@ export const analyticsArchive: AnalyticsArchiveItem[] = [
       "Presentation on cycle prediction, rework risk, and phased implementation planning.",
     format: "PPTX",
     href: "/downloads/analytics-portfolio/analitica-soluciones-innovadoras-s4.pptx",
-  },
-  {
-    title: "Business Intelligence Concept Map",
-    tag: "BI",
-    summary:
-      "Conceptual support piece that complements the applied BI work with a clear structural overview.",
-    format: "PDF",
-    href: "/downloads/analytics-portfolio/bi-mapa-conceptual.pdf",
   },
   {
     title: "Power BI Integrated Project - Phase 1",
@@ -1009,43 +969,11 @@ export const analyticsArchive: AnalyticsArchiveItem[] = [
     href: "/downloads/analytics-portfolio/bi-proyecto-fase-2.pbix",
   },
   {
-    title: "Data Visualization Assignment 1",
-    tag: "Visualization",
-    summary:
-      "Additional visual work included to broaden the portfolio footprint beyond one Tableau project.",
-    format: "PDF",
-    href: "/downloads/analytics-portfolio/visualizacion-tarea-1.pdf",
-  },
-  {
     title: "Graph Database Design and Exploration Task",
     tag: "Graph Databases",
     summary:
-      "Neo4j modeling work using the movies dataset, meta-model design, and Cypher exploration.",
+      "A Neo4j-oriented task artifact that broadens the graph-analysis footprint of the portfolio.",
     format: "PDF",
     href: "/downloads/analytics-portfolio/analisis-red-tarea-s2.pdf",
-  },
-  {
-    title: "MongoDB Exploration and Querying Task",
-    tag: "Databases",
-    summary:
-      "Collection exploration, filters, counts, and query interpretation in a document database setting.",
-    format: "PDF",
-    href: "/downloads/analytics-portfolio/bases-datos-mongodb.pdf",
-  },
-  {
-    title: "Linear Programming Task S1",
-    tag: "Optimization",
-    summary:
-      "Production-planning model solved with Excel Solver and AMPL.",
-    format: "PDF",
-    href: "/downloads/analytics-portfolio/optimizacion-lineal-s1.pdf",
-  },
-  {
-    title: "Integer Programming Task S3",
-    tag: "Optimization",
-    summary:
-      "Capacity-constrained product-mix optimization with multiple what-if scenarios.",
-    format: "PDF",
-    href: "/downloads/analytics-portfolio/optimizacion-lineal-s3.pdf",
   },
 ];

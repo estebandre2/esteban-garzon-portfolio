@@ -841,13 +841,25 @@ export type AnalyticsArchiveItem = {
   summary: string;
   format: string;
   href: string;
+  hrefLabel?: string;
+};
+
+export type AnalyticsCaseStudy = {
+  slug: string;
+  title: string;
+  tag: string;
+  summary: string;
+  overview: string;
+  whatItShows: string[];
+  focusAreas: string[];
+  deliverables: string[];
 };
 
 export const analyticsSignals: AnalyticsSignal[] = [
   {
     label: "Portfolio Layer",
-    value: "11",
-    detail: "Visible analytics deliverables across BI, visualization, graph analysis, applied reporting, and academic case work.",
+    value: "20",
+    detail: "Visible analytics deliverables across BI, visualization, graph analysis, applied reporting, databases, optimization, and strategy briefs.",
   },
   {
     label: "Featured Cases",
@@ -856,8 +868,8 @@ export const analyticsSignals: AnalyticsSignal[] = [
   },
   {
     label: "Download Types",
-    value: "PDF / PBIX / TWB / PPTX / DOCX",
-    detail: "The page includes only public files that exist inside the deployed repository.",
+    value: "PDF / PBIX / TWB / PPTX / DOCX / Briefs",
+    detail: "The page combines direct downloads with internal case briefs so every analytics item remains accessible without broken links.",
   },
 ];
 
@@ -938,6 +950,42 @@ export const analyticsFeatured: AnalyticsProject[] = [
 
 export const analyticsArchive: AnalyticsArchiveItem[] = [
   {
+    title: "Big Data Use in a Custom Manufacturing Operation",
+    tag: "Big Data",
+    summary:
+      "Applied essay on operational, customer, logistics, HR, and financial data inside a U.S. manufacturing context.",
+    format: "Case Brief",
+    href: "/analytics/cases/big-data-uso-tts",
+    hrefLabel: "Open case brief",
+  },
+  {
+    title: "Factors Affecting Big Data Adoption in a Service Operations Company",
+    tag: "Big Data",
+    summary:
+      "Technology and organization analysis using TOE and UTAUT perspectives.",
+    format: "Case Brief",
+    href: "/analytics/cases/big-data-factores-adopcion",
+    hrefLabel: "Open case brief",
+  },
+  {
+    title: "Comparative Review of Big Data Technologies",
+    tag: "Big Data",
+    summary:
+      "Comparison across storage, NoSQL, batch, real-time, ML, and visualization platforms.",
+    format: "Case Brief",
+    href: "/analytics/cases/big-data-cuadro-comparativo",
+    hrefLabel: "Open case brief",
+  },
+  {
+    title: "Case Analysis S1",
+    tag: "Analytics",
+    summary:
+      "Case-based analysis of analytics applications in Ecuador with a business-value lens.",
+    format: "Case Brief",
+    href: "/analytics/cases/analitica-caso-s1",
+    hrefLabel: "Open case brief",
+  },
+  {
     title: "Case Analysis S2 on Public Procurement",
     tag: "Analytics",
     summary:
@@ -970,6 +1018,15 @@ export const analyticsArchive: AnalyticsArchiveItem[] = [
     href: "/downloads/analytics-portfolio/bi-proyecto-fase-2.pbix",
   },
   {
+    title: "Data Visualization Assignment 1",
+    tag: "Visualization",
+    summary:
+      "Additional visual work included to broaden the portfolio footprint beyond one Tableau project.",
+    format: "Case Brief",
+    href: "/analytics/cases/visualizacion-tarea-1",
+    hrefLabel: "Open case brief",
+  },
+  {
     title: "Graph Database Design and Exploration Task",
     tag: "Graph Databases",
     summary:
@@ -977,4 +1034,162 @@ export const analyticsArchive: AnalyticsArchiveItem[] = [
     format: "PDF",
     href: "/downloads/analytics-portfolio/analisis-red-tarea-s2.pdf",
   },
+  {
+    title: "MongoDB Exploration and Querying Task",
+    tag: "Databases",
+    summary:
+      "Collection exploration, filters, counts, and query interpretation in a document database setting.",
+    format: "Case Brief",
+    href: "/analytics/cases/bases-datos-mongodb",
+    hrefLabel: "Open case brief",
+  },
+  {
+    title: "Linear Programming Task S1",
+    tag: "Optimization",
+    summary:
+      "Production-planning model solved with Excel Solver and AMPL.",
+    format: "Case Brief",
+    href: "/analytics/cases/optimizacion-lineal-s1",
+    hrefLabel: "Open case brief",
+  },
+  {
+    title: "Integer Programming Task S3",
+    tag: "Optimization",
+    summary:
+      "Capacity-constrained product-mix optimization with multiple what-if scenarios.",
+    format: "Case Brief",
+    href: "/analytics/cases/optimizacion-lineal-s3",
+    hrefLabel: "Open case brief",
+  },
 ];
+
+export const analyticsCaseStudies: Record<string, AnalyticsCaseStudy> = {
+  "big-data-uso-tts": {
+    slug: "big-data-uso-tts",
+    title: "Big Data Use in a Custom Manufacturing Operation",
+    tag: "Big Data",
+    summary:
+      "A portfolio brief covering how operational, customer, logistics, HR, and finance signals can be combined into a practical big-data agenda for a custom manufacturing business.",
+    overview:
+      "This case frames big data as an operational leverage layer rather than a buzzword. The work maps where value appears first: demand visibility, rework reduction, delivery coordination, workforce planning, and financial control.",
+    whatItShows: [
+      "Ability to connect data strategy with real manufacturing pain points.",
+      "Clear thinking around operational KPIs, process bottlenecks, and decision support.",
+      "Communication that translates technical topics into business language.",
+    ],
+    focusAreas: ["Operations analytics", "Manufacturing systems", "Decision support", "Data strategy"],
+    deliverables: ["Structured case brief", "Business framing", "Portfolio-safe summary artifact"],
+  },
+  "big-data-factores-adopcion": {
+    slug: "big-data-factores-adopcion",
+    title: "Factors Affecting Big Data Adoption in a Service Operations Company",
+    tag: "Big Data",
+    summary:
+      "A case brief focused on organizational and technological factors that influence adoption, using TOE and UTAUT-inspired framing.",
+    overview:
+      "The emphasis here is adoption, not only tooling. The brief examines how readiness, capability, cost, trust, and organizational context shape whether analytics initiatives actually move from idea to execution.",
+    whatItShows: [
+      "Comfort with analytical frameworks beyond dashboards and coding tasks.",
+      "Ability to assess digital transformation risk from both technical and organizational angles.",
+      "Experience translating theory into practical business recommendations.",
+    ],
+    focusAreas: ["Technology adoption", "Organizational readiness", "Analytics strategy", "Change management"],
+    deliverables: ["Executive-style brief", "Adoption risk framing", "Portfolio-safe internal page"],
+  },
+  "big-data-cuadro-comparativo": {
+    slug: "big-data-cuadro-comparativo",
+    title: "Comparative Review of Big Data Technologies",
+    tag: "Big Data",
+    summary:
+      "A concise comparative brief across storage, NoSQL, batch, real-time, machine learning, and visualization technologies.",
+    overview:
+      "This piece organizes the ecosystem in a decision-friendly way. Instead of listing tools in isolation, it highlights where each category fits, what tradeoffs matter, and how different layers support different analytical goals.",
+    whatItShows: [
+      "Technical breadth across databases, processing models, and analytics stacks.",
+      "Structured comparison rather than tool-name accumulation.",
+      "Ability to communicate architecture choices clearly.",
+    ],
+    focusAreas: ["Architecture comparison", "Data platforms", "Tool evaluation", "Systems thinking"],
+    deliverables: ["Comparative matrix brief", "Architecture notes", "Public-facing case page"],
+  },
+  "analitica-caso-s1": {
+    slug: "analitica-caso-s1",
+    title: "Case Analysis S1",
+    tag: "Analytics",
+    summary:
+      "A business-oriented analytics case brief focused on applying descriptive and evaluative analysis to real decision scenarios.",
+    overview:
+      "The goal of this piece is to show analytical framing discipline: understanding the problem, identifying the right variables, and turning observations into usable recommendations instead of generic commentary.",
+    whatItShows: [
+      "Ability to structure analytical work around decision quality.",
+      "Clear business framing and concise recommendation writing.",
+      "A broader analytical footprint beyond code-heavy portfolio pieces.",
+    ],
+    focusAreas: ["Analytical reasoning", "Business framing", "Decision support", "Structured reporting"],
+    deliverables: ["Case summary", "Recommendation-focused writeup", "Internal brief page"],
+  },
+  "visualizacion-tarea-1": {
+    slug: "visualizacion-tarea-1",
+    title: "Data Visualization Assignment 1",
+    tag: "Visualization",
+    summary:
+      "A visualization-focused case brief showing additional exploratory and presentation work beyond the main Tableau artifact.",
+    overview:
+      "This entry exists to widen the visual layer of the analytics portfolio. It highlights the ability to shape a narrative through layout, comparison, and explanatory structure rather than relying only on one flagship dashboard.",
+    whatItShows: [
+      "Additional proof of visual communication skills.",
+      "Comfort with presenting data stories to non-technical audiences.",
+      "Range beyond operational systems and ETL work.",
+    ],
+    focusAreas: ["Data storytelling", "Visualization design", "Analytical communication", "Presentation clarity"],
+    deliverables: ["Visualization brief", "Portfolio narrative support", "Viewable internal artifact"],
+  },
+  "bases-datos-mongodb": {
+    slug: "bases-datos-mongodb",
+    title: "MongoDB Exploration and Querying Task",
+    tag: "Databases",
+    summary:
+      "A case brief centered on collection design, document queries, filtering patterns, counts, and interpretation in a MongoDB context.",
+    overview:
+      "The portfolio value here is database range. This brief demonstrates familiarity with document-oriented thinking, query construction, and the differences between relational and NoSQL-style exploration workflows.",
+    whatItShows: [
+      "Range across both relational and document databases.",
+      "Understanding of exploratory querying and data inspection patterns.",
+      "Ability to communicate technical database work in a digestible format.",
+    ],
+    focusAreas: ["MongoDB", "NoSQL", "Query logic", "Database literacy"],
+    deliverables: ["Database case brief", "Query-focused notes", "Internal page instead of missing raw file"],
+  },
+  "optimizacion-lineal-s1": {
+    slug: "optimizacion-lineal-s1",
+    title: "Linear Programming Task S1",
+    tag: "Optimization",
+    summary:
+      "A case brief showing production-planning logic solved with optimization tooling such as Excel Solver and AMPL.",
+    overview:
+      "This work adds operations research signal to the portfolio. It focuses on objective functions, constraints, and structured decision tradeoffs rather than only descriptive analytics or dashboards.",
+    whatItShows: [
+      "Comfort with optimization and constrained decision modeling.",
+      "Ability to bridge engineering thinking with business tradeoffs.",
+      "Analytical depth that complements ETL and BI work.",
+    ],
+    focusAreas: ["Linear programming", "Operations research", "Constraint modeling", "Decision optimization"],
+    deliverables: ["Optimization brief", "Modeling summary", "Public-safe internal case page"],
+  },
+  "optimizacion-lineal-s3": {
+    slug: "optimizacion-lineal-s3",
+    title: "Integer Programming Task S3",
+    tag: "Optimization",
+    summary:
+      "A case brief focused on capacity-constrained product mix optimization and scenario-based decision making.",
+    overview:
+      "This entry pushes the optimization layer a bit further by making discrete choices matter. It highlights scenario evaluation, capacity planning, and the impact of operational limits on final recommendations.",
+    whatItShows: [
+      "Capability in integer programming and what-if analysis.",
+      "Structured reasoning under operational constraints.",
+      "A stronger quantitative layer inside the analytics page.",
+    ],
+    focusAreas: ["Integer programming", "Scenario analysis", "Capacity planning", "Optimization"],
+    deliverables: ["Scenario brief", "Optimization framing", "Internal portfolio case page"],
+  },
+};

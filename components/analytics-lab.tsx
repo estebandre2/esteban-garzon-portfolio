@@ -156,7 +156,8 @@ export function AnalyticsLab() {
           <h2>Additional analytics projects and downloads.</h2>
           <p>
             The archive below keeps the project set broad while the main page remains curated.
-            Each item points to a downloadable or viewable artifact inside this public repository.
+            Each item points to a downloadable artifact or an internal case brief so the full
+            analytics footprint stays visible without broken links.
           </p>
         </div>
 
@@ -186,7 +187,7 @@ export function AnalyticsLab() {
                   target={item.format === "PDF" ? "_blank" : undefined}
                   rel="noreferrer"
                 >
-                  {item.format === "PDF" ? "Open file" : `Download ${item.format}`}
+                  {item.hrefLabel ?? (item.format === "PDF" ? "Open file" : `Download ${item.format}`)}
                 </a>
               </div>
             </motion.article>

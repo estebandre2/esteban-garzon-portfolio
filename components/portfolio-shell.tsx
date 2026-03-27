@@ -26,12 +26,14 @@ function MagneticLink({
   variant = "primary",
   target,
   rel,
+  download,
 }: {
   href: string;
   children: React.ReactNode;
   variant?: "primary" | "ghost";
   target?: string;
   rel?: string;
+  download?: boolean | string;
 }) {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
@@ -40,6 +42,7 @@ function MagneticLink({
       href={href}
       target={target}
       rel={rel}
+      download={download}
       className={variant === "primary" ? styles.primaryCta : styles.ghostCta}
       onMouseMove={(event) => {
         const bounds = event.currentTarget.getBoundingClientRect();
@@ -170,15 +173,13 @@ export function PortfolioShell() {
 
           <div className={styles.ctaRow}>
             <MagneticLink href="#work">Explore work</MagneticLink>
+            <MagneticLink href={profile.resumeHref} variant="ghost" target="_blank" rel="noreferrer" download>
+              Download resume
+            </MagneticLink>
             <MagneticLink href="/code" variant="ghost">
               Open Code Lab
             </MagneticLink>
-            <MagneticLink
-              href={profile.linkedin}
-              variant="ghost"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <MagneticLink href={profile.linkedin} variant="ghost" target="_blank" rel="noreferrer">
               LinkedIn
             </MagneticLink>
           </div>
@@ -441,6 +442,12 @@ export function PortfolioShell() {
             <h3>{profile.role}</h3>
             <p>{profile.resumeSummary}</p>
 
+            <div className={styles.ctaRow}>
+              <MagneticLink href={profile.resumeHref} target="_blank" rel="noreferrer" download>
+                Download full CV
+              </MagneticLink>
+            </div>
+
             <div className={styles.resumeHighlightList}>
               {resumeHighlights.map((item) => (
                 <div key={item} className={styles.resumeHighlight}>
@@ -506,6 +513,9 @@ export function PortfolioShell() {
 
           <div className={styles.contactActions}>
             <MagneticLink href={`mailto:${profile.email}`}>Email me</MagneticLink>
+            <MagneticLink href={profile.resumeHref} variant="ghost" target="_blank" rel="noreferrer" download>
+              Download resume
+            </MagneticLink>
             <MagneticLink href="/code" variant="ghost">
               View limited code access
             </MagneticLink>

@@ -80,6 +80,7 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/esteban-garzon2",
   email: "estebandre2@hotmail.es",
   phone: "+593996788376",
+  resumeHref: "/downloads/resume/Esteban_Garzon_CV_Final.pdf",
 };
 
 export const metrics: Metric[] = [

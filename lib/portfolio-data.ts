@@ -122,6 +122,14 @@ export const civilProjects: CivilProject[] = [
     tools: ["HEC-HMS", "HEC-RAS", "HEC-SSP", "Hydraulic design"],
   },
   {
+    title: "Four hydro plants at existing dams · public consultancy",
+    figure: "4",
+    unit: "plants",
+    summary:
+      "For Ecuador's public water company (2024): net-head evaluation by drone photogrammetry with ground control points, energy analysis by flows and turbine count, and powerhouse and substation sections for Poza Honda, La Esperanza, Chone, and Tahuín.",
+    tools: ["Pix4D", "Photogrammetry", "Energy analysis", "Structural sections"],
+  },
+  {
     title: "Drone topographic survey",
     figure: "20",
     unit: "km²",
@@ -1108,6 +1116,29 @@ export const analyticsSignals: AnalyticsSignal[] = [
 ];
 
 export const analyticsFeatured: AnalyticsProject[] = [
+  {
+    title: "Predictive model of residential construction in Texas",
+    tag: "M.Sc. Thesis",
+    summary:
+      "Monthly forecast of residential building permits in Texas (1990–2025) from Census permits, mortgage rates, construction employment, house prices, and recession indicators.",
+    outcome:
+      "ElasticNet benchmarked against baseline models and trained through 2024, then validated out of sample on all of 2025.",
+    stack: ["Time series", "ElasticNet", "Python", "Out-of-sample validation"],
+    accent: "var(--cyan)",
+    href: "https://github.com/estebandre2/modelo-predictivo-construccion-texas",
+    hrefLabel: "View repository",
+  },
+  {
+    title: "Real-time structural-break detection",
+    tag: "ML Competition",
+    summary:
+      "Model for the ADIA Lab Structural Break Challenge: it reads a clean history, then one observation at a time, and outputs the probability that a structural break has already happened.",
+    outcome: "Causal detectors, evidence trees, and a mixture of experts; best official time-stratified AUC of 0.632.",
+    stack: ["Time series", "Change-point detection", "PyTorch", "Evaluation"],
+    accent: "var(--amber)",
+    href: "https://hub.crunchdao.com/competitions/structural-break-real-time",
+    hrefLabel: "View competition",
+  },
   {
     title: "Applied Analytics Final Report",
     tag: "Analytics Report",

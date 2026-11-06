@@ -855,3 +855,241 @@
   margin-top: 16px;
   font-size: clamp(1.1rem, 1.8vw, 1.5rem);
 }
+
+/* STA. 06 · Gauging station */
+.gaugingGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.gauge {
+  position: sticky;
+  top: 140px;
+  display: grid;
+  gap: 16px;
+}
+
+.gaugeStaff {
+  position: relative;
+  height: 52vh;
+  width: 64px;
+  border: 1px solid rgba(150, 196, 226, 0.4);
+  background:
+    repeating-linear-gradient(0deg, transparent 0 calc(10% - 1px), rgba(255, 184, 111, 0.55) calc(10% - 1px) 10%),
+    rgba(5, 11, 18, 0.85);
+  overflow: hidden;
+}
+
+.gaugeStaff span {
+  position: absolute;
+  left: 70px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.62rem;
+  color: #8ba3b8;
+  transform: translateY(50%);
+  white-space: nowrap;
+}
+
+.gauge .gaugeStaff {
+  overflow: visible;
+}
+
+.gaugeWater {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, rgba(120, 242, 223, 0.55), rgba(120, 242, 223, 0.18));
+  box-shadow: 0 -2px 12px rgba(120, 242, 223, 0.6);
+}
+
+.gaugeReading {
+  margin: 0;
+  display: grid;
+  gap: 2px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8ba3b8;
+}
+
+.gaugeReading strong {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  color: var(--cyan);
+}
+
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 6px;
+  color: var(--cyan);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.textLink:hover,
+.textLink:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.linkRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+.labLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 1px solid rgba(120, 242, 223, 0.5);
+  color: #e6f6f3;
+  font-weight: 700;
+  transition: background 200ms ease;
+}
+
+.labLink:hover,
+.labLink:focus-visible {
+  background: rgba(120, 242, 223, 0.12);
+}
+
+/* STA. 07 · Hydrograph */
+.hydrograph {
+  position: relative;
+  z-index: 1;
+  padding: 24px 20px 12px;
+  border: 1px solid rgba(150, 196, 226, 0.18);
+  background: rgba(5, 11, 18, 0.85);
+}
+
+.hydrograph svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.chartGrid {
+  stroke: rgba(150, 196, 226, 0.12);
+}
+
+.hydroLine {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 6px rgba(120, 242, 223, 0.6));
+}
+
+.chartArea {
+  position: relative;
+}
+
+.peak {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: rgba(5, 11, 18, 0.9);
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.peak:hover,
+.peak:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.peak_civil {
+  color: var(--amber);
+}
+
+.peak_data {
+  color: #9fd2ff;
+}
+
+.peak_ai {
+  color: var(--cyan);
+}
+
+.peak_education {
+  color: #c9b6ff;
+}
+
+.peakDetail {
+  min-height: 2.8em;
+  margin: 10px 0 0;
+  color: #b9cbda;
+  font-size: 0.92rem;
+}
+
+.careerList {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.careerList li {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border: 1px solid rgba(150, 196, 226, 0.16);
+  border-top: 2px solid currentColor;
+  background: rgba(5, 11, 18, 0.85);
+}
+
+.careerList strong {
+  color: #f1f7fb;
+}
+
+.careerList li > span:last-child {
+  color: #a9bccd;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .gaugingGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .gauge {
+    display: none;
+  }
+
+  .careerList {
+    grid-template-columns: 1fr;
+  }
+
+  .peak,
+  .peakDetail {
+    display: none;
+  }
+}

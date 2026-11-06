@@ -56,3 +56,28 @@ test("hydrographPath returns a finite SVG path", () => {
 test("FLOW_X matches the end of the hero river", () => {
   assert.ok(FLOW_X > 0.5 && FLOW_X < 0.7, String(FLOW_X));
 });
+
+test("timelineX maps the career span onto the chart width", async () => {
+  const { timelineX } = await import("../lib/scene-math.ts");
+  const events = [
+    { start: "2018-08", end: "2023-12" },
+    { start: "2026-03", end: null },
+  ];
+  assert.equal(timelineX("2018-08", events, 1000), 0);
+  assert.equal(timelineX("2026-11", events, 1000), 1000);
+});
+
+test("hydrographPeaks puts one marker per event on the curve's span", async () => {
+  const { hydrographPeaks } = await import("../lib/scene-math.ts");
+  const events = [
+    { start: "2018-08", end: "2023-12" },
+    { start: "2026-03", end: null },
+  ];
+  const peaks = hydrographPeaks(events, 1000, 200);
+  assert.equal(peaks.length, 2);
+  for (const p of peaks) {
+    assert.ok(p.x >= 0 && p.x <= 1000, String(p.x));
+    assert.ok(p.y >= 0 && p.y <= 200, String(p.y));
+  }
+  assert.ok(peaks[0].y < peaks[1].y, "longer event peaks higher");
+});

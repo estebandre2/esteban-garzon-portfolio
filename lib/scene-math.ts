@@ -70,16 +70,52 @@ export function hydrographPath(
   const points: string[] = [];
   for (let i = 0; i <= steps; i++) {
     const t = t0 + ((t1 - t0) * i) / steps;
-    let flow = 0;
-    for (const [a, b] of spans) {
-      const center = (a + b) / 2;
-      const sigma = Math.max(2, (b - a) / 3);
-      const peak = 0.25 + 0.6 * ((b - a) / longest);
-      flow = Math.max(flow, peak * Math.exp(-((t - center) ** 2) / (2 * sigma * sigma)));
-    }
     const x = (width * i) / steps;
-    const y = height * (1 - Math.min(0.95, flow));
+    const y = height * (1 - Math.min(0.95, flowAt(spans, longest, t)));
     points.push(`${i === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)}`);
   }
   return points.join(" ");
+}
+
+function flowAt(spans: (readonly [number, number])[], longest: number, t: number) {
+  let flow = 0;
+  for (const [a, b] of spans) {
+    const center = (a + b) / 2;
+    const sigma = Math.max(2, (b - a) / 3);
+    const peak = 0.25 + 0.6 * ((b - a) / longest);
+    flow = Math.max(flow, peak * Math.exp(-((t - center) ** 2) / (2 * sigma * sigma)));
+  }
+  return flow;
+}
+
+/** Where each event's peak sits on the hydrograph drawn by hydrographPath (same axes). */
+export function hydrographPeaks(
+  events: { start: string; end: string | null }[],
+  width: number,
+  height: number,
+  now = "2026-11",
+): { x: number; y: number }[] {
+  const spans = events.map((e) => [months(e.start), months(e.end ?? now)] as const);
+  const t0 = Math.min(...spans.map((s) => s[0]));
+  const t1 = Math.max(...spans.map((s) => s[1]), t0 + 1);
+  const longest = Math.max(...spans.map((s) => s[1] - s[0]), 1);
+  return spans.map(([a, b]) => {
+    const center = (a + b) / 2;
+    return {
+      x: (width * (center - t0)) / (t1 - t0),
+      y: height * (1 - Math.min(0.95, flowAt(spans, longest, center))),
+    };
+  });
+}
+
+/** Horizontal position of a "YYYY-MM" date on the career hydrograph (same axis as hydrographPath). */
+export function timelineX(
+  ym: string,
+  events: { start: string; end: string | null }[],
+  width: number,
+  now = "2026-11",
+): number {
+  const t0 = Math.min(...events.map((e) => months(e.start)));
+  const t1 = Math.max(...events.map((e) => months(e.end ?? now)), t0 + 1);
+  return (width * (months(ym) - t0)) / (t1 - t0);
 }

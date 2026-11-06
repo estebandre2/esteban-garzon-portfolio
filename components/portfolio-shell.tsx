@@ -3,14 +3,8 @@
 import { motion } from "framer-motion";
 import { CSSProperties, useEffect, useState } from "react";
 import {
-  analyticsFeatured,
-  capabilities,
   profile,
   stations,
-  resources,
-  resumeHighlights,
-  resumeItems,
-  type Project,
 } from "@/lib/portfolio-data";
 import styles from "./portfolio-shell.module.css";
 import { WatershedHero } from "./watershed-hero";
@@ -19,11 +13,8 @@ import { ConduitScene } from "./scenes/conduit-scene";
 import { IntakeScene } from "./scenes/intake-scene";
 import { PowerhouseScene } from "./scenes/powerhouse-scene";
 import { SafetyScene } from "./scenes/safety-scene";
-
-const reveal = {
-  hidden: { opacity: 0, y: 38 },
-  visible: { opacity: 1, y: 0 },
-};
+import { GaugingScene } from "./scenes/gauging-scene";
+import { HydrographScene } from "./scenes/hydrograph-scene";
 
 function MagneticLink({
   href,
@@ -61,51 +52,6 @@ function MagneticLink({
     >
       <span>{children}</span>
     </motion.a>
-  );
-}
-
-function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-
-  return (
-    <motion.article
-      className={styles.projectCard}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.35 }}
-      variants={reveal}
-      transition={{ duration: 0.6, delay: index * 0.12 }}
-      onMouseMove={(event) => {
-        const bounds = event.currentTarget.getBoundingClientRect();
-        const px = (event.clientX - bounds.left) / bounds.width;
-        const py = (event.clientY - bounds.top) / bounds.height;
-        setTilt({
-          x: (py - 0.5) * -9,
-          y: (px - 0.5) * 12,
-        });
-      }}
-      onMouseLeave={() => setTilt({ x: 0, y: 0 })}
-      style={
-        {
-          transform: `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-          "--project-accent": project.accent,
-        } as CSSProperties
-      }
-    >
-      <div className={styles.projectHeader}>
-        <span className={styles.projectTag}>{project.tag}</span>
-        <span className={styles.projectIndex}>0{index + 1}</span>
-      </div>
-      <h3>{project.title}</h3>
-      <p>{project.summary}</p>
-      <div className={styles.projectDivider} />
-      <p className={styles.projectOutcome}>{project.outcome}</p>
-      <div className={styles.stackRow}>
-        {project.stack.map((item) => (
-          <span key={item}>{item}</span>
-        ))}
-      </div>
-    </motion.article>
   );
 }
 
@@ -180,234 +126,9 @@ export function PortfolioShell() {
 
       <SafetyScene />
 
-      <section className={styles.section} id="analytics">
-        <motion.div
-          className={styles.sectionHeading}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.35 }}
-          variants={reveal}
-          transition={{ duration: 0.6 }}
-        >
-          <span>Applied Analytics</span>
-          <h2>A separate analytics layer that adds forecasting, BI, visualization, and graph-driven case work.</h2>
-        </motion.div>
+      <GaugingScene />
 
-        <div className={styles.projectsGrid}>
-          {analyticsFeatured.slice(0, 3).map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
-          ))}
-        </div>
-
-        <div className={styles.ctaRow}>
-          <MagneticLink href="/analytics">Open Analytics Portfolio</MagneticLink>
-          <MagneticLink href={analyticsFeatured[0].href} variant="ghost">
-            {analyticsFeatured[0].hrefLabel}
-          </MagneticLink>
-        </div>
-      </section>
-
-      <section className={`${styles.section} ${styles.processSection}`}>
-        <motion.div
-          className={styles.sectionHeading}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.35 }}
-          variants={reveal}
-          transition={{ duration: 0.6 }}
-        >
-          <span>Build Philosophy</span>
-          <h2>I care about systems that work under pressure and still feel refined.</h2>
-        </motion.div>
-
-        <div className={styles.processGrid}>
-          <motion.div
-            className={styles.processCard}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={reveal}
-            transition={{ duration: 0.55, delay: 0.05 }}
-          >
-            <strong>01</strong>
-            <h3>Signal first</h3>
-            <p>
-              I start by finding where data breaks down and which decision the
-              software must make easier for the team.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className={styles.processCard}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={reveal}
-            transition={{ duration: 0.55, delay: 0.15 }}
-          >
-            <strong>02</strong>
-            <h3>Reliability by design</h3>
-            <p>
-              Deduplication, traceability, fallbacks, and safe writes keep the
-              automation resilient in real environments.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className={styles.processCard}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={reveal}
-            transition={{ duration: 0.55, delay: 0.25 }}
-          >
-            <strong>03</strong>
-            <h3>Presentation matters</h3>
-            <p>
-              Internal engineering work still deserves interfaces that are clear,
-              elegant, and satisfying to explore.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className={`${styles.section} ${styles.capabilitiesSection}`}>
-        <motion.div
-          className={styles.sectionHeading}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.35 }}
-          variants={reveal}
-          transition={{ duration: 0.6 }}
-        >
-          <span>Capabilities</span>
-          <h2>Strong backend foundations, expressive visuals, and operational focus.</h2>
-        </motion.div>
-
-        <div className={styles.capabilitiesGrid}>
-          {capabilities.map((item, index) => (
-            <motion.div
-              key={item}
-              className={styles.capabilityPill}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.45, delay: index * 0.05 }}
-            >
-              {item}
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      <section className={`${styles.section} ${styles.resourcesSection}`} id="resources">
-        <motion.div
-          className={styles.sectionHeading}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.35 }}
-          variants={reveal}
-          transition={{ duration: 0.6 }}
-        >
-          <span>Resources & Contributions</span>
-          <h2>Useful public downloads, packaged cleanly and safe to share.</h2>
-        </motion.div>
-
-        <div className={styles.resourcesGrid}>
-          {resources.map((resource, index) => (
-            <motion.article
-              key={resource.title}
-              className={styles.resourceCard}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-            >
-              <div className={styles.resourceTop}>
-                <span className={styles.resourceTag}>{resource.tag}</span>
-                <h3>{resource.title}</h3>
-                <p>{resource.summary}</p>
-              </div>
-
-              <div className={styles.resourcePoints}>
-                {resource.points.map((point) => (
-                  <div key={point} className={styles.resourcePoint}>
-                    {point}
-                  </div>
-                ))}
-              </div>
-
-              <div className={styles.resourceActions}>
-                <MagneticLink href={resource.downloadHref}>Download source package</MagneticLink>
-                {resource.repoHref ? (
-                  <MagneticLink href={resource.repoHref} variant="ghost" target="_blank" rel="noreferrer">
-                    View repository
-                  </MagneticLink>
-                ) : null}
-              </div>
-            </motion.article>
-          ))}
-        </div>
-      </section>
-
-      <section className={`${styles.section} ${styles.resumeSection}`} id="resume">
-        <motion.div
-          className={styles.sectionHeading}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.35 }}
-          variants={reveal}
-          transition={{ duration: 0.6 }}
-        >
-          <span>Resume Snapshot</span>
-          <h2>A concise professional summary, not just a project gallery.</h2>
-        </motion.div>
-
-        <div className={styles.resumeGrid}>
-          <motion.article
-            className={styles.resumeSummaryCard}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.55 }}
-          >
-            <span className={styles.resumeLabel}>Professional Summary</span>
-            <h3>{profile.role}</h3>
-            <p>{profile.resumeSummary}</p>
-
-            <div className={styles.ctaRow}>
-              <MagneticLink href={profile.resumeHref} target="_blank" rel="noreferrer" download>
-                Download full CV
-              </MagneticLink>
-            </div>
-
-            <div className={styles.resumeHighlightList}>
-              {resumeHighlights.map((item) => (
-                <div key={item} className={styles.resumeHighlight}>
-                  {item}
-                </div>
-              ))}
-            </div>
-          </motion.article>
-
-          <div className={styles.resumeTimeline}>
-            {resumeItems.map((item, index) => (
-              <motion.article
-                key={item.title}
-                className={styles.resumeItem}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-              >
-                <span className={styles.resumePeriod}>{item.period}</span>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HydrographScene />
 
       <section className={styles.contact} id="contact">
         <motion.div

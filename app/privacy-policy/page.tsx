@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { profile } from "@/lib/portfolio-data";
 import styles from "@/components/code-lab.module.css";
+import { ContourBackdrop } from "@/components/contour-backdrop";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Esteban Garzon",
@@ -61,7 +62,7 @@ const policySections = [
 export default function PrivacyPolicyPage() {
   return (
     <main className={styles.page}>
-      <div className={styles.backdrop} />
+      <ContourBackdrop className={styles.backdrop} />
 
       <header className={styles.header}>
         <a href="/" className={styles.brand}>

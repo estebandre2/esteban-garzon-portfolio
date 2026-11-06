@@ -13,6 +13,7 @@ import {
   resources,
 } from "@/lib/portfolio-data";
 import styles from "./code-lab.module.css";
+import { ContourBackdrop } from "@/components/contour-backdrop";
 
 export function CodeLab() {
   const [activeId, setActiveId] = useState(codeSamples[0]?.id ?? "");
@@ -24,7 +25,7 @@ export function CodeLab() {
 
   return (
     <main className={styles.page}>
-      <div className={styles.backdrop} />
+      <ContourBackdrop className={styles.backdrop} />
 
       <header className={styles.header}>
         <a href="/" className={styles.brand}>
@@ -34,7 +35,7 @@ export function CodeLab() {
         <div className={styles.headerLinks}>
           <a href="/">Home</a>
           <a href="/analytics">Analytics</a>
-          <a href="/#resources">Resources</a>
+          <a href="/#gauging">Resources</a>
           <a href={profile.linkedin} target="_blank" rel="noreferrer">
             LinkedIn
           </a>
@@ -47,13 +48,13 @@ export function CodeLab() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className={styles.eyebrow}>Code Lab</span>
-          <h1>Selective code access, architecture context, step-by-step usage, and sanitized engineering proof.</h1>
+          <span className={styles.eyebrow}>Lab · Code</span>
+          <h1>The engineering, written down: from flood frequency to production pipelines.</h1>
           <p>
-            This page intentionally exposes curated slices of the work rather than a
-            full repository dump. The goal is to show engineering thinking,
-            integration breadth, execution flow, and practical usage guidance
-            without over-sharing credentials, internal identifiers, or raw business data.
+            Curated slices of real code, not a repository dump. It starts where my civil
+            work became software (flood frequency, contour maps, survey data) and continues
+            into the ETL and integration code behind production systems, without credentials,
+            internal identifiers, or raw business data.
           </p>
         </motion.div>
       </section>

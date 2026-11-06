@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { analyticsCaseStudies, profile } from "@/lib/portfolio-data";
 import styles from "@/components/code-lab.module.css";
+import { ContourBackdrop } from "@/components/contour-backdrop";
 
 type PageProps = {
   params: Promise<{
@@ -42,7 +43,7 @@ export default async function AnalyticsCasePage({ params }: PageProps) {
 
   return (
     <main className={styles.page}>
-      <div className={styles.backdrop} />
+      <ContourBackdrop className={styles.backdrop} />
 
       <header className={styles.header}>
         <a href="/" className={styles.brand}>

@@ -8,11 +8,12 @@ import {
   profile,
 } from "@/lib/portfolio-data";
 import styles from "./code-lab.module.css";
+import { ContourBackdrop } from "@/components/contour-backdrop";
 
 export function AnalyticsLab() {
   return (
     <main className={styles.page}>
-      <div className={styles.backdrop} />
+      <ContourBackdrop className={styles.backdrop} />
 
       <header className={styles.header}>
         <a href="/" className={styles.brand}>
@@ -35,13 +36,13 @@ export function AnalyticsLab() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className={styles.eyebrow}>Applied Analytics</span>
-          <h1>Forecasting, business intelligence, graph analysis, visualization, and academic case work curated into one clean archive.</h1>
+          <span className={styles.eyebrow}>Lab · Gauging station</span>
+          <h1>Measuring before deciding: forecasting, evaluation, and analytics I can defend.</h1>
           <p>
-            This page adds an analytics layer to the main portfolio without replacing
-            the site&apos;s core identity as a systems, automation, and data-engineering
-            portfolio. The strongest case studies stay visible first, while the broader
-            archive keeps the range of work accessible and organized.
+            A gauging station turns a river into numbers you can trust. This lab collects
+            the measurement side of my work, from survey data on public hydro plants to an
+            out-of-sample thesis model and a real-time detection competition, followed by
+            the broader archive of BI, visualization, and case studies.
           </p>
         </motion.div>
       </section>

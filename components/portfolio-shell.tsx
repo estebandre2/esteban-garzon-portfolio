@@ -16,8 +16,7 @@ import {
 import styles from "./portfolio-shell.module.css";
 import { WatershedHero } from "./watershed-hero";
 import { RiverProfileNav } from "./river-profile-nav";
-import { FlowLine } from "./scenes/flow-line";
-import { SceneSection } from "./scenes/scene-section";
+import { IntakeScene } from "./scenes/intake-scene";
 
 const reveal = {
   hidden: { opacity: 0, y: 38 },
@@ -171,9 +170,7 @@ export function PortfolioShell() {
         </div>
       </WatershedHero>
 
-      <SceneSection station={stations[1]} sheet={2} title="Intake (placeholder)">
-        {(progress) => <FlowLine progress={progress} variant="river" />}
-      </SceneSection>
+      <IntakeScene />
 
       <section className={styles.marqueeSection} aria-label="technologies">
         <div className={styles.marqueeTrack}>

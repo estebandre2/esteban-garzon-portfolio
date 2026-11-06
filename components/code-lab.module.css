@@ -647,3 +647,17 @@
     flex: 0 0 auto;
   }
 }
+
+/* Long code lines scroll inside their frame instead of widening the grid (phones). */
+.layout > *,
+.viewer,
+.sidebar,
+.codeFrame {
+  min-width: 0;
+}
+
+@media (max-width: 1060px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

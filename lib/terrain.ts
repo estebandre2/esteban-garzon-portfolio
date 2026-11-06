@@ -23,6 +23,16 @@ export type Terrain = {
   levels: ContourLevel[];
 };
 
+/** A surveyed height grid (row 0 = north). Heights are stored in half-metres to keep the file small. */
+export type HeightGrid = {
+  cols: number;
+  rows: number;
+  min: number;
+  max: number;
+  step: number; // contour interval in metres
+  heights: number[];
+};
+
 function hash(x: number, y: number, seed: number) {
   let h = (x * 374761393 + y * 668265263 + seed * 2147483647) | 0;
   h = Math.imul(h ^ (h >>> 13), 1274126177);
@@ -79,13 +89,60 @@ export function buildTerrain(cols: number, rows: number, aspect: number): Terrai
     }
   }
 
-  const levels: ContourLevel[] = [];
-  const first = Math.ceil(ELEV_MIN / CONTOUR_STEP) * CONTOUR_STEP;
-  for (let e = first; e < ELEV_MAX; e += CONTOUR_STEP) {
-    levels.push(contourLevel(heights, cols, rows, aspect, e));
-  }
+  return { cols, rows, aspect, heights, levels: contourLevels(heights, cols, rows, aspect, ELEV_MIN, ELEV_MAX, CONTOUR_STEP) };
+}
 
-  return { cols, rows, aspect, heights, levels };
+function contourLevels(
+  heights: Float32Array,
+  cols: number,
+  rows: number,
+  aspect: number,
+  min: number,
+  max: number,
+  step: number,
+): ContourLevel[] {
+  const levels: ContourLevel[] = [];
+  const first = Math.floor(min / step) * step + step;
+  for (let e = first; e < max; e += step) {
+    levels.push(contourLevel(heights, cols, rows, aspect, e, step));
+  }
+  return levels;
+}
+
+/**
+ * Resample a surveyed grid onto a cols x rows screen grid with "cover" cropping (centered),
+ * then contour it at the survey's own interval.
+ */
+export function buildTerrainFromGrid(grid: HeightGrid, cols: number, rows: number, aspect: number): Terrain {
+  const gridAspect = (grid.cols - 1) / (grid.rows - 1);
+  // Fraction of the survey visible on each axis so the screen is fully covered.
+  const spanU = Math.min(1, aspect / gridAspect);
+  const spanV = Math.min(1, gridAspect / aspect);
+  const u0 = (1 - spanU) / 2;
+  const v0 = (1 - spanV) / 2;
+  const src = (i: number, j: number) => grid.heights[j * grid.cols + i] / 2;
+
+  const heights = new Float32Array(cols * rows);
+  for (let j = 0; j < rows; j++) {
+    for (let i = 0; i < cols; i++) {
+      const x = (u0 + (i / (cols - 1)) * spanU) * (grid.cols - 1);
+      const y = (v0 + (j / (rows - 1)) * spanV) * (grid.rows - 1);
+      const gi = Math.min(grid.cols - 2, Math.floor(x));
+      const gj = Math.min(grid.rows - 2, Math.floor(y));
+      const fx = x - gi;
+      const fy = y - gj;
+      const top = src(gi, gj) * (1 - fx) + src(gi + 1, gj) * fx;
+      const bot = src(gi, gj + 1) * (1 - fx) + src(gi + 1, gj + 1) * fx;
+      heights[j * cols + i] = top * (1 - fy) + bot * fy;
+    }
+  }
+  let min = Infinity;
+  let max = -Infinity;
+  for (const h of heights) {
+    if (h < min) min = h;
+    if (h > max) max = h;
+  }
+  return { cols, rows, aspect, heights, levels: contourLevels(heights, cols, rows, aspect, min, max, grid.step) };
 }
 
 function contourLevel(
@@ -94,6 +151,7 @@ function contourLevel(
   rows: number,
   aspect: number,
   elevation: number,
+  step: number,
 ): ContourLevel {
   const raw: number[] = [];
   const du = 1 / (cols - 1);
@@ -156,7 +214,7 @@ function contourLevel(
     keys[dst] = rawKeys[src];
   });
 
-  return { elevation, isIndex: elevation % (CONTOUR_STEP * INDEX_EVERY) === 0, segments, keys };
+  return { elevation, isIndex: elevation % (step * INDEX_EVERY) === 0, segments, keys };
 }
 
 /** Bilinear elevation in meters at (u, v). */

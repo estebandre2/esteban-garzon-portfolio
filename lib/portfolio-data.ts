@@ -1,8 +1,3 @@
-export type Metric = {
-  label: string;
-  value: string;
-};
-
 export type Project = {
   title: string;
   tag: string;
@@ -72,9 +67,10 @@ export type LabGuide = {
 export const profile = {
   name: "Esteban Garzon",
   role: "CTO - Data, Automation, and AI Systems",
-  heroTitle: "I design software that turns complex operations into elegant systems.",
+  heroEyebrow: "Civil engineer → Data engineer → CTO",
+  heroTitle: "From watersheds to AI systems.",
   heroText:
-    "I am a CTO with a background in data engineering, automation, business intelligence, and applied analytics. I build ETL pipelines, AI-enabled workflows, and internal platforms that turn operational complexity into clear, high-leverage systems.",
+    "I started in hydrology and energy: three hydro plants and a 100 MW solar project. I brought the same discipline into data pipelines, automation, and AI agents built to hold up in production.",
   resumeSummary:
     "CTO, data engineer, and automation specialist with a multidisciplinary background spanning civil engineering, data science, business intelligence, and operational systems. Experienced in building ETL pipelines, analytics layers, AI-driven automations, dashboards, and backend workflows that improve decision-making, reduce manual work, and create reliable infrastructure for growing teams.",
   linkedin: "https://www.linkedin.com/in/esteban-garzon2",
@@ -82,12 +78,6 @@ export const profile = {
   phone: "+593996788376",
   resumeHref: "/downloads/resume/Esteban_Garzon_CV_Final.pdf",
 };
-
-export const metrics: Metric[] = [
-  { label: "Focus", value: "Automation + Data Systems" },
-  { label: "Specialty", value: "ETL, integrations, reliability" },
-  { label: "Approach", value: "Operational software with premium UX" },
-];
 
 export const projects: Project[] = [
   {

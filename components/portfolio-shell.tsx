@@ -1,11 +1,10 @@
 "use client";
 
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { CSSProperties, useEffect, useState } from "react";
 import {
   analyticsFeatured,
   capabilities,
-  metrics,
   profile,
   projects,
   resources,
@@ -14,6 +13,7 @@ import {
   type Project,
 } from "@/lib/portfolio-data";
 import styles from "./portfolio-shell.module.css";
+import { WatershedHero } from "./watershed-hero";
 
 const reveal = {
   hidden: { opacity: 0, y: 38 },
@@ -112,8 +112,6 @@ export function PortfolioShell() {
     damping: 28,
     mass: 0.25,
   });
-  const heroLift = useTransform(progress, [0, 0.25], [0, -40]);
-  const heroFade = useTransform(progress, [0, 0.25], [1, 0.2]);
 
   useEffect(() => {
     const handleMove = (event: MouseEvent) => {
@@ -159,58 +157,20 @@ export function PortfolioShell() {
         </nav>
       </header>
 
-      <section className={styles.hero} id="top">
-        <motion.div
-          className={styles.heroCopy}
-          style={{ y: heroLift, opacity: heroFade }}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <span className={styles.eyebrow}>{profile.role}</span>
-          <h1>{profile.heroTitle}</h1>
-          <p>{profile.heroText}</p>
-
-          <div className={styles.ctaRow}>
-            <MagneticLink href="#work">Explore work</MagneticLink>
-            <MagneticLink href={profile.resumeHref} variant="ghost" target="_blank" rel="noreferrer" download>
-              Download resume
-            </MagneticLink>
-            <MagneticLink href="/code" variant="ghost">
-              Open Code Lab
-            </MagneticLink>
-            <MagneticLink href={profile.linkedin} variant="ghost" target="_blank" rel="noreferrer">
-              LinkedIn
-            </MagneticLink>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className={styles.heroPanel}
-          initial={{ opacity: 0, scale: 0.95, y: 24 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.15 }}
-        >
-          <div className={styles.panelTop}>
-            <span className={styles.liveDot} />
-            <span>System Signal</span>
-          </div>
-          <div className={styles.orbitField}>
-            <div className={styles.orbitOne} />
-            <div className={styles.orbitTwo} />
-            <div className={styles.orbitThree} />
-            <div className={styles.coreBadge}>Modern Ops</div>
-          </div>
-          <div className={styles.metricList}>
-            {metrics.map((metric) => (
-              <div key={metric.label} className={styles.metricItem}>
-                <span>{metric.label}</span>
-                <strong>{metric.value}</strong>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
+      <WatershedHero eyebrow={profile.heroEyebrow} title={profile.heroTitle} text={profile.heroText}>
+        <div className={styles.ctaRow}>
+          <MagneticLink href="#work">Explore work</MagneticLink>
+          <MagneticLink href={profile.resumeHref} variant="ghost" target="_blank" rel="noreferrer" download>
+            Download resume
+          </MagneticLink>
+          <MagneticLink href="/code" variant="ghost">
+            Open Code Lab
+          </MagneticLink>
+          <MagneticLink href={profile.linkedin} variant="ghost" target="_blank" rel="noreferrer">
+            LinkedIn
+          </MagneticLink>
+        </div>
+      </WatershedHero>
 
       <section className={styles.marqueeSection} aria-label="technologies">
         <div className={styles.marqueeTrack}>

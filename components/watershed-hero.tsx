@@ -107,11 +107,12 @@ export function WatershedHero({
       ctx.clearRect(0, 0, width, height);
       ctx.save();
       // Slow "drone descent" toward the valley as the visitor scrolls.
+      // Anchored at the river outlet so the river keeps meeting the next scene's flow line.
       const zoom = 1 + p * 0.08;
-      const cx = riverCenter(0.5) * width;
-      ctx.translate(cx, height * 0.5);
+      const cx = riverCenter(1) * width;
+      ctx.translate(cx, height);
       ctx.scale(zoom, zoom);
-      ctx.translate(-cx, -height * 0.5);
+      ctx.translate(-cx, -height);
 
       const breathe = (u: number, li: number) =>
         reduced ? 0 : Math.sin(u * 7 + elapsed * 0.0007 + li * 0.45) * 0.0022;

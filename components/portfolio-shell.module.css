@@ -71,18 +71,6 @@
     radial-gradient(circle at calc(var(--cursor-x) - 18%) calc(var(--cursor-y) + 8%), rgba(255, 184, 111, 0.11), transparent 22%);
 }
 
-.progressBar {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 20;
-  height: 4px;
-  width: 100%;
-  transform-origin: 0 50%;
-  background: linear-gradient(90deg, var(--cyan), var(--amber), var(--rose));
-  box-shadow: 0 0 30px rgba(120, 242, 223, 0.5);
-}
-
 .spotlight,
 .gridGlow {
   position: fixed;

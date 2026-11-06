@@ -110,24 +110,10 @@
   background: rgba(255, 184, 111, 0.1);
 }
 
-.hero,
 .section,
 .contact {
   width: min(1200px, 100%);
   margin: 0 auto;
-}
-
-.hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
-  gap: 42px;
-  align-items: center;
-  min-height: 100vh;
-  padding: 48px 0 48px;
-}
-
-.heroCopy {
-  max-width: 720px;
 }
 
 .eyebrow,
@@ -151,21 +137,6 @@
   background: linear-gradient(90deg, transparent, currentColor);
 }
 
-.heroCopy h1 {
-  margin: 18px 0 18px;
-  font-family: var(--font-display), sans-serif;
-  font-size: clamp(3.4rem, 9vw, 7.2rem);
-  line-height: 0.94;
-  letter-spacing: -0.05em;
-}
-
-.heroCopy h1 span {
-  display: block;
-  color: #fff1df;
-  text-shadow: 0 0 28px rgba(255, 184, 111, 0.12);
-}
-
-.heroCopy p,
 .contactPanel p,
 .processCard p,
 .projectCard p {
@@ -219,7 +190,6 @@
   border-color: rgba(255, 255, 255, 0.22);
 }
 
-.heroPanel,
 .projectCard,
 .processCard,
 .contactPanel,
@@ -234,12 +204,6 @@
   backdrop-filter: blur(18px);
 }
 
-.heroPanel {
-  padding: 26px;
-  border-radius: 32px;
-}
-
-.heroPanel::before,
 .projectCard::before,
 .contactPanel::before,
 .resumeSummaryCard::before,
@@ -250,96 +214,6 @@
   z-index: -1;
   opacity: 0.72;
   background: linear-gradient(135deg, rgba(120, 242, 223, 0.18), transparent 30%, rgba(255, 184, 111, 0.14));
-}
-
-.panelTop {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #b7c9da;
-  font-size: 0.9rem;
-}
-
-.liveDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  background: var(--cyan);
-  box-shadow: 0 0 18px rgba(120, 242, 223, 0.9);
-}
-
-.orbitField {
-  position: relative;
-  display: grid;
-  place-items: center;
-  min-height: 320px;
-}
-
-.orbitOne,
-.orbitTwo,
-.orbitThree {
-  position: absolute;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.orbitOne {
-  width: 240px;
-  height: 240px;
-  animation: spin 18s linear infinite;
-}
-
-.orbitTwo {
-  width: 180px;
-  height: 180px;
-  border-style: dashed;
-  animation: spinReverse 14s linear infinite;
-}
-
-.orbitThree {
-  width: 104px;
-  height: 104px;
-  animation: pulse 4.5s ease-in-out infinite;
-}
-
-.coreBadge {
-  display: grid;
-  place-items: center;
-  width: 120px;
-  height: 120px;
-  border-radius: 999px;
-  font-family: var(--font-display), sans-serif;
-  font-size: 1.05rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: #08131d;
-  background: radial-gradient(circle at 30% 30%, #fff6e7, var(--amber));
-  box-shadow:
-    0 0 0 14px rgba(255, 184, 111, 0.08),
-    0 30px 50px rgba(255, 184, 111, 0.2);
-}
-
-.metricList {
-  display: grid;
-  gap: 14px;
-}
-
-.metricItem {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 14px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.metricItem span {
-  color: var(--muted);
-}
-
-.metricItem strong {
-  max-width: 220px;
-  text-align: right;
-  color: var(--text);
 }
 
 .marqueeSection {
@@ -659,36 +533,6 @@
   line-height: 1.5;
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes spinReverse {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  50% {
-    transform: scale(1.08);
-    opacity: 1;
-  }
-}
-
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -699,7 +543,6 @@
 }
 
 @media (max-width: 1060px) {
-  .hero,
   .projectsGrid,
   .processGrid,
   .resumeGrid,
@@ -712,14 +555,6 @@
     border-radius: 28px;
   }
 
-  .hero {
-    min-height: auto;
-    padding-top: 120px;
-  }
-
-  .heroPanel {
-    max-width: 620px;
-  }
 }
 
 @media (max-width: 720px) {
@@ -746,16 +581,11 @@
     font-size: 0.92rem;
   }
 
-  .heroCopy h1 {
-    font-size: clamp(2.8rem, 15vw, 4.7rem);
-  }
-
   .section,
   .contact {
     padding-top: 88px;
   }
 
-  .heroPanel,
   .projectCard,
   .processCard,
   .contactPanel,
@@ -770,34 +600,6 @@
   .resumeSummaryCard,
   .resumeItem {
     padding: 22px;
-  }
-
-  .orbitField {
-    min-height: 250px;
-  }
-
-  .orbitOne {
-    width: 190px;
-    height: 190px;
-  }
-
-  .orbitTwo {
-    width: 140px;
-    height: 140px;
-  }
-
-  .coreBadge {
-    width: 98px;
-    height: 98px;
-    font-size: 0.9rem;
-  }
-
-  .metricItem {
-    flex-direction: column;
-  }
-
-  .metricItem strong {
-    text-align: left;
   }
 
   .resourceActions,

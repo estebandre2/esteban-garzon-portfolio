@@ -452,3 +452,151 @@
     display: none;
   }
 }
+
+/* STA. 04 · Powerhouse */
+.powerhouseVisual {
+  position: sticky;
+  top: 110px;
+  padding: 18px;
+  border: 1px solid rgba(150, 196, 226, 0.18);
+  background: rgba(5, 11, 18, 0.82);
+}
+
+.turbineRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.turbine {
+  width: 76px;
+  height: 76px;
+}
+
+.turbineCasing {
+  fill: none;
+  stroke: rgba(150, 196, 226, 0.4);
+  stroke-dasharray: 3 5;
+}
+
+.turbineBlade {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.turbineHub {
+  fill: #050b12;
+  stroke: var(--amber);
+  stroke-width: 1.5;
+}
+
+.turbineIdle {
+  animation: idleSpin 9s linear infinite;
+}
+
+@keyframes idleSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.funnel {
+  display: grid;
+  gap: 10px;
+}
+
+.funnelCount {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #a9bccd;
+}
+
+.funnelCount strong {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  color: #f1f7fb;
+}
+
+.funnelCanvas {
+  display: block;
+  width: 100%;
+  height: min(360px, 42vh);
+  border: 1px solid rgba(150, 196, 226, 0.12);
+  cursor: pointer;
+}
+
+.insightButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.insightButtons button {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid rgba(120, 242, 223, 0.45);
+  background: transparent;
+  color: #d6f5ef;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 200ms ease, opacity 200ms ease;
+}
+
+.insightButtons button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.insightButtons button[aria-pressed="true"] {
+  background: rgba(120, 242, 223, 0.16);
+}
+
+.insightButtons button:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+.insightDetail {
+  min-height: 3.2em;
+  margin: 0;
+  color: #b9cbda;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.guardrail {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-top: 14px !important;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 184, 111, 0.35);
+  background: rgba(255, 184, 111, 0.05);
+  color: #ffe2c2 !important;
+  font-size: 0.9rem !important;
+}
+
+.lock {
+  flex: 0 0 auto;
+  margin-top: 3px;
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 1.4;
+}
+
+@media (max-width: 900px) {
+  .powerhouseVisual {
+    position: relative;
+    top: 0;
+  }
+}

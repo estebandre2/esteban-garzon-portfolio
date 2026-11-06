@@ -17,6 +17,7 @@ import { WatershedHero } from "./watershed-hero";
 import { RiverProfileNav } from "./river-profile-nav";
 import { ConduitScene } from "./scenes/conduit-scene";
 import { IntakeScene } from "./scenes/intake-scene";
+import { PowerhouseScene } from "./scenes/powerhouse-scene";
 
 const reveal = {
   hidden: { opacity: 0, y: 38 },
@@ -173,6 +174,8 @@ export function PortfolioShell() {
       <IntakeScene />
 
       <ConduitScene />
+
+      <PowerhouseScene />
 
       <section className={styles.section} id="analytics">
         <motion.div

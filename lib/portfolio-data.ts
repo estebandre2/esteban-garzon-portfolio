@@ -79,6 +79,227 @@ export const profile = {
   resumeHref: "/downloads/resume/Esteban_Garzon_CV_Final.pdf",
 };
 
+export type Station = {
+  id: "top" | "survey" | "pipelines" | "ai" | "safety" | "gauging" | "career" | "contact";
+  code: string;
+  label: string;
+};
+
+export const stations: Station[] = [
+  { id: "top", code: "STA. 01", label: "Watershed" },
+  { id: "survey", code: "STA. 02", label: "Intake" },
+  { id: "pipelines", code: "STA. 03", label: "Conduit" },
+  { id: "ai", code: "STA. 04", label: "Powerhouse" },
+  { id: "safety", code: "STA. 05", label: "Safety Factor" },
+  { id: "gauging", code: "STA. 06", label: "Gauging Station" },
+  { id: "career", code: "STA. 07", label: "Hydrograph" },
+  { id: "contact", code: "STA. 08", label: "Grid" },
+];
+
+export type CivilProject = {
+  title: string;
+  figure: string;
+  unit: string;
+  summary: string;
+  tools: string[];
+};
+
+export const civilProjects: CivilProject[] = [
+  {
+    title: "San Antonio Solar Plant · Machala",
+    figure: "100",
+    unit: "MW",
+    summary:
+      "Energy assessment from a typical meteorological year, road design, and topographic analysis with field work for a 100 MW photovoltaic project, now in its financing stage.",
+    tools: ["Solar resource", "Energy yield", "Road design", "Topography"],
+  },
+  {
+    title: "Three run-of-river hydro plants",
+    figure: "4.5 · 9 · 9.5",
+    unit: "MW",
+    summary:
+      "Hydrological analysis of Río Verde, Río Blanco, and Toabunche for prefeasibility and definitive studies, including maximum-flood modeling.",
+    tools: ["HEC-HMS", "HEC-RAS", "HEC-SSP", "Hydraulic design"],
+  },
+  {
+    title: "Drone topographic survey",
+    figure: "20",
+    unit: "km²",
+    summary: "Drone survey, terrain processing, and every project map produced in ArcGIS and AutoCAD.",
+    tools: ["Drones", "ArcGIS", "AutoCAD"],
+  },
+  {
+    title: "Thesis · Toabunche hydro design, Intag valley",
+    figure: "9.5",
+    unit: "MW",
+    summary:
+      "Hydroelectric plant design integrating hydrology, ArcGIS mapping, satellite topography, a 3D model of the intake, and conveyance design in Civil 3D.",
+    tools: ["Hydrology", "Civil 3D", "ArcGIS", "3D modeling"],
+  },
+  {
+    title: "Potable water system · General Antonio Elizalde",
+    figure: "—",
+    unit: "",
+    summary:
+      "Academic design of a full water system: population growth analysis, intake, desander, conveyance, sedimentation and treatment tanks, and distribution.",
+    tools: ["Population forecast", "Hydraulics", "Treatment alternatives"],
+  },
+];
+
+export type AiSystem = {
+  title: string;
+  context: string;
+  summary: string;
+  guardrail: string;
+  stack: string[];
+};
+
+export const aiSystems: AiSystem[] = [
+  {
+    title: "Autonomous insight-discovery agent",
+    context: "External AI consultant · AI analytics company",
+    summary:
+      "Generates 20 business hypotheses per run, filters them against a graveyard of past failures, validates the rest against real data, and reports at most five confirmed insights ranked by P&L impact.",
+    guardrail: "The model never computes a reported number. Python does, from raw SQL rows, and no confirmed insight means no report.",
+    stack: ["LLM agents", "SQL", "Python", "Human review loop"],
+  },
+  {
+    title: "SQL accuracy benchmarks + onboarding agent",
+    context: "External AI consultant · AI analytics company",
+    summary:
+      "Reproducible SQL and data-accuracy benchmarks for an analytics agent platform, plus a conversational agent that connects a client's databases and turns business questions into guidelines.",
+    guardrail: "Reproducible benchmark cases come before any claim of accuracy, and improvements must generalize across clients.",
+    stack: ["Evals", "PostgreSQL", "SQL Server", "Agents"],
+  },
+  {
+    title: "Conversational BI studio",
+    context: "External AI consultant · AI analytics company",
+    summary:
+      "Builds executive dashboards from conversation across multiple databases, with filters and a multitenant architecture.",
+    guardrail: "Tenant isolation by design: one client's data never reaches another client's conversation.",
+    stack: ["Next.js", "Multitenancy", "LLMs", "Data visualization"],
+  },
+  {
+    title: "Document RAG assistant",
+    context: "External AI consultant",
+    summary:
+      "Answers questions over SharePoint and OneDrive Excel and PDF files with vector indexing and live document updates; started on a local model and moved to a hosted one.",
+    guardrail: "Answers are grounded in the indexed documents, and updated files are re-indexed before they are quoted.",
+    stack: ["RAG", "Vector search", "SharePoint", "Local + hosted LLMs"],
+  },
+  {
+    title: "ERP AI document importer",
+    context: "CTO · BynD Bits",
+    summary:
+      "Reads purchase PDFs and drafts orders inside a flooring and countertop ERP covering bids, jobs, scheduling, purchasing, and shop production.",
+    guardrail: "Auto-commit is disabled: a person approves every write, with permissions and row-level security enforced.",
+    stack: ["Document AI", "PostgreSQL RLS", "ERP", "Human approval"],
+  },
+  {
+    title: "Deterministic claims pre-auditor",
+    context: "Healthcare client",
+    summary:
+      "Validates and reconciles invoice PDFs against structured records, predicts likely claim rejections, and keeps versions, reasons, and a full audit trail.",
+    guardrail: "No AI by design: when stakes are high, every decision has to be reproducible and auditable.",
+    stack: ["Python", "Rules engine", "Audit trail"],
+  },
+];
+
+export type SafetyGuard = {
+  id: string;
+  title: string;
+  detail: string;
+  threshold: number;
+};
+
+export const safetyGuards: SafetyGuard[] = [
+  {
+    id: "numbers-by-code",
+    title: "Numbers come from code",
+    detail: "Models write and classify; every reported figure is computed by deterministic code from source data.",
+    threshold: 0,
+  },
+  {
+    id: "no-evidence-no-report",
+    title: "No evidence, no report",
+    detail: "A claim that cannot be traced back to data is dropped instead of softened.",
+    threshold: 0.25,
+  },
+  {
+    id: "human-approves-writes",
+    title: "A person approves every write",
+    detail: "Agents draft; humans commit. Permissions and row-level security sit underneath.",
+    threshold: 0.5,
+  },
+  {
+    id: "deterministic-when-critical",
+    title: "Deterministic when it is critical",
+    detail: "Where an error is expensive, the system runs on rules that can be replayed and audited.",
+    threshold: 0.75,
+  },
+];
+
+export type CareerEvent = {
+  start: string;
+  end: string | null;
+  title: string;
+  org: string;
+  kind: "civil" | "data" | "ai" | "education";
+  summary: string;
+};
+
+export const careerEvents: CareerEvent[] = [
+  {
+    start: "2018-08",
+    end: "2023-12",
+    title: "B.Sc. Civil Engineering",
+    org: "Universidad San Francisco de Quito",
+    kind: "education",
+    summary: "Hydraulics, hydrology, and project economics; thesis on the Toabunche hydro plant in the Intag valley.",
+  },
+  {
+    start: "2022-01",
+    end: "2024-09",
+    title: "Design Engineer",
+    org: "Gringconstruc",
+    kind: "civil",
+    summary: "Energy analysis for a 100 MW solar plant, hydrology for three hydro plants, and a 20 km² drone survey.",
+  },
+  {
+    start: "2024-09",
+    end: "2026-03",
+    title: "Data Engineer · AI-Driven Automation & BI",
+    org: "EcuAssist",
+    kind: "data",
+    summary:
+      "ETL pipelines, API connectors, BI, and machine learning connecting ERP, production machines, logistics, and finance for a U.S.-based client.",
+  },
+  {
+    start: "2025-02",
+    end: "2026-05",
+    title: "M.Sc. Business Intelligence & Data Science",
+    org: "Universidad de Las Américas",
+    kind: "education",
+    summary: "Thesis: a monthly predictive model of residential construction permits in Texas with out-of-sample validation.",
+  },
+  {
+    start: "2026-01",
+    end: null,
+    title: "External AI Consultant",
+    org: "AI analytics company",
+    kind: "ai",
+    summary: "Autonomous analysis agents, accuracy benchmarks, conversational BI, and document RAG.",
+  },
+  {
+    start: "2026-03",
+    end: null,
+    title: "Chief Technology Officer",
+    org: "BynD Bits",
+    kind: "ai",
+    summary: "Technology strategy, architecture, and teams; an ERP with AI document import under human approval.",
+  },
+];
+
 export const projects: Project[] = [
   {
     title: "Slab ETL Nexus",

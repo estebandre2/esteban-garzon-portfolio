@@ -72,7 +72,7 @@ export function PowerhouseScene() {
                 <p className={styles.annotation}>
                   Discovery agent
                   <br />
-                  one run, live
+                  illustrative run
                 </p>
               </div>
               <HypothesisCanvas progress={progress} reduced={reduced} seed={2026} />

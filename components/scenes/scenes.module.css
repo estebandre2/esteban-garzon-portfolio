@@ -1170,3 +1170,16 @@
   outline: 2px solid var(--cyan);
   outline-offset: 3px;
 }
+
+@media (prefers-reduced-motion: reduce), (max-height: 820px) {
+  /* Reduced motion, or viewports too short for a pinned stage (e.g. 1366x768 laptops): scroll normally. */
+  .pinnedScene {
+    height: auto;
+  }
+
+  .stickyStage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+}

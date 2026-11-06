@@ -1,7 +1,7 @@
 "use client";
 
 import { MotionValue, motion, useMotionValueEvent, useTransform } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { profile, stations } from "@/lib/portfolio-data";
 import { FlowLine } from "./flow-line";
 import { SceneSection } from "./scene-section";
@@ -34,6 +34,9 @@ const ORDER = WINDOWS.map((_, i) => (i * 37) % WINDOWS.length);
 function City({ progress, reduced }: { progress: MotionValue<number>; reduced: boolean }) {
   const [lit, setLit] = useState(reduced ? WINDOWS.length : 0);
   // Last section: its progress tops out near 0.6 at the end of the page, so everything completes by 0.5.
+  useEffect(() => {
+    if (reduced) setLit(WINDOWS.length);
+  }, [reduced]);
   const line = useTransform(progress, [0.05, 0.3], [0, 1]);
   useMotionValueEvent(progress, "change", (p) => {
     if (!reduced) setLit(Math.round(Math.min(1, Math.max(0, (p - 0.18) / 0.32)) * WINDOWS.length));

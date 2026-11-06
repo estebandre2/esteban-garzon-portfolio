@@ -1,9 +1,10 @@
 "use client";
 
-import { MotionValue, useMotionValue, useReducedMotion, useScroll } from "framer-motion";
+import { MotionValue, useMotionValue, useScroll } from "framer-motion";
 import { CSSProperties, ReactNode, useRef } from "react";
 import type { Station } from "@/lib/portfolio-data";
 import styles from "./scenes.module.css";
+import { useSafeReducedMotion } from "./use-safe-reduced-motion";
 
 export const TOTAL_SHEETS = 8;
 
@@ -23,7 +24,7 @@ type SceneSectionProps = {
  */
 export function SceneSection({ station, sheet, pinned = false, heightVh = 220, title, intro, children }: SceneSectionProps) {
   const ref = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion() ?? false;
+  const reduced = useSafeReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: pinned ? ["start start", "end end"] : ["start end", "end start"],

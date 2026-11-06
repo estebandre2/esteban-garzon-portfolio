@@ -344,7 +344,7 @@ export function WatershedHero({
       if (reduced) requestDraw();
     };
     const onScroll = () => {
-      if (reduced) requestDraw();
+      if (reduced && visible) requestDraw();
     };
     window.addEventListener("pointermove", onPointerMove, { passive: true });
     document.documentElement.addEventListener("pointerleave", onPointerLeave);

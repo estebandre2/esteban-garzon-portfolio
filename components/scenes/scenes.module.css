@@ -1093,3 +1093,80 @@
     display: none;
   }
 }
+
+/* STA. 08 · Grid */
+.gridLayout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 32px;
+}
+
+.city {
+  display: block;
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.tower,
+.building {
+  fill: none;
+  stroke: #cfe0ee;
+  stroke-width: 1.2;
+}
+
+.cableLine {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 1.4;
+  filter: drop-shadow(0 0 4px rgba(120, 242, 223, 0.7));
+}
+
+.window {
+  fill: rgba(150, 196, 226, 0.08);
+  transition: fill 400ms ease;
+}
+
+.windowLit {
+  fill: rgba(255, 210, 150, 0.9);
+  filter: drop-shadow(0 0 3px rgba(255, 184, 111, 0.8));
+  transition: fill 400ms ease;
+}
+
+.contactBlock {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.contactBlock .annotation {
+  flex-basis: 100%;
+  text-align: center;
+}
+
+.contactPrimary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 24px;
+  color: #041017;
+  background: linear-gradient(135deg, var(--cyan), #e7fff8);
+  font-weight: 700;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.contactPrimary:hover,
+.contactPrimary:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(120, 242, 223, 0.25);
+}
+
+.contactPrimary:focus-visible,
+.labLink:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}

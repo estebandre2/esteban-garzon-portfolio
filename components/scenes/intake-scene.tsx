@@ -51,7 +51,8 @@ function IntakeVisual({ progress }: { progress: MotionValue<number> }) {
           ) : null,
         )}
       </svg>
-      <p className={styles.formula} aria-label="Hydropower: P equals rho times g times Q times H times eta, 9.5 megawatts installed">
+      <p className={styles.formula}>
+        <span className={styles.srOnly}>Hydropower: P equals rho times g times Q times H times eta; 9.5 megawatts installed at Toabunche.</span>
         <span aria-hidden="true" className={styles.formulaTokens}>
           {FORMULA.map((t, i) => (
             <FormulaToken key={i} progress={progress} token={t} index={i} />

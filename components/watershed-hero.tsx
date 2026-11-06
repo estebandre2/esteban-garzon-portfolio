@@ -368,7 +368,8 @@ export function WatershedHero({
         <div className={styles.vignette} aria-hidden="true" />
 
         <div className={styles.copy}>
-          <p className={styles.nameTag} aria-label={NAME}>
+          <p className={styles.nameTag}>
+            <span className={styles.srOnly}>{NAME}</span>
             {NAME.split("").map((char, i) => (
               <span key={i} aria-hidden="true" style={{ "--i": i } as CSSProperties}>
                 {char === " " ? " " : char}
@@ -394,7 +395,7 @@ export function WatershedHero({
           </div>
           <div>
             <span>Sheet</span>
-            <strong>01 / 06</strong>
+            <strong>01 / 08</strong>
           </div>
           <div>
             <span>Scale</span>

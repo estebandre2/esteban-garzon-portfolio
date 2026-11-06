@@ -1,12 +1,13 @@
 "use client";
 
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 import { CSSProperties, useEffect, useState } from "react";
 import {
   analyticsFeatured,
   capabilities,
   profile,
   projects,
+  stations,
   resources,
   resumeHighlights,
   resumeItems,
@@ -14,6 +15,9 @@ import {
 } from "@/lib/portfolio-data";
 import styles from "./portfolio-shell.module.css";
 import { WatershedHero } from "./watershed-hero";
+import { RiverProfileNav } from "./river-profile-nav";
+import { FlowLine } from "./scenes/flow-line";
+import { SceneSection } from "./scenes/scene-section";
 
 const reveal = {
   hidden: { opacity: 0, y: 38 },
@@ -106,12 +110,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export function PortfolioShell() {
   const [cursor, setCursor] = useState({ x: 50, y: 20 });
-  const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 28,
-    mass: 0.25,
-  });
 
   useEffect(() => {
     const handleMove = (event: MouseEvent) => {
@@ -134,7 +132,7 @@ export function PortfolioShell() {
         } as CSSProperties
       }
     >
-      <motion.div className={styles.progressBar} style={{ scaleX: progress }} />
+      <RiverProfileNav stations={stations} />
       <div className={styles.spotlight} />
       <div className={styles.gridGlow} />
 
@@ -144,12 +142,13 @@ export function PortfolioShell() {
         </a>
 
         <nav className={styles.nav}>
-          <a href="#work">Work</a>
-          <a href="#analytics">Analytics</a>
-          <a href="#resources">Resources</a>
-          <a href="#resume">Resume</a>
+          <a href="#survey">Engineering</a>
+          <a href="#pipelines">Data</a>
+          <a href="#ai">AI Systems</a>
+          <a href="#safety">Safety</a>
+          <a href="#gauging">Analytics</a>
+          <a href="#career">Career</a>
           <a href="/code">Code Lab</a>
-          <a href="/analytics">Analytics Lab</a>
           <a href="#contact">Contact</a>
           <a href={profile.linkedin} target="_blank" rel="noreferrer">
             LinkedIn
@@ -159,7 +158,7 @@ export function PortfolioShell() {
 
       <WatershedHero eyebrow={profile.heroEyebrow} title={profile.heroTitle} text={profile.heroText}>
         <div className={styles.ctaRow}>
-          <MagneticLink href="#work">Explore work</MagneticLink>
+          <MagneticLink href="#survey">Explore work</MagneticLink>
           <MagneticLink href={profile.resumeHref} variant="ghost" target="_blank" rel="noreferrer" download>
             Download resume
           </MagneticLink>
@@ -171,6 +170,10 @@ export function PortfolioShell() {
           </MagneticLink>
         </div>
       </WatershedHero>
+
+      <SceneSection station={stations[1]} sheet={2} title="Intake (placeholder)">
+        {(progress) => <FlowLine progress={progress} variant="river" />}
+      </SceneSection>
 
       <section className={styles.marqueeSection} aria-label="technologies">
         <div className={styles.marqueeTrack}>

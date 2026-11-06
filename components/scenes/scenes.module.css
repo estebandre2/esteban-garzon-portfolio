@@ -600,3 +600,258 @@
     top: 0;
   }
 }
+
+.pinnedScene {
+  height: var(--pin-height);
+}
+
+@media (max-width: 900px) {
+  /* Phones: no pinning; the scene scrolls normally and progress still runs across it. */
+  .pinnedScene {
+    height: auto;
+  }
+
+  .stickyStage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+}
+
+/* STA. 05 · Safety factor */
+.safetyGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.stickyStage .sceneHeading {
+  margin-bottom: 26px;
+}
+
+.safetyPanel {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid rgba(150, 196, 226, 0.2);
+  background: rgba(5, 11, 18, 0.86);
+}
+
+.safetyPanel svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 30vh;
+}
+
+.reservoir {
+  fill: rgba(120, 242, 223, 0.16);
+}
+
+.wave,
+.waveStatic {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 1.6;
+}
+
+.wave {
+  animation: waveDrift 3.2s linear infinite;
+}
+
+@keyframes waveDrift {
+  to {
+    transform: translateX(40px);
+  }
+}
+
+.damBody {
+  fill: rgba(150, 196, 226, 0.12);
+  stroke: #cfe0ee;
+  stroke-width: 1.4;
+}
+
+.designLine {
+  stroke: var(--amber);
+  stroke-dasharray: 5 5;
+}
+
+.freeboard {
+  stroke: var(--amber);
+  stroke-width: 1.2;
+}
+
+.svgNote {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  fill: var(--amber);
+}
+
+.sliderLabel {
+  color: #b9cbda;
+  font-size: 0.92rem;
+}
+
+.sliderLabel strong {
+  color: #f1f7fb;
+}
+
+.slider {
+  width: 100%;
+  min-height: 32px;
+  accent-color: var(--cyan);
+  cursor: pointer;
+}
+
+.slider:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+.ticks {
+  position: relative;
+  height: 16px;
+  margin-top: -8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.66rem;
+  color: #8ba3b8;
+}
+
+.ticks span {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.gates {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gate,
+.gateClosed {
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid rgba(150, 196, 226, 0.15);
+  transition: border-color 250ms ease, background 250ms ease;
+}
+
+.gateClosed {
+  border-color: rgba(255, 184, 111, 0.5);
+  background: rgba(255, 184, 111, 0.06);
+}
+
+.gate strong,
+.gateClosed strong {
+  display: block;
+  font-size: 0.95rem;
+}
+
+.gateDetail {
+  display: block;
+  margin-top: 2px;
+  color: #9fb4c7;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.gateFrame {
+  position: relative;
+  width: 18px;
+  height: 30px;
+  border: 1px solid rgba(150, 196, 226, 0.5);
+  border-top-width: 3px;
+}
+
+.gateLeaf {
+  position: absolute;
+  inset: 0;
+  background: var(--amber);
+  transform-origin: top;
+}
+
+.gateState {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8ba3b8;
+}
+
+.gateClosed .gateState {
+  color: var(--amber);
+}
+
+.closingLine {
+  position: relative;
+  z-index: 1;
+  margin: 26px 0 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+  letter-spacing: -0.02em;
+  color: #f1f7fb;
+}
+
+@media (max-width: 900px) {
+  .safetyGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave,
+  .turbineIdle {
+    animation: none;
+  }
+}
+
+/* Pinned stages must fit one viewport: tighter type and figures. */
+.stickyStage .sceneHeading {
+  margin: 14px 0 18px;
+}
+
+.stickyStage .sceneHeading h2 {
+  font-size: clamp(1.8rem, 3.2vw, 2.7rem);
+}
+
+.stickyStage .sceneHeading p {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.stickyStage .safetyPanel {
+  gap: 8px;
+  padding: 16px;
+}
+
+.stickyStage .safetyPanel svg {
+  max-height: 22vh;
+}
+
+.stickyStage .gates {
+  gap: 6px;
+}
+
+.stickyStage .gate,
+.stickyStage .gateClosed {
+  padding: 7px 10px;
+}
+
+.stickyStage .gateDetail {
+  font-size: 0.78rem;
+}
+
+.stickyStage .closingLine {
+  margin-top: 16px;
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+}

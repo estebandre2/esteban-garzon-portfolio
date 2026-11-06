@@ -331,6 +331,29 @@ export const projects: Project[] = [
     stack: ["Python", "SQLite", "Automation", "Dashboards", "Systems Design"],
     accent: "var(--rose)",
   },
+  {
+    title: "RFMS API Connector",
+    tag: "API Integration",
+    summary:
+      "Custom connector for a flooring ERP with token-based authentication, pagination, exception handling, and data-quality controls.",
+    outcome:
+      "Job, customer, and cost data flow into Power BI layers for COGS, gross margin, supplier performance, and sales by material.",
+    stack: ["Python", "REST APIs", "PostgreSQL", "Power BI"],
+    accent: "var(--cyan)",
+  },
+];
+
+export const techStack = [
+  "Python",
+  "SQL",
+  "PostgreSQL",
+  "SQL Server",
+  "REST APIs",
+  "ETL",
+  "Power BI",
+  "Next.js",
+  "LLM agents",
+  "Evals",
 ];
 
 export const capabilities = [

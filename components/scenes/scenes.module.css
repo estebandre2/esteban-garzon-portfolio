@@ -351,3 +351,104 @@
     top: 0;
   }
 }
+
+/* STA. 03 · Conduit */
+.stackRow {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin: -18px 0 40px;
+  padding: 0;
+  list-style: none;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8ba3b8;
+}
+
+.stackRow li::before {
+  content: "─ ";
+  color: var(--cyan);
+}
+
+.outcome {
+  margin-top: 12px !important;
+  padding-left: 12px;
+  border-left: 1px solid rgba(120, 242, 223, 0.45);
+  color: #d4e3ee !important;
+}
+
+.cardActive {
+  border-color: rgba(120, 242, 223, 0.55);
+  box-shadow: 0 0 0 1px rgba(120, 242, 223, 0.15), 0 20px 60px rgba(120, 242, 223, 0.08);
+}
+
+.sheetCard {
+  transition: border-color 300ms ease, box-shadow 300ms ease;
+}
+
+.manifold {
+  position: sticky;
+  top: 120px;
+  padding: 18px;
+  border: 1px solid rgba(150, 196, 226, 0.18);
+  background: rgba(5, 11, 18, 0.78);
+}
+
+.manifold svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pipeShell {
+  fill: none;
+  stroke: rgba(150, 196, 226, 0.45);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.pipePulse {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 4 46;
+  filter: drop-shadow(0 0 4px rgba(120, 242, 223, 0.8));
+}
+
+.node circle,
+.nodeActive circle {
+  fill: #050b12;
+  stroke: rgba(150, 196, 226, 0.6);
+  stroke-width: 1.5;
+  transition: fill 300ms ease, stroke 300ms ease;
+}
+
+.nodeActive circle {
+  fill: var(--cyan);
+  stroke: var(--cyan);
+  filter: drop-shadow(0 0 8px rgba(120, 242, 223, 0.9));
+}
+
+.node text,
+.nodeActive text {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  fill: #8ba3b8;
+}
+
+.nodeActive text {
+  fill: #e6f6f3;
+}
+
+@media (max-width: 900px) {
+  .manifold {
+    display: none;
+  }
+}

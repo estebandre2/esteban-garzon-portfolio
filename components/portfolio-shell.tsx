@@ -6,7 +6,6 @@ import {
   analyticsFeatured,
   capabilities,
   profile,
-  projects,
   stations,
   resources,
   resumeHighlights,
@@ -16,6 +15,7 @@ import {
 import styles from "./portfolio-shell.module.css";
 import { WatershedHero } from "./watershed-hero";
 import { RiverProfileNav } from "./river-profile-nav";
+import { ConduitScene } from "./scenes/conduit-scene";
 import { IntakeScene } from "./scenes/intake-scene";
 
 const reveal = {
@@ -172,40 +172,7 @@ export function PortfolioShell() {
 
       <IntakeScene />
 
-      <section className={styles.marqueeSection} aria-label="technologies">
-        <div className={styles.marqueeTrack}>
-          <span>Python</span>
-          <span>Next.js</span>
-          <span>PostgreSQL</span>
-          <span>SQL Server</span>
-          <span>Automation</span>
-          <span>ETL</span>
-          <span>Data Reliability</span>
-          <span>API Integrations</span>
-          <span>Systems Design</span>
-          <span>Interactive UI</span>
-        </div>
-      </section>
-
-      <section className={styles.section} id="work">
-        <motion.div
-          className={styles.sectionHeading}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.35 }}
-          variants={reveal}
-          transition={{ duration: 0.6 }}
-        >
-          <span>Selected Work</span>
-          <h2>Real-world systems, presented with a product-grade visual layer.</h2>
-        </motion.div>
-
-        <div className={styles.projectsGrid}>
-          {projects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
-          ))}
-        </div>
-      </section>
+      <ConduitScene />
 
       <section className={styles.section} id="analytics">
         <motion.div

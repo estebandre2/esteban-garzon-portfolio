@@ -64,7 +64,7 @@ export const profile = {
   heroEyebrow: "Civil engineer → Data engineer → CTO",
   heroTitle: "From watersheds to AI systems.",
   heroText:
-    "I started in hydrology and energy: three hydro plants and a 100 MW solar project. I brought the same discipline into data pipelines, automation, and AI agents built to hold up in production.",
+    "I started in hydrology and energy: seven hydropower sites and a 100 MW solar project. I brought the same discipline into data pipelines, automation, and AI agents built to hold up in production.",
   linkedin: "https://www.linkedin.com/in/esteban-garzon2",
   email: "estebandre2@hotmail.es",
   phone: "+593996788376",
@@ -72,7 +72,7 @@ export const profile = {
 };
 
 export type Station = {
-  id: "top" | "survey" | "pipelines" | "ai" | "safety" | "gauging" | "career" | "contact";
+  id: "top" | "survey" | "transition" | "pipelines" | "ai" | "safety" | "gauging" | "career" | "contact";
   code: string;
   label: string;
 };
@@ -80,12 +80,81 @@ export type Station = {
 export const stations: Station[] = [
   { id: "top", code: "STA. 01", label: "Watershed" },
   { id: "survey", code: "STA. 02", label: "Intake" },
-  { id: "pipelines", code: "STA. 03", label: "Conduit" },
-  { id: "ai", code: "STA. 04", label: "Powerhouse" },
-  { id: "safety", code: "STA. 05", label: "Safety Factor" },
-  { id: "gauging", code: "STA. 06", label: "Gauging Station" },
-  { id: "career", code: "STA. 07", label: "Hydrograph" },
-  { id: "contact", code: "STA. 08", label: "Grid" },
+  { id: "transition", code: "STA. 03", label: "Transition" },
+  { id: "pipelines", code: "STA. 04", label: "Conduit" },
+  { id: "ai", code: "STA. 05", label: "Powerhouse" },
+  { id: "safety", code: "STA. 06", label: "Safety Factor" },
+  { id: "gauging", code: "STA. 07", label: "Gauging Station" },
+  { id: "career", code: "STA. 08", label: "Hydrograph" },
+  { id: "contact", code: "STA. 09", label: "Grid" },
+];
+
+export type BridgeTool = {
+  title: string;
+  summary: string;
+  proof: string;
+  tags: string[];
+};
+
+/** The first tools where the engineering work itself became software. */
+export const bridgeTools: BridgeTool[] = [
+  {
+    title: "Solar resource report generator",
+    summary:
+      "From coordinates and a client's electricity bills to a full engineering report: hourly irradiance from NASA POWER, PVGIS-ERA5, Open-Meteo, and NREL, quality control under BSRN criteria, ground-truth correction with INAMHI stations, P50/P90, and energy yield.",
+    proof: "Every formula numbered, every data source validated in its own annex, every figure reproducible from code.",
+    tags: ["Python", "Data quality", "Solar energy", "PDF/DOCX reports"],
+  },
+  {
+    title: "Hydrology report generator",
+    summary:
+      "Rainfall-runoff modeling (GR2M), flood frequency, curve number, gap filling of station series, sediment yield, and energy with uncertainty, ending in GIS maps and a complete hydrological report.",
+    proof: "17 test files cover the hydrology, from flood frequency to the energy integral.",
+    tags: ["Python", "Hydrology", "Testing", "GIS"],
+  },
+  {
+    title: "Drone photogrammetry to net head",
+    summary:
+      "Ground control points, Pix4Dmatic processing, and dense point clouds used to measure crest and powerhouse elevations for four public hydro plants.",
+    proof: "No elevation was used until the ground-control quality report said it could be trusted.",
+    tags: ["Drones", "Point clouds", "Pix4D", "Survey data"],
+  },
+];
+
+export type Translation = { civil: string; ai: string; why: string };
+
+/** The same engineering ideas, carried from water into data and AI. */
+export const translations: Translation[] = [
+  {
+    civil: "100-year design flood",
+    ai: "Worst-case evaluation",
+    why: "You do not size a spillway for the average year, and you should not ship a model on its average benchmark.",
+  },
+  {
+    civil: "Safety factor and freeboard",
+    ai: "Guardrails and human approval",
+    why: "Margin you hope never to use, built in before anything fails.",
+  },
+  {
+    civil: "Stream gauging",
+    ai: "Evals and monitoring",
+    why: "You cannot manage a river you do not measure, and you cannot trust an agent you do not measure.",
+  },
+  {
+    civil: "Topographic survey",
+    ai: "Data discovery",
+    why: "Before designing anything, map the terrain: which sources exist, where they are wrong, and what they hide.",
+  },
+  {
+    civil: "Desander",
+    ai: "Data validation and cleaning",
+    why: "Remove what would erode the turbines downstream before it reaches them.",
+  },
+  {
+    civil: "Design flow",
+    ai: "Capacity and latency budget",
+    why: "Size the conduit for the flow it has to carry, with headroom for the day it carries more.",
+  },
 ];
 
 export type CivilProject = {

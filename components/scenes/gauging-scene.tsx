@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { analyticsFeatured, resources, stations } from "@/lib/portfolio-data";
+import { analyticsFeatured, resources } from "@/lib/portfolio-data";
 import { FlowLine } from "./flow-line";
 import { SceneSection } from "./scene-section";
 import styles from "./scenes.module.css";
@@ -53,8 +53,7 @@ export function GaugingScene() {
 
   return (
     <SceneSection
-      station={stations[5]}
-      sheet={6}
+      stationId="gauging"
       title="Gauging station: measuring before deciding."
       intro="A gauging station turns a river into numbers you can trust. This is the analytics work: forecasting, evaluation, and reports built to be checked."
     >

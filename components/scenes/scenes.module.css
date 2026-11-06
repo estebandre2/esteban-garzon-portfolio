@@ -1183,3 +1183,151 @@
     overflow: visible;
   }
 }
+
+/* STA. 03 · Transition */
+.bridgeLabel {
+  position: relative;
+  z-index: 1;
+  margin: -16px 0 18px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.bridgeTools {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 64px;
+}
+
+.translationTable {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(5, 11, 18, 0.86);
+  border: 1px solid rgba(150, 196, 226, 0.18);
+}
+
+.translationTable caption {
+  padding: 0 0 14px;
+  text-align: left;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+  letter-spacing: -0.02em;
+  color: #f1f7fb;
+}
+
+.translationTable thead th {
+  padding: 12px 18px;
+  border-bottom: 1px solid rgba(150, 196, 226, 0.18);
+  text-align: left;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8ba3b8;
+}
+
+.translationRow + .translationRow {
+  border-top: 1px solid rgba(150, 196, 226, 0.1);
+}
+
+.civilTerm,
+.aiTerm {
+  padding: 18px;
+  vertical-align: top;
+  text-align: left;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.civilTerm {
+  width: 30%;
+  color: #ffd9ae;
+}
+
+.aiTerm {
+  color: #c9fbf2;
+}
+
+.translationWhy {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: #a9bccd;
+}
+
+.transitionCell {
+  width: 16%;
+  padding: 18px 0;
+  vertical-align: top;
+}
+
+.transitionCell svg {
+  display: block;
+  width: 100%;
+  height: 24px;
+  margin-top: 4px;
+  overflow: visible;
+}
+
+.transitionCell path {
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+@media (max-width: 900px) {
+  .bridgeTools {
+    grid-template-columns: 1fr;
+  }
+
+  .translationTable thead {
+    display: none;
+  }
+
+  .translationTable caption {
+    display: block;
+    width: 100%;
+    padding: 18px 18px 6px;
+  }
+
+  .translationTable,
+  .translationTable tbody,
+  .translationRow,
+  .civilTerm,
+  .aiTerm {
+    display: block;
+    width: 100%;
+  }
+
+  .civilTerm {
+    padding-bottom: 4px;
+  }
+
+  .civilTerm::after {
+    content: " →";
+    color: var(--cyan);
+  }
+
+  .transitionCell {
+    display: none;
+  }
+
+  .aiTerm {
+    padding-top: 4px;
+  }
+}

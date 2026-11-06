@@ -11,6 +11,7 @@ import {
   sampleHeight,
   type Terrain,
 } from "@/lib/terrain";
+import { stations } from "@/lib/portfolio-data";
 import styles from "./watershed-hero.module.css";
 
 type Drop = {
@@ -432,7 +433,7 @@ export function WatershedHero({
           </div>
           <div>
             <span>Sheet</span>
-            <strong>01 / 08</strong>
+            <strong>01 / {String(stations.length).padStart(2, "0")}</strong>
           </div>
           <div>
             <span>Scale</span>

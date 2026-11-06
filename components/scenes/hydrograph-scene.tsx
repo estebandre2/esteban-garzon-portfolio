@@ -2,7 +2,7 @@
 
 import { MotionValue, motion, useTransform } from "framer-motion";
 import { useState } from "react";
-import { careerEvents, stations, type CareerEvent } from "@/lib/portfolio-data";
+import { careerEvents, type CareerEvent } from "@/lib/portfolio-data";
 import { hydrographPath, hydrographPeaks, timelineX } from "@/lib/scene-math";
 import { FlowLine } from "./flow-line";
 import { SceneSection } from "./scene-section";
@@ -78,8 +78,7 @@ function Chart({ progress }: { progress: MotionValue<number> }) {
 export function HydrographScene() {
   return (
     <SceneSection
-      station={stations[6]}
-      sheet={7}
+      stationId="career"
       title="Hydrograph: a career measured in floods."
       intro="Each peak is a stretch of work. The channel never changed: water, then data, then AI, always designed for the peak."
     >

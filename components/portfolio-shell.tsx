@@ -11,6 +11,7 @@ import { WatershedHero } from "./watershed-hero";
 import { RiverProfileNav } from "./river-profile-nav";
 import { ConduitScene } from "./scenes/conduit-scene";
 import { IntakeScene } from "./scenes/intake-scene";
+import { TransitionScene } from "./scenes/transition-scene";
 import { PowerhouseScene } from "./scenes/powerhouse-scene";
 import { SafetyScene } from "./scenes/safety-scene";
 import { GaugingScene } from "./scenes/gauging-scene";
@@ -128,6 +129,8 @@ export function PortfolioShell() {
       </WatershedHero>
 
       <IntakeScene />
+
+      <TransitionScene />
 
       <ConduitScene />
 

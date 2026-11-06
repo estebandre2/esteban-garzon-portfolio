@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CSSProperties, useEffect, useState } from "react";
+import { CSSProperties, useEffect, useRef, useState } from "react";
 import {
   profile,
   stations,
@@ -57,28 +57,36 @@ function MagneticLink({
 }
 
 export function PortfolioShell() {
-  const [cursor, setCursor] = useState({ x: 50, y: 20 });
+  const mainRef = useRef<HTMLElement>(null);
 
+  // The cursor glow only needs two CSS variables; writing them directly avoids re-rendering every scene on mousemove.
   useEffect(() => {
+    let frame = 0;
+    let x = 50;
+    let y = 20;
+    const apply = () => {
+      frame = 0;
+      mainRef.current?.style.setProperty("--cursor-x", `${x}%`);
+      mainRef.current?.style.setProperty("--cursor-y", `${y}%`);
+    };
     const handleMove = (event: MouseEvent) => {
-      const x = (event.clientX / window.innerWidth) * 100;
-      const y = (event.clientY / window.innerHeight) * 100;
-      setCursor({ x, y });
+      x = (event.clientX / window.innerWidth) * 100;
+      y = (event.clientY / window.innerHeight) * 100;
+      if (!frame) frame = requestAnimationFrame(apply);
     };
 
     window.addEventListener("mousemove", handleMove);
-    return () => window.removeEventListener("mousemove", handleMove);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("mousemove", handleMove);
+    };
   }, []);
 
   return (
     <main
+      ref={mainRef}
       className={styles.page}
-      style={
-        {
-          "--cursor-x": `${cursor.x}%`,
-          "--cursor-y": `${cursor.y}%`,
-        } as CSSProperties
-      }
+      style={{ "--cursor-x": "50%", "--cursor-y": "20%" } as CSSProperties}
     >
       <RiverProfileNav stations={stations} />
       <div className={styles.spotlight} />

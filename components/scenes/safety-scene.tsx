@@ -1,7 +1,7 @@
 "use client";
 
 import { MotionValue, motion, useMotionValueEvent } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { safetyGuards, stations } from "@/lib/portfolio-data";
 import { activeGuards, floodLevel } from "@/lib/scene-math";
 import { FlowLine } from "./flow-line";
@@ -25,7 +25,7 @@ function DamPanel({ years, onChange, reduced }: { years: number; onChange: (year
     <div className={styles.safetyPanel}>
       <p className={styles.annotation}>Hydraulic structure</p>
       <svg viewBox="0 0 320 220" role="img" aria-label={`Dam cross-section with the reservoir at the ${years}-year flood level, below the design flood line and the crest`}>
-        <motion.rect x="0" width="170" height={BED} className={styles.reservoir} animate={{ y: surface, height: BED - surface }} transition={{ type: "spring", stiffness: 90, damping: 18 }} />
+        <motion.rect x="0" y={LOW} width="170" height={BED - LOW} className={styles.reservoir} initial={false} animate={{ y: surface, height: BED - surface }} transition={{ type: "spring", stiffness: 90, damping: 18 }} />
         <motion.path
           className={reduced ? styles.waveStatic : styles.wave}
           d="M-40 0 q 10 -4 20 0 t 20 0 t 20 0 t 20 0 t 20 0 t 20 0 t 20 0 t 20 0 t 20 0 t 20 0 t 20 0"
@@ -110,6 +110,13 @@ function SafetyControls({ progress, reduced }: { progress: MotionValue<number>; 
   const [years, setYears] = useState(reduced ? 100 : 2);
   const [risk, setRisk] = useState(reduced ? 1 : 0);
   const [touched, setTouched] = useState({ years: false, risk: false });
+
+  useEffect(() => {
+    if (reduced) {
+      setYears(100);
+      setRisk(1);
+    }
+  }, [reduced]);
 
   useMotionValueEvent(progress, "change", (p) => {
     const driven = Math.min(1, Math.max(0, (p - 0.1) / 0.75));

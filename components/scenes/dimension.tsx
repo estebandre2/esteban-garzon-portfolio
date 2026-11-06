@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import styles from "./scenes.module.css";
+import { useSafeReducedMotion } from "./use-safe-reduced-motion";
 
 /** Engineering dimension line (arrow ─ value ─ arrow) that stretches out when it enters the viewport. */
 export function Dimension({ value, unit, label }: { value: string; unit: string; label?: string }) {
-  const reduced = useReducedMotion() ?? false;
+  const reduced = useSafeReducedMotion();
 
   return (
     <div className={styles.dimension}>

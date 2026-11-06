@@ -15,6 +15,7 @@ import { PowerhouseScene } from "./scenes/powerhouse-scene";
 import { SafetyScene } from "./scenes/safety-scene";
 import { GaugingScene } from "./scenes/gauging-scene";
 import { HydrographScene } from "./scenes/hydrograph-scene";
+import { GridScene } from "./scenes/grid-scene";
 
 function MagneticLink({
   href,
@@ -130,55 +131,7 @@ export function PortfolioShell() {
 
       <HydrographScene />
 
-      <section className={styles.contact} id="contact">
-        <motion.div
-          className={styles.contactPanel}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.65 }}
-        >
-          <span className={styles.contactEyebrow}>Contact</span>
-          <h2>Let&apos;s build better operational software.</h2>
-          <p>
-            If you want to talk about automation, ETL systems, internal tools, or
-            product-minded engineering, you can reach me directly here.
-          </p>
-
-          <div className={styles.contactGrid}>
-            <a className={styles.contactCard} href={`mailto:${profile.email}`}>
-              <span>Email</span>
-              <strong>{profile.email}</strong>
-            </a>
-            <a className={styles.contactCard} href={`tel:${profile.phone.replace(/\s+/g, "")}`}>
-              <span>Phone</span>
-              <strong>{profile.phone}</strong>
-            </a>
-            <a
-              className={styles.contactCard}
-              href={profile.linkedin}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <span>LinkedIn</span>
-              <strong>View profile</strong>
-            </a>
-          </div>
-
-          <div className={styles.contactActions}>
-            <MagneticLink href={`mailto:${profile.email}`}>Email me</MagneticLink>
-            <MagneticLink href={profile.resumeHref} variant="ghost" target="_blank" rel="noreferrer" download>
-              Download resume
-            </MagneticLink>
-            <MagneticLink href="/code" variant="ghost">
-              View limited code access
-            </MagneticLink>
-            <MagneticLink href="#top" variant="ghost">
-              Back to top
-            </MagneticLink>
-          </div>
-        </motion.div>
-      </section>
+      <GridScene />
     </main>
   );
 }

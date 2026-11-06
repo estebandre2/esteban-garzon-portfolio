@@ -11,7 +11,10 @@ import styles from "./scenes.module.css";
 const W = 1000;
 const H = 240;
 const PATH = hydrographPath(careerEvents, W, H);
-const PEAKS = hydrographPeaks(careerEvents, W, H);
+// Peaks closer than ~5% of the width would overlap as tap targets: lift the later one above the curve.
+const PEAKS = hydrographPeaks(careerEvents, W, H).map((p, i, all) =>
+  i > 0 && Math.abs(p.x - all[i - 1].x) < W * 0.05 ? { ...p, y: Math.max(12, p.y - 40) } : p,
+);
 const YEARS = [2018, 2020, 2022, 2024, 2026];
 const KIND_LABEL: Record<CareerEvent["kind"], string> = {
   civil: "Civil engineering",

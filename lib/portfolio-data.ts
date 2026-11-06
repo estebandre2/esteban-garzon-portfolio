@@ -17,12 +17,6 @@ export type CodeSample = {
   snippet: string;
 };
 
-export type ResumeItem = {
-  period: string;
-  title: string;
-  description: string;
-};
-
 export type ResourceItem = {
   title: string;
   tag: string;
@@ -71,8 +65,6 @@ export const profile = {
   heroTitle: "From watersheds to AI systems.",
   heroText:
     "I started in hydrology and energy: three hydro plants and a 100 MW solar project. I brought the same discipline into data pipelines, automation, and AI agents built to hold up in production.",
-  resumeSummary:
-    "CTO, data engineer, and automation specialist with a multidisciplinary background spanning civil engineering, data science, business intelligence, and operational systems. Experienced in building ETL pipelines, analytics layers, AI-driven automations, dashboards, and backend workflows that improve decision-making, reduce manual work, and create reliable infrastructure for growing teams.",
   linkedin: "https://www.linkedin.com/in/esteban-garzon2",
   email: "estebandre2@hotmail.es",
   phone: "+593996788376",
@@ -364,17 +356,6 @@ export const techStack = [
   "Evals",
 ];
 
-export const capabilities = [
-  "Robust ETL pipelines",
-  "API and ERP integrations",
-  "Multi-source data synchronization",
-  "SQL analytics and data modeling",
-  "Operational automation",
-  "Business intelligence dashboards",
-  "Machine learning and predictive analytics",
-  "Interactive frontends for complex systems",
-];
-
 export const resources: ResourceItem[] = [
   {
     title: "Outlook Attachment Extractor",
@@ -401,41 +382,6 @@ export const resources: ResourceItem[] = [
     ],
     downloadHref: "/downloads/live-data-integration-lab-source.zip",
     repoHref: "https://github.com/estebandre2/esteban-garzon-portfolio",
-  },
-];
-
-export const resumeHighlights = [
-  "Currently operating at CTO level, leading technical direction across data, automation, and AI-driven systems.",
-  "Built production ETL pipelines connecting SQL Server, Excel-based shop data, PostgreSQL, APIs, and operational platforms.",
-  "Designed synchronization workflows for manufacturing, CAD, installation, finance, and vendor intelligence.",
-  "Experienced with Power BI, Python, SQL, machine learning, and automation-first system design.",
-  "Able to bridge technical execution, strategic thinking, and multidisciplinary business contexts.",
-];
-
-export const resumeItems: ResumeItem[] = [
-  {
-    period: "Latest Position",
-    title: "Chief Technology Officer (CTO)",
-    description:
-      "Leading technical strategy across automation, AI, business intelligence, and data systems while shaping solutions that improve operational visibility, efficiency, and decision-making.",
-  },
-  {
-    period: "2024 - Present",
-    title: "Data Engineer | AI-Driven Automation & Business Intelligence Specialist",
-    description:
-      "Designed and implemented ETL pipelines, API integrations, reporting systems, and AI-enabled automations for a U.S.-based client, connecting platforms such as Moraware, RFMS, Slabsmith, Samsara, and production machine logs.",
-  },
-  {
-    period: "2022 - 2023",
-    title: "Data Scientist, Data Analyst, and Financial Modeling Roles",
-    description:
-      "Worked across hydroelectric, photovoltaic, construction, and water system projects, applying data analysis, forecasting, financial modeling, and feasibility studies to support strategic decisions.",
-  },
-  {
-    period: "Education",
-    title: "Civil Engineer + Master's in Data Science and Business Intelligence",
-    description:
-      "Blending engineering discipline with analytics, machine learning, business intelligence, and applied data strategy to solve real-world operational problems.",
   },
 ];
 

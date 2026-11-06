@@ -457,8 +457,8 @@ export const resources: ResourceItem[] = [
 export const codeLabSignals: LabSignal[] = [
   {
     label: "Public Samples",
-    value: "13",
-    detail: "Curated excerpts across ETL, APIs, telemetry, Graph, Excel automation, schema bridges, and batching flows.",
+    value: "16",
+    detail: "Curated excerpts from flood frequency and contour maps to ETL, APIs, telemetry, Graph, Excel automation, schema bridges, and batching flows.",
   },
   {
     label: "Integration Families",
@@ -628,6 +628,90 @@ export const codeLabGuides: LabGuide[] = [
 ];
 
 export const codeSamples: CodeSample[] = [
+  {
+    id: "flood-frequency",
+    title: "Flood Frequency (Gumbel) Behind the Safety Slider",
+    file: "lib/scene-math.ts",
+    category: "Engineering → Code",
+    summary:
+      "The hydrology I used to size structures, written as a tested function: the homepage safety slider moves water with the same Gumbel distribution used for design floods.",
+    notes: [
+      "Return periods are clamped to the 2–100 year design range.",
+      "The reduced variate makes the 10-year flood land at 44.5% of the 2→100 year range, which a unit test pins.",
+      "Same idea as a worst-case evaluation: size for the tail, not the mean.",
+    ],
+    snippet: `const gumbel = (t: number) => -Math.log(-Math.log(1 - 1 / t));
+
+/** Normalized water level (0..1) for a flood of the given return period, 2..100 years. */
+export function floodLevel(returnPeriodYears: number): number {
+  const t = Math.min(100, Math.max(2, returnPeriodYears));
+  return (gumbel(t) - gumbel(2)) / (gumbel(100) - gumbel(2));
+}
+
+// tests/scene-math.test.ts
+assert.equal(floodLevel(2), 0);
+assert.equal(floodLevel(100), 1);
+assert.ok(Math.abs(floodLevel(10) - 0.445) < 0.001);`,
+  },
+  {
+    id: "contour-marching-squares",
+    title: "Contour Lines with Marching Squares",
+    file: "lib/terrain.ts",
+    category: "Engineering → Code",
+    summary:
+      "How the homepage draws a topographic sheet: each grid cell is classified against a contour elevation and the crossing is interpolated along its edges.",
+    notes: [
+      "Sixteen corner cases collapse into a handful of edge pairs.",
+      "Linear interpolation places each line where the terrain actually crosses the elevation.",
+      "Segments are sorted by distance from the river so the map reveals outward, like water spreading.",
+    ],
+    snippet: `const code =
+  (tl >= elevation ? 8 : 0) | (tr >= elevation ? 4 : 0) |
+  (br >= elevation ? 2 : 0) | (bl >= elevation ? 1 : 0);
+if (code === 0 || code === 15) continue; // cell entirely above or below
+
+const lerp = (a: number, b: number) => (elevation - a) / (b - a);
+const top = () => [u0 + lerp(tl, tr) * du, v0];
+const right = () => [u0 + du, v0 + lerp(tr, br) * dv];
+const bottom = () => [u0 + lerp(bl, br) * du, v0 + dv];
+const left = () => [u0, v0 + lerp(tl, bl) * dv];
+
+switch (code) {
+  case 1: case 14: pairs.push([left, bottom]); break;
+  case 2: case 13: pairs.push([bottom, right]); break;
+  case 3: case 12: pairs.push([left, right]); break;
+  case 4: case 11: pairs.push([top, right]); break;
+  case 5: pairs.push([left, top], [bottom, right]); break; // saddle
+  case 6: case 9: pairs.push([top, bottom]); break;
+  case 7: case 8: pairs.push([left, top]); break;
+  case 10: pairs.push([left, bottom], [top, right]); break; // saddle
+}`,
+  },
+  {
+    id: "survey-to-grid",
+    title: "From a Contour Survey to a Height Grid",
+    file: "scripts/terrain/shp_to_grid.py",
+    category: "Engineering → Code",
+    summary:
+      "The homepage terrain is a real survey: 9,582 contour lines from a dam site, read straight from the shapefile bytes and interpolated into a compact height grid.",
+    notes: [
+      "Parses PolyLine records and DBF elevations without GIS dependencies.",
+      "Linear interpolation with a nearest-neighbour fill for gaps at the edges.",
+      "Light Gaussian smoothing and a crop keep the sheet legible at screen size.",
+    ],
+    snippet: `elev = read_dbf(dbf_path, "Elevacion")
+shapes = read_shp(shp_path)
+assert len(elev) == len(shapes)
+
+xy = np.concatenate([s for s in shapes if len(s)])
+z = np.concatenate([np.full(len(s), e) for s, e in zip(shapes, elev) if len(s)])
+
+gx, gy = np.meshgrid(np.linspace(x0, x1, COLS), np.linspace(y1, y0, rows))  # row 0 = north
+grid = griddata(xy, z, (gx, gy), method="linear")
+near = griddata(xy, z, (gx, gy), method="nearest")
+grid = np.where(np.isnan(grid), near, grid)
+grid = gaussian_filter(grid, SIGMA)`,
+  },
   {
     id: "dedupe",
     title: "Inventory Deduplication Logic",
@@ -1115,12 +1199,12 @@ export type AnalyticsCaseStudy = {
 export const analyticsSignals: AnalyticsSignal[] = [
   {
     label: "Portfolio Layer",
-    value: "20",
+    value: "24",
     detail: "Visible analytics deliverables across BI, visualization, graph analysis, applied reporting, databases, optimization, and strategy briefs.",
   },
   {
     label: "Featured Cases",
-    value: "6",
+    value: "8",
     detail: "The strongest pieces are separated from the broader archive so the narrative stays sharp and every link stays live.",
   },
   {
@@ -1229,6 +1313,30 @@ export const analyticsFeatured: AnalyticsProject[] = [
 ];
 
 export const analyticsArchive: AnalyticsArchiveItem[] = [
+  {
+    title: "Net Head by Drone Photogrammetry for Four Hydro Plants",
+    tag: "Civil Engineering",
+    summary: "Where the data work started: survey data, quality control, and energy decisions for public hydropower plants.",
+    format: "Case Brief",
+    href: "/analytics/cases/hydro-net-head-photogrammetry",
+    hrefLabel: "Open case brief",
+  },
+  {
+    title: "Predictive Model of Residential Construction in Texas",
+    tag: "M.Sc. Thesis",
+    summary: "Monthly permits forecast with ElasticNet, validated out of sample on 2025.",
+    format: "Case Brief",
+    href: "/analytics/cases/texas-construction-permits",
+    hrefLabel: "Open case brief",
+  },
+  {
+    title: "Real-Time Structural-Break Detection",
+    tag: "ML Competition",
+    summary: "Causal change-point model for the ADIA Lab challenge, judged on time-stratified AUC.",
+    format: "Case Brief",
+    href: "/analytics/cases/structural-break-detection",
+    hrefLabel: "Open case brief",
+  },
   {
     title: "Big Data Use in a Custom Manufacturing Operation",
     tag: "Big Data",
@@ -1344,6 +1452,54 @@ export const analyticsArchive: AnalyticsArchiveItem[] = [
 ];
 
 export const analyticsCaseStudies: Record<string, AnalyticsCaseStudy> = {
+  "texas-construction-permits": {
+    slug: "texas-construction-permits",
+    title: "Predictive Model of Residential Construction in Texas",
+    tag: "M.Sc. Thesis",
+    summary:
+      "Monthly forecast of residential building permits in Texas from public economic series, validated out of sample on all of 2025.",
+    overview:
+      "The thesis treats construction activity like a river gauge: a monthly series driven by mortgage rates, construction employment, house prices, and recessions. Models were trained on 1990–2024 and judged only on a year they never saw.",
+    whatItShows: [
+      "Time-series modeling with honest, out-of-sample validation instead of in-sample fit.",
+      "Benchmarking a regularized model (ElasticNet) against simple baselines before claiming improvement.",
+      "A fully public, reproducible repository: data, script, and figures.",
+    ],
+    focusAreas: ["Time series", "Feature engineering", "Model evaluation", "Construction economics"],
+    deliverables: ["Public repository", "Benchmark tables", "Thesis document and defense"],
+  },
+  "structural-break-detection": {
+    slug: "structural-break-detection",
+    title: "Real-Time Structural-Break Detection",
+    tag: "ML Competition",
+    summary:
+      "A competition model that reads one observation at a time and estimates the probability that a series has already changed regime.",
+    overview:
+      "Built for the ADIA Lab Structural Break Challenge (real-time edition). The model combines causal detectors, evidence trees, and a mixture of experts, and was judged on time-stratified AUC; the best official score reached 0.632.",
+    whatItShows: [
+      "Online change-point detection under a strict, causal (no look-ahead) constraint.",
+      "Careful evaluation, including questioning whether competitors could exploit the evaluation series.",
+      "Packaging a reproducible submission with a model card and validation notes.",
+    ],
+    focusAreas: ["Change-point detection", "Time series", "Evaluation integrity", "Model packaging"],
+    deliverables: ["Competition submission", "Model card", "Local evaluation harness"],
+  },
+  "hydro-net-head-photogrammetry": {
+    slug: "hydro-net-head-photogrammetry",
+    title: "Net Head by Drone Photogrammetry for Four Hydro Plants",
+    tag: "Civil Engineering · Survey Data",
+    summary:
+      "Public consultancy (2024): measuring the elevations that set the energy of four hydropower plants at existing dams, using drones instead of assumptions.",
+    overview:
+      "Net head decides how much energy a plant can produce. For the rehabilitation of two plants and the definitive design of two more, I planned drone flights, placed ground control points, processed the imagery in Pix4Dmatic, and read crest and powerhouse elevations from dense point clouds before any energy table was built.",
+    whatItShows: [
+      "The data mindset applied to civil work: quality reports on ground control before trusting a single elevation.",
+      "Turning field data into decisions: energy analysis by flows and number of turbines.",
+      "Engineering documentation authored end to end, reviewed and approved within a formal project structure.",
+    ],
+    focusAreas: ["Photogrammetry", "Point clouds", "Hydropower", "Data quality"],
+    deliverables: ["Net-head evaluation reports", "Energy evaluation tables", "Powerhouse and substation sections"],
+  },
   "big-data-uso-tts": {
     slug: "big-data-uso-tts",
     title: "Big Data Use in a Custom Manufacturing Operation",

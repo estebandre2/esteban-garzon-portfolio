@@ -523,3 +523,127 @@
     font-size: 0.85rem;
   }
 }
+
+/* ── Watershed blueprint layer: same vocabulary as the homepage stations (sheets, hairlines, mono notes). ── */
+
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  pointer-events: none;
+}
+
+.header {
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(150, 196, 226, 0.18);
+}
+
+.headerLinks a,
+.resourceActions a,
+.filePill {
+  border-radius: 0;
+  border-color: rgba(150, 196, 226, 0.28);
+  background: rgba(5, 11, 18, 0.7);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: border-color 200ms ease, color 200ms ease, background 200ms ease;
+}
+
+.headerLinks a:hover,
+.headerLinks a:focus-visible,
+.resourceActions a:hover,
+.resourceActions a:focus-visible {
+  border-color: var(--cyan);
+  color: #e6f6f3;
+  background: rgba(120, 242, 223, 0.08);
+}
+
+.eyebrow {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+}
+
+.eyebrow::before {
+  width: 56px;
+  background: linear-gradient(90deg, var(--cyan), transparent);
+}
+
+/* Every card reads as a drawing sheet: square, hairline border, amber corner ticks. */
+.signalCard,
+.trackCard,
+.sidebar,
+.viewer,
+.resourceCard,
+.panelCard,
+.guideCard,
+.requirementCard,
+.workflowItem,
+.guideListItem,
+.noteCard,
+.sampleButton,
+.trackPoint,
+.resourcePoint {
+  border-radius: 0;
+}
+
+.signalCard,
+.trackCard,
+.sidebar,
+.viewer,
+.resourceCard,
+.panelCard,
+.guideCard {
+  border-color: rgba(150, 196, 226, 0.22);
+  box-shadow: none;
+  backdrop-filter: blur(6px);
+  background:
+    linear-gradient(var(--amber), var(--amber)) left top / 12px 1px no-repeat,
+    linear-gradient(var(--amber), var(--amber)) left top / 1px 12px no-repeat,
+    linear-gradient(var(--amber), var(--amber)) right bottom / 12px 1px no-repeat,
+    linear-gradient(var(--amber), var(--amber)) right bottom / 1px 12px no-repeat,
+    linear-gradient(180deg, rgba(9, 20, 32, 0.92), rgba(6, 14, 23, 0.92));
+}
+
+.signalCard span,
+.resourceTag,
+.fileLabel,
+.sampleIndex {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.signalCard strong {
+  color: #fff4e6;
+}
+
+.codeFrame {
+  border-radius: 0;
+  border: 1px solid rgba(150, 196, 226, 0.22);
+}
+
+@media (max-width: 720px) {
+  .signalCard,
+  .trackCard,
+  .sidebar,
+  .viewer,
+  .resourceCard,
+  .panelCard,
+  .guideCard {
+    border-radius: 0;
+  }
+
+  .headerLinks {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .headerLinks a {
+    flex: 0 0 auto;
+  }
+}

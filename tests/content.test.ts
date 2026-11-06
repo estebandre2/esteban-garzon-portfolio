@@ -37,3 +37,34 @@ test("every AI system names a guardrail", () => {
   assert.ok(aiSystems.length >= 6);
   for (const system of aiSystems) assert.ok(system.guardrail.length > 20, system.title);
 });
+
+test("every archive case link points to an existing case study", async () => {
+  const { analyticsArchive, analyticsCaseStudies } = await import("../lib/portfolio-data.ts");
+  for (const item of analyticsArchive) {
+    if (!item.href.startsWith("/analytics/cases/")) continue;
+    const slug = item.href.replace("/analytics/cases/", "");
+    assert.ok(analyticsCaseStudies[slug], `missing case study: ${slug}`);
+  }
+});
+
+test("inner pages carry the civil-to-AI bridge: engineering cases and code samples", async () => {
+  const { analyticsCaseStudies, codeSamples } = await import("../lib/portfolio-data.ts");
+  for (const slug of ["texas-construction-permits", "structural-break-detection", "hydro-net-head-photogrammetry"]) {
+    assert.ok(analyticsCaseStudies[slug], slug);
+  }
+  const ids = codeSamples.map((s) => s.id);
+  assert.equal(new Set(ids).size, ids.length, "code sample ids are unique");
+  for (const id of ["flood-frequency", "contour-marching-squares", "survey-to-grid"]) assert.ok(ids.includes(id), id);
+});
+
+test("analytics headline counts match the actual content", async () => {
+  const { analyticsArchive, analyticsFeatured, analyticsSignals } = await import("../lib/portfolio-data.ts");
+  const byLabel = (label: string) => analyticsSignals.find((s) => s.label === label)?.value;
+  assert.equal(byLabel("Featured Cases"), String(analyticsFeatured.length));
+  assert.equal(byLabel("Portfolio Layer"), String(analyticsFeatured.length + analyticsArchive.length));
+});
+
+test("code lab headline count matches the published samples", async () => {
+  const { codeLabSignals, codeSamples } = await import("../lib/portfolio-data.ts");
+  assert.equal(codeLabSignals.find((s) => s.label === "Public Samples")?.value, String(codeSamples.length));
+});

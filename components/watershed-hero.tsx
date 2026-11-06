@@ -3,6 +3,8 @@
 import { CSSProperties, ReactNode, useEffect, useRef } from "react";
 import {
   buildTerrain,
+  buildTerrainFromGrid,
+  type HeightGrid,
   downhill,
   revealCount,
   riverCenter,
@@ -32,6 +34,23 @@ const smoothstep = (a: number, b: number, x: number) => {
 };
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 const meters = new Intl.NumberFormat("en-US");
+
+/** Validates the fetched survey before it reaches the renderer. */
+function isHeightGrid(data: unknown): data is HeightGrid {
+  if (!data || typeof data !== "object") return false;
+  const g = data as Partial<HeightGrid>;
+  return (
+    Number.isInteger(g.cols) &&
+    Number.isInteger(g.rows) &&
+    (g.cols ?? 0) > 1 &&
+    (g.rows ?? 0) > 1 &&
+    typeof g.step === "number" &&
+    g.step > 0 &&
+    Array.isArray(g.heights) &&
+    g.heights.length === (g.cols ?? 0) * (g.rows ?? 0) &&
+    g.heights.every((h) => typeof h === "number" && Number.isFinite(h))
+  );
+}
 
 export function WatershedHero({
   eyebrow,
@@ -69,7 +88,10 @@ export function WatershedHero({
     let visible = true;
     let frame = 0;
     let last = performance.now();
-    const start = last;
+    let start = last;
+    let grid: HeightGrid | null = null;
+    // Hold the first frame until the survey arrives (or fails), so the procedural fallback never flashes.
+    let ready = false;
 
     const build = () => {
       // Pull the hero up under the sticky top bar (its height changes when the nav wraps on phones).
@@ -84,7 +106,7 @@ export function WatershedHero({
       const aspect = width / Math.max(1, height);
       const cols = coarse ? 90 : 150;
       const rows = Math.max(40, Math.min(140, Math.round(cols / aspect)));
-      terrain = buildTerrain(cols, rows, aspect);
+      terrain = grid ? buildTerrainFromGrid(grid, cols, rows, aspect) : buildTerrain(cols, rows, aspect);
       drops = [];
     };
 
@@ -95,7 +117,7 @@ export function WatershedHero({
     };
 
     const draw = (now: number) => {
-      if (!terrain) return;
+      if (!terrain || !ready) return;
       const t = terrain;
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
@@ -295,7 +317,7 @@ export function WatershedHero({
         ctx.fillStyle = "rgba(255, 220, 180, 0.95)";
         ctx.fillText(`EL. ${meters.format(Math.round(lensElevation / 10) * 10)} m`, lx, y - 8);
         ctx.fillStyle = "rgba(180, 205, 225, 0.7)";
-        ctx.fillText("INTAG VALLEY · REF.", lx, y + 8);
+        ctx.fillText(grid ? "TAHUÍN DAM · SURVEY" : "TERRAIN · MODEL", lx, y + 8);
         ctx.textAlign = "left";
       }
     };
@@ -310,6 +332,21 @@ export function WatershedHero({
     };
 
     build();
+    // Real contour survey of the Tahuín dam site; the procedural terrain stays as the fallback.
+    fetch("/terrain/tahuin.json")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: unknown) => {
+        if (isHeightGrid(data)) {
+          grid = data;
+          build();
+        }
+      })
+      .catch(() => undefined)
+      .finally(() => {
+        ready = true;
+        start = performance.now();
+        requestDraw();
+      });
     requestDraw();
 
     let resizeTimer: ReturnType<typeof setTimeout> | undefined;
@@ -375,7 +412,7 @@ export function WatershedHero({
                 {char === " " ? " " : char}
               </span>
             ))}
-            <em aria-hidden="true">EL. 2,350 m</em>
+            <em aria-hidden="true">Survey · UTM 17S</em>
           </p>
           <span className={styles.eyebrow}>{eyebrow}</span>
           <h1>{title}</h1>
@@ -405,7 +442,7 @@ export function WatershedHero({
             <span>Drawn</span>
             <strong>E. Garzon · Rev. 2026</strong>
           </div>
-          <small>Stylized terrain, after the Intag valley, Ecuador</small>
+          <small>Terrain: contour survey, Tahuín dam site, Ecuador (2024)</small>
         </aside>
 
         <div className={styles.scrollCue} aria-hidden="true">

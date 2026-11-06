@@ -1,7 +1,7 @@
 "use client";
 
 import { MotionValue, useMotionValue, useReducedMotion, useScroll } from "framer-motion";
-import { ReactNode, useRef } from "react";
+import { CSSProperties, ReactNode, useRef } from "react";
 import type { Station } from "@/lib/portfolio-data";
 import styles from "./scenes.module.css";
 
@@ -36,8 +36,8 @@ export function SceneSection({ station, sheet, pinned = false, heightVh = 220, t
     <section
       ref={ref}
       id={station.id}
-      className={styles.scene}
-      style={isPinned ? { height: `${heightVh}vh` } : undefined}
+      className={isPinned ? `${styles.scene} ${styles.pinnedScene}` : styles.scene}
+      style={isPinned ? ({ "--pin-height": `${heightVh}vh` } as CSSProperties) : undefined}
       aria-labelledby={`${station.id}-title`}
     >
       <div className={isPinned ? styles.stickyStage : styles.stage}>

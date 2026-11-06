@@ -14,26 +14,21 @@ const body = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Esteban Garzon | Automation Engineer",
+  title: "Esteban Garzon | Civil Engineer → AI Systems",
   description:
-    "Esteban Garzon - CTO focused on automation, data engineering, ETL pipelines, AI-driven systems, API integrations, telemetry workflows, Microsoft Graph, RFMS, Moraware, and modern operational software.",
+    "Civil engineer turned CTO: hydro and solar projects, data pipelines, and AI systems designed for the flood, not the average day.",
   keywords: [
     "Esteban Garzon",
     "CTO",
-    "Automation Engineer",
+    "Civil Engineering",
+    "Hydrology",
     "Data Engineer",
-    "Business Intelligence",
     "ETL",
-    "AI Systems",
+    "AI Agents",
+    "AI Safety",
+    "Business Intelligence",
     "Python",
     "Portfolio",
-    "Outlook Attachment Extractor",
-    "Code Lab",
-    "Moraware",
-    "RFMS",
-    "Microsoft Graph",
-    "Samsara",
-    "Excel Automation",
   ],
   authors: [{ name: "Esteban Garzon" }],
   creator: "Esteban Garzon",

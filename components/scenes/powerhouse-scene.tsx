@@ -1,7 +1,7 @@
 "use client";
 
 import { MotionValue, motion, useTransform } from "framer-motion";
-import { aiSystems, stations } from "@/lib/portfolio-data";
+import { aiSystems } from "@/lib/portfolio-data";
 import { FlowLine } from "./flow-line";
 import { HypothesisCanvas } from "./hypothesis-canvas";
 import { SceneSection } from "./scene-section";
@@ -39,8 +39,7 @@ function LockIcon() {
 export function PowerhouseScene() {
   return (
     <SceneSection
-      station={stations[3]}
-      sheet={4}
+      stationId="ai"
       title="The powerhouse: AI systems that have to tell the truth."
       intro="Agents generate energy only if what they report is real. Every system below ships with the guardrail that keeps it honest."
     >

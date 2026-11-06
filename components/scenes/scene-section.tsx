@@ -2,15 +2,14 @@
 
 import { MotionValue, useMotionValue, useScroll } from "framer-motion";
 import { CSSProperties, ReactNode, useRef } from "react";
-import type { Station } from "@/lib/portfolio-data";
+import { stations, type Station } from "@/lib/portfolio-data";
 import styles from "./scenes.module.css";
 import { useSafeReducedMotion } from "./use-safe-reduced-motion";
 
-export const TOTAL_SHEETS = 8;
+export const TOTAL_SHEETS = stations.length;
 
 type SceneSectionProps = {
-  station: Station;
-  sheet: number;
+  stationId: Station["id"];
   pinned?: boolean;
   heightVh?: number;
   title: string;
@@ -22,8 +21,10 @@ type SceneSectionProps = {
  * One station of the watershed walk. Supplies scroll progress (0..1) to its scene.
  * Pinned scenes stick to the viewport while progress runs; reduced motion renders the final state.
  */
-export function SceneSection({ station, sheet, pinned = false, heightVh = 220, title, intro, children }: SceneSectionProps) {
+export function SceneSection({ stationId, pinned = false, heightVh = 220, title, intro, children }: SceneSectionProps) {
   const ref = useRef<HTMLElement>(null);
+  const sheet = stations.findIndex((s) => s.id === stationId) + 1;
+  const station = stations[sheet - 1];
   const reduced = useSafeReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,

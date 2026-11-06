@@ -1,7 +1,7 @@
 "use client";
 
 import { MotionValue, motion, useTransform } from "framer-motion";
-import { civilProjects, stations } from "@/lib/portfolio-data";
+import { civilProjects } from "@/lib/portfolio-data";
 import { Dimension } from "./dimension";
 import { FlowLine } from "./flow-line";
 import { SceneSection } from "./scene-section";
@@ -69,8 +69,7 @@ function IntakeVisual({ progress }: { progress: MotionValue<number> }) {
 export function IntakeScene() {
   return (
     <SceneSection
-      station={stations[1]}
-      sheet={2}
+      stationId="survey"
       title="It started with water and terrain."
       intro="Before software, I measured rivers, surveyed valleys, and sized plants. Hydrology taught me to design around the worst day on record, not the average one."
     >

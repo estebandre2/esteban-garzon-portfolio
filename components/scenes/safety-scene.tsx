@@ -2,7 +2,7 @@
 
 import { MotionValue, motion, useMotionValueEvent } from "framer-motion";
 import { useEffect, useState } from "react";
-import { safetyGuards, stations } from "@/lib/portfolio-data";
+import { safetyGuards } from "@/lib/portfolio-data";
 import { activeGuards, floodLevel } from "@/lib/scene-math";
 import { FlowLine } from "./flow-line";
 import { SceneSection } from "./scene-section";
@@ -148,8 +148,7 @@ function SafetyControls({ progress, reduced }: { progress: MotionValue<number>; 
 export function SafetyScene() {
   return (
     <SceneSection
-      station={stations[4]}
-      sheet={5}
+      stationId="safety"
       pinned
       heightVh={210}
       title="Safety factor: design for the flood, not the average day."

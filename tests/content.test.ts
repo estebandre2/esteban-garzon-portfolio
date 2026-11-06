@@ -1,16 +1,28 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { aiSystems, careerEvents, stations } from "../lib/portfolio-data.ts";
+import { aiSystems, bridgeTools, careerEvents, stations, translations } from "../lib/portfolio-data.ts";
 
-test("content has 8 stations in order", () => {
+test("content has 9 stations in order, with the transition between intake and conduit", () => {
   assert.deepEqual(
     stations.map((s) => s.id),
-    ["top", "survey", "pipelines", "ai", "safety", "gauging", "career", "contact"],
+    ["top", "survey", "transition", "pipelines", "ai", "safety", "gauging", "career", "contact"],
   );
   assert.deepEqual(
     stations.map((s) => s.code),
-    ["STA. 01", "STA. 02", "STA. 03", "STA. 04", "STA. 05", "STA. 06", "STA. 07", "STA. 08"],
+    ["STA. 01", "STA. 02", "STA. 03", "STA. 04", "STA. 05", "STA. 06", "STA. 07", "STA. 08", "STA. 09"],
   );
+});
+
+test("the transition pairs every civil concept with its data/AI counterpart", () => {
+  assert.ok(translations.length >= 5);
+  for (const row of translations) {
+    assert.ok(row.civil.length > 3 && row.ai.length > 3 && row.why.length > 20, row.civil);
+  }
+});
+
+test("the transition shows the first tools that turned engineering into code", () => {
+  assert.equal(bridgeTools.length, 3);
+  for (const tool of bridgeTools) assert.ok(tool.proof.length > 20, tool.title);
 });
 
 test("career dates follow LinkedIn", () => {

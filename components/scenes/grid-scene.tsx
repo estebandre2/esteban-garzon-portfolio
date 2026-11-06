@@ -2,7 +2,7 @@
 
 import { MotionValue, motion, useMotionValueEvent, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
-import { profile, stations } from "@/lib/portfolio-data";
+import { profile } from "@/lib/portfolio-data";
 import { FlowLine } from "./flow-line";
 import { SceneSection } from "./scene-section";
 import styles from "./scenes.module.css";
@@ -60,8 +60,7 @@ function City({ progress, reduced }: { progress: MotionValue<number>; reduced: b
 export function GridScene() {
   return (
     <SceneSection
-      station={stations[7]}
-      sheet={8}
+      stationId="contact"
       title="Grid: where the energy reaches people."
       intro="Every station upstream exists for this one. If you are building AI systems that have to be right, not just fluent, I would like to help."
     >

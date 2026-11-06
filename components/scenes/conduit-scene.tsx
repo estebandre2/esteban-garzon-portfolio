@@ -2,7 +2,7 @@
 
 import { MotionValue, motion, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { projects, stations, techStack } from "@/lib/portfolio-data";
+import { projects, techStack } from "@/lib/portfolio-data";
 import { FlowLine } from "./flow-line";
 import { SceneSection } from "./scene-section";
 import styles from "./scenes.module.css";
@@ -68,8 +68,7 @@ export function ConduitScene() {
 
   return (
     <SceneSection
-      station={stations[2]}
-      sheet={3}
+      stationId="pipelines"
       title="Then the river became a pipeline."
       intro="The same discipline, moved into data: capture every source, keep the flow clean, and make sure nothing reaches a decision without being checked first."
     >

@@ -249,3 +249,105 @@
     display: none;
   }
 }
+
+/* STA. 02 · Intake */
+.intakeGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.civilList {
+  display: grid;
+  gap: 18px;
+}
+
+.intakeVisual {
+  position: sticky;
+  top: 120px;
+  padding: 22px;
+  border: 1px solid rgba(150, 196, 226, 0.18);
+  background: rgba(5, 11, 18, 0.78);
+}
+
+.intakeVisual svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.intakeGround {
+  fill: none;
+  stroke: rgba(150, 196, 226, 0.25);
+  stroke-dasharray: 2 6;
+}
+
+.intakeStroke {
+  fill: none;
+  stroke: #cfe0ee;
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+
+.intakeWater {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 5px rgba(120, 242, 223, 0.6));
+}
+
+.intakeLabel {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  fill: var(--amber);
+}
+
+.formula {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 14px;
+  margin: 22px 0 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  color: #f1f7fb;
+}
+
+.formulaTokens {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.formulaTokens span {
+  display: inline-block;
+}
+
+.formulaResult {
+  color: var(--cyan);
+}
+
+.formulaResult small {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8ba3b8;
+}
+
+@media (max-width: 900px) {
+  .intakeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .intakeVisual {
+    position: relative;
+    top: 0;
+  }
+}

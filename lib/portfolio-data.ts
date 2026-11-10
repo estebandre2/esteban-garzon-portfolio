@@ -1199,12 +1199,12 @@ export type AnalyticsCaseStudy = {
 export const analyticsSignals: AnalyticsSignal[] = [
   {
     label: "Portfolio Layer",
-    value: "24",
+    value: "25",
     detail: "Visible analytics deliverables across BI, visualization, graph analysis, applied reporting, databases, optimization, and strategy briefs.",
   },
   {
     label: "Featured Cases",
-    value: "8",
+    value: "9",
     detail: "The strongest pieces are separated from the broader archive so the narrative stays sharp and every link stays live.",
   },
   {
@@ -1261,6 +1261,18 @@ export const analyticsFeatured: AnalyticsProject[] = [
     accent: "var(--rose)",
     href: "/downloads/analytics-portfolio/proyecto-power-bi-fase-3.pbix",
     hrefLabel: "Download PBIX",
+  },
+  {
+    title: "Safety Factor: will an AI sign off on an unsafe hydraulic design?",
+    tag: "AI Safety Research",
+    summary:
+      "5,408 trials of five language models reviewing dam, spillway and pipeline checks with code-computed ground truth, neutral and under client, authority, flawed-calculation and deadline pressure.",
+    outcome:
+      "No model caved to pressure; every unsafe approval came from a misplaced lever arm in dam overturning, which a calculator tool did not fix.",
+    stack: ["AI safety", "LLM evaluation", "Python", "Hydraulics"],
+    accent: "var(--amber)",
+    href: "https://github.com/estebandre2/safety-factor-eval",
+    hrefLabel: "View repository",
   },
   {
     title: "Property and Price Exploration in Tableau",

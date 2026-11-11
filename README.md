@@ -1,5 +1,7 @@
 # Portfolio
 
+Source of [estebangarzon.com](https://www.estebangarzon.com), the portfolio of Esteban Garzon: civil engineer (hydrology and hydropower) turned CTO for data, automation, and AI systems. Research: [estebangarzon.com/research](https://www.estebangarzon.com/research).
+
 Portfolio in Next.js, ready for Vercel.
 
 ## Local development

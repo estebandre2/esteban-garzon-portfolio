@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Manrope } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { SITE_DESCRIPTION, SITE_TITLE, baseOpenGraph } from "@/lib/seo";
 import "./globals.css";
 
 const display = Bricolage_Grotesque({
@@ -14,9 +15,8 @@ const body = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Esteban Garzon | Civil Engineer → AI Systems",
-  description:
-    "Civil engineer turned CTO: hydro and solar projects, data pipelines, and AI systems designed for the flood, not the average day.",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
   keywords: [
     "Esteban Garzon",
     "CTO",
@@ -37,19 +37,15 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Esteban Garzon | CTO - Data, Automation, and AI Systems",
-    description:
-      "Portfolio, resume snapshot, technical projects, Code Lab samples, and downloadable tools built by Esteban Garzon.",
-    url: "https://www.estebangarzon.com",
-    siteName: "Esteban Garzon",
-    locale: "en_US",
-    type: "website",
+    ...baseOpenGraph,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    url: "/",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Esteban Garzon | CTO - Data, Automation, and AI Systems",
-    description:
-      "Portfolio, resume snapshot, technical projects, Code Lab samples, and downloadable tools built by Esteban Garzon.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
   },
   robots: {
     index: true,

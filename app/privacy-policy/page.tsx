@@ -2,14 +2,19 @@ import type { Metadata } from "next";
 import { profile } from "@/lib/portfolio-data";
 import styles from "@/components/code-lab.module.css";
 import { ContourBackdrop } from "@/components/contour-backdrop";
+import { pageSocial } from "@/lib/seo";
+
+const title = "Privacy Policy | Esteban Garzon";
+const description =
+  "Privacy policy for estebangarzon.com, including contact information, analytics, downloads, and external portfolio links.";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Esteban Garzon",
-  description:
-    "Privacy policy for estebangarzon.com, including contact information, analytics, downloads, and external portfolio links.",
+  title,
+  description,
   alternates: {
     canonical: "/privacy-policy",
   },
+  ...pageSocial(title, description, "/privacy-policy"),
   robots: {
     index: true,
     follow: true,

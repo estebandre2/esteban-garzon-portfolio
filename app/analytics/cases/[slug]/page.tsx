@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { analyticsCaseStudies, profile } from "@/lib/portfolio-data";
+import { analyticsCaseStudies } from "@/lib/portfolio-data";
 import styles from "@/components/code-lab.module.css";
 import { ContourBackdrop } from "@/components/contour-backdrop";
 import { pageSocial } from "@/lib/seo";
+import { SiteHeader } from "@/components/site-header";
 
 type PageProps = {
   params: Promise<{
@@ -50,20 +51,7 @@ export default async function AnalyticsCasePage({ params }: PageProps) {
     <main className={styles.page}>
       <ContourBackdrop className={styles.backdrop} />
 
-      <header className={styles.header}>
-        <a href="/" className={styles.brand}>
-          {profile.name}
-        </a>
-
-        <div className={styles.headerLinks}>
-          <a href="/">Home</a>
-          <a href="/analytics">Analytics Lab</a>
-          <a href="/code">Code Lab</a>
-          <a href={profile.linkedin} target="_blank" rel="noreferrer">
-            LinkedIn
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <section className={styles.hero}>
         <span className={styles.eyebrow}>{study.tag}</span>

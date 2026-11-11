@@ -9,11 +9,11 @@ import {
   codeLabTracks,
   codeLabWorkflow,
   codeSamples,
-  profile,
   resources,
 } from "@/lib/portfolio-data";
 import styles from "./code-lab.module.css";
 import { ContourBackdrop } from "@/components/contour-backdrop";
+import { SiteHeader } from "@/components/site-header";
 
 export function CodeLab() {
   const [activeId, setActiveId] = useState(codeSamples[0]?.id ?? "");
@@ -27,20 +27,7 @@ export function CodeLab() {
     <main className={styles.page}>
       <ContourBackdrop className={styles.backdrop} />
 
-      <header className={styles.header}>
-        <a href="/" className={styles.brand}>
-          {profile.name}
-        </a>
-
-        <div className={styles.headerLinks}>
-          <a href="/">Home</a>
-          <a href="/analytics">Analytics</a>
-          <a href="/#gauging">Resources</a>
-          <a href={profile.linkedin} target="_blank" rel="noreferrer">
-            LinkedIn
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <section className={styles.hero}>
         <motion.div
@@ -61,31 +48,21 @@ export function CodeLab() {
 
       <section className={styles.signalStrip}>
         {codeLabSignals.map((signal, index) => (
-          <motion.article
+          <article
             key={signal.label}
-            className={styles.signalCard}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.45, delay: index * 0.08 }}
-          >
+            className={styles.signalCard}>
             <span>{signal.label}</span>
             <strong>{signal.value}</strong>
             <p>{signal.detail}</p>
-          </motion.article>
+          </article>
         ))}
       </section>
 
       <section className={styles.trackGrid}>
         {codeLabTracks.map((track, index) => (
-          <motion.article
+          <article
             key={track.title}
-            className={styles.trackCard}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.45, delay: index * 0.08 }}
-          >
+            className={styles.trackCard}>
             <h2>{track.title}</h2>
             <p>{track.summary}</p>
             <div className={styles.trackPoints}>
@@ -95,7 +72,7 @@ export function CodeLab() {
                 </div>
               ))}
             </div>
-          </motion.article>
+          </article>
         ))}
       </section>
 
@@ -144,14 +121,9 @@ export function CodeLab() {
 
         <div className={styles.guideGrid}>
           {codeLabGuides.map((guide, index) => (
-            <motion.article
+            <article
               key={guide.title}
-              className={styles.guideCard}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.45, delay: index * 0.08 }}
-            >
+              className={styles.guideCard}>
               <span className={styles.resourceTag}>{guide.audience}</span>
               <h3>{guide.title}</h3>
               <p>{guide.summary}</p>
@@ -190,7 +162,7 @@ export function CodeLab() {
                   </div>
                 </div>
               </div>
-            </motion.article>
+            </article>
           ))}
         </div>
       </section>
@@ -267,14 +239,9 @@ export function CodeLab() {
 
         <div className={styles.resourceGrid}>
           {resources.map((resource, index) => (
-            <motion.article
+            <article
               key={resource.title}
-              className={styles.resourceCard}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.45, delay: index * 0.08 }}
-            >
+              className={styles.resourceCard}>
               <span className={styles.resourceTag}>{resource.tag}</span>
               <h3>{resource.title}</h3>
               <p>{resource.summary}</p>
@@ -295,7 +262,7 @@ export function CodeLab() {
                   </a>
                 ) : null}
               </div>
-            </motion.article>
+            </article>
           ))}
         </div>
       </section>

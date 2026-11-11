@@ -5,30 +5,17 @@ import {
   analyticsArchive,
   analyticsFeatured,
   analyticsSignals,
-  profile,
 } from "@/lib/portfolio-data";
 import styles from "./code-lab.module.css";
 import { ContourBackdrop } from "@/components/contour-backdrop";
+import { SiteHeader } from "@/components/site-header";
 
 export function AnalyticsLab() {
   return (
     <main className={styles.page}>
       <ContourBackdrop className={styles.backdrop} />
 
-      <header className={styles.header}>
-        <a href="/" className={styles.brand}>
-          {profile.name}
-        </a>
-
-        <div className={styles.headerLinks}>
-          <a href="/">Home</a>
-          <a href="/code">Code Lab</a>
-          <a href="#archive">Archive</a>
-          <a href={profile.linkedin} target="_blank" rel="noreferrer">
-            LinkedIn
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <section className={styles.hero}>
         <motion.div
@@ -49,42 +36,28 @@ export function AnalyticsLab() {
 
       <section className={styles.signalStrip}>
         {analyticsSignals.map((signal, index) => (
-          <motion.article
+          <article
             key={signal.label}
-            className={styles.signalCard}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.45, delay: index * 0.08 }}
-          >
+            className={styles.signalCard}>
             <span>{signal.label}</span>
             <strong>{signal.value}</strong>
             <p>{signal.detail}</p>
-          </motion.article>
+          </article>
         ))}
       </section>
 
       <section className={styles.trackGrid}>
         {analyticsFeatured.map((project, index) => (
-          <motion.article
+          <article
             key={project.title}
-            className={styles.trackCard}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.45, delay: index * 0.08 }}
-          >
+            className={styles.trackCard}>
             <span className={styles.resourceTag}>{project.tag}</span>
             <h2>{project.title}</h2>
             <p>{project.summary}</p>
 
             <div className={styles.trackPoints}>
               <div className={styles.trackPoint}>{project.outcome}</div>
-              {project.stack.map((item) => (
-                <div key={item} className={styles.trackPoint}>
-                  {item}
-                </div>
-              ))}
+              <div className={`${styles.trackPoint} ${styles.stackLine}`}>{project.stack.join(" · ")}</div>
             </div>
 
             <div className={styles.resourceActions}>
@@ -92,7 +65,7 @@ export function AnalyticsLab() {
                 {project.hrefLabel}
               </a>
             </div>
-          </motion.article>
+          </article>
         ))}
       </section>
 
@@ -164,14 +137,9 @@ export function AnalyticsLab() {
 
         <div className={styles.resourceGrid}>
           {analyticsArchive.map((item, index) => (
-            <motion.article
+            <article
               key={item.title}
-              className={styles.resourceCard}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.45, delay: index * 0.04 }}
-            >
+              className={styles.resourceCard}>
               <span className={styles.resourceTag}>{item.tag}</span>
               <h3>{item.title}</h3>
               <p>{item.summary}</p>
@@ -191,7 +159,7 @@ export function AnalyticsLab() {
                   {item.hrefLabel ?? (item.format === "PDF" ? "Open file" : `Download ${item.format}`)}
                 </a>
               </div>
-            </motion.article>
+            </article>
           ))}
         </div>
       </section>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Manrope } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { ContactButton } from "@/components/contact-button";
 import { SITE_DESCRIPTION, SITE_TITLE, baseOpenGraph } from "@/lib/seo";
 import "./globals.css";
 
@@ -62,6 +63,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${display.variable} ${body.variable}`}>
         {children}
+        <ContactButton />
         <Analytics />
       </body>
     </html>

@@ -3,6 +3,7 @@ import { profile } from "@/lib/portfolio-data";
 import styles from "@/components/code-lab.module.css";
 import { ContourBackdrop } from "@/components/contour-backdrop";
 import { pageSocial } from "@/lib/seo";
+import { SiteHeader } from "@/components/site-header";
 
 const title = "Privacy Policy | Esteban Garzon";
 const description =
@@ -69,18 +70,7 @@ export default function PrivacyPolicyPage() {
     <main className={styles.page}>
       <ContourBackdrop className={styles.backdrop} />
 
-      <header className={styles.header}>
-        <a href="/" className={styles.brand}>
-          {profile.name}
-        </a>
-
-        <div className={styles.headerLinks}>
-          <a href="/">Home</a>
-          <a href="/code">Code Lab</a>
-          <a href="/analytics">Analytics</a>
-          <a href="/#contact">Contact</a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <section className={styles.hero}>
         <div>

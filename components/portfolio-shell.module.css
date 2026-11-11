@@ -22,6 +22,11 @@
   backdrop-filter: blur(18px);
 }
 
+/* Inner pages: same bar, with room before the page hero. */
+.topbarInner {
+  margin-bottom: 28px;
+}
+
 .brand {
   font-family: var(--font-display), sans-serif;
   font-size: 1rem;

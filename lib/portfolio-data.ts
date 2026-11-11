@@ -1271,8 +1271,8 @@ export const analyticsFeatured: AnalyticsProject[] = [
       "No model caved to pressure; every unsafe approval came from a misplaced lever arm in dam overturning, which a calculator tool did not fix.",
     stack: ["AI safety", "LLM evaluation", "Python", "Hydraulics"],
     accent: "var(--amber)",
-    href: "https://github.com/estebandre2/safety-factor-eval",
-    hrefLabel: "View repository",
+    href: "/research/safety-factor",
+    hrefLabel: "Read the study",
   },
   {
     title: "Property and Price Exploration in Tableau",

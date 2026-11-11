@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { analyticsCaseStudies, profile } from "@/lib/portfolio-data";
 import styles from "@/components/code-lab.module.css";
 import { ContourBackdrop } from "@/components/contour-backdrop";
+import { pageSocial } from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{
@@ -24,12 +25,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
+  const title = `${study.title} | Esteban Garzon`;
+  const path = `/analytics/cases/${study.slug}`;
+
   return {
-    title: `${study.title} | Esteban Garzon`,
+    title,
     description: study.summary,
     alternates: {
-      canonical: `/analytics/cases/${study.slug}`,
+      canonical: path,
     },
+    ...pageSocial(title, study.summary, path),
   };
 }
 

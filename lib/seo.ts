@@ -7,14 +7,17 @@ import {
   profile,
   techStack,
 } from "./portfolio-data.ts";
-import { researchStudies } from "./research.ts";
+import { researchStudies, type ResearchStudy } from "./research.ts";
 
 export const SITE_URL = "https://www.estebangarzon.com";
 export const GITHUB_URL = "https://github.com/estebandre2";
 export const SITE_DESCRIPTION =
-  "Civil engineer turned CTO: hydro and solar projects, data pipelines, and AI systems designed for the flood, not the average day.";
+  "Civil engineer turned CTO: pre-registered AI-safety research on LLMs checking hydraulic designs, plus data pipelines and AI systems built for the flood.";
 
-export const SITE_TITLE = "Esteban Garzon | Civil Engineer → AI Systems";
+export const SITE_TITLE = "Esteban Garzon | AI Safety Research & Civil Engineering";
+export const RESEARCH_TITLE = "AI Safety Research on Engineering Checks | Esteban Garzon";
+export const RESEARCH_DESCRIPTION =
+  "Pre-registered AI-safety studies of LLMs checking hydraulic designs, with papers, code and data, plus an M.Sc. forecasting thesis.";
 
 // Next replaces a parent's openGraph object instead of merging it, so every page spreads this base.
 export const baseOpenGraph = {
@@ -28,6 +31,18 @@ export function pageSocial(title: string, description: string, path: string) {
     // A page-level openGraph drops the root file-based image, so it is set again here.
     openGraph: { ...baseOpenGraph, title, description, url: path, images: ["/opengraph-image"] },
     twitter: { card: "summary_large_image" as const, title, description, images: ["/twitter-image"] },
+  };
+}
+
+// Highwire tags that Google Scholar reads on a paper's landing page.
+export function citationMeta(study: ResearchStudy) {
+  return {
+    citation_title: study.title,
+    citation_author: "Garzon, Esteban",
+    citation_publication_date: study.published.replaceAll("-", "/"),
+    citation_pdf_url: `${SITE_URL}${study.documents[0].href}`,
+    citation_abstract_html_url: `${SITE_URL}/research/${study.slug}`,
+    citation_language: "en",
   };
 }
 
@@ -59,7 +74,17 @@ export function personJsonLd() {
         address: { "@type": "PostalAddress", addressLocality: "Quito", addressCountry: "EC" },
         worksFor: { "@type": "Organization", name: current?.org ?? "BynD Bits" },
         alumniOf: schools.map((name) => ({ "@type": "CollegeOrUniversity", name })),
-        knowsAbout: ["Hydrology", "Hydropower", "Solar energy", "Data engineering", "AI agents", "AI safety", ...techStack],
+        knowsAbout: [
+          "Hydrology",
+          "Hydropower",
+          "Solar energy",
+          "Data engineering",
+          "AI agents",
+          "AI safety",
+          "LLM evaluation",
+          "Pre-registration",
+          ...techStack,
+        ],
         sameAs: [profile.linkedin, GITHUB_URL],
       },
       {
@@ -79,6 +104,14 @@ export function personJsonLd() {
         mainEntity: { "@id": `${SITE_URL}/#person` },
         isPartOf: { "@id": `${SITE_URL}/#website` },
       },
+      ...researchStudies.map((study) => ({
+        "@type": "ScholarlyArticle",
+        "@id": `${SITE_URL}/research/${study.slug}#article`,
+        headline: study.title,
+        url: `${SITE_URL}/research/${study.slug}`,
+        datePublished: study.published,
+        author: { "@id": `${SITE_URL}/#person` },
+      })),
     ],
   };
 }

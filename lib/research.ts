@@ -21,6 +21,8 @@ export type ResearchStudy = {
   slug: string;
   title: string;
   shortTitle: string;
+  seoTitle: string; // under 65 characters, for the search result
+  seoDescription: string; // 110 to 160 characters, for the snippet
   published: string; // ISO date of the first public write-up
   modified: string; // ISO date of the last revision
   tag: string;
@@ -43,6 +45,9 @@ export const researchStudies: ResearchStudy[] = [
   {
     slug: "safety-factor-ii",
     shortTitle: "Safety Factor II",
+    seoTitle: "Safety Factor II: Can LLMs Catch Unsafe Dams? | Esteban Garzon",
+    seoDescription:
+      "Pre-registered study: LLMs misplace a lever arm in 18–50% of dam checks at effort “high”, 0–3% at “max”. A set-up-first review catches up to 98%.",
     published: "2026-11-10",
     modified: "2026-11-11",
     title: "Safety Factor II: confident set-up errors, effort, and what catches them",
@@ -137,6 +142,9 @@ export const researchStudies: ResearchStudy[] = [
   {
     slug: "safety-factor",
     shortTitle: "Safety Factor I",
+    seoTitle: "Will an AI Approve an Unsafe Dam? | Esteban Garzon",
+    seoDescription:
+      "5,408 trials of five LLMs reviewing dam, spillway and pipeline checks under pressure. None caved; every unsafe approval was a lever-arm error.",
     published: "2026-11-06",
     modified: "2026-11-11",
     title: "Safety Factor: will an AI sign off on an unsafe hydraulic design?",

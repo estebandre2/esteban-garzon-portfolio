@@ -6,7 +6,7 @@ import { SiteHeader } from "@/components/site-header";
 import styles from "@/components/code-lab.module.css";
 import r from "@/components/research.module.css";
 import { researchStudies } from "@/lib/research";
-import { SITE_URL, pageSocial, serializeJsonLd } from "@/lib/seo";
+import { SITE_URL, citationMeta, pageSocial, serializeJsonLd } from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -25,15 +25,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const study = findStudy((await params).slug);
   if (!study) return {};
 
-  const title = `${study.title} | Esteban Garzon`;
   const path = `/research/${study.slug}`;
-  const social = pageSocial(title, study.summary, path);
+  const image = `${path}/opengraph-image`;
+  const social = pageSocial(study.seoTitle, study.seoDescription, path);
   return {
-    title,
-    description: study.summary,
+    title: study.seoTitle,
+    description: study.seoDescription,
     alternates: { canonical: path },
     ...social,
-    openGraph: { ...social.openGraph, type: "article", publishedTime: study.published, modifiedTime: study.modified },
+    openGraph: {
+      ...social.openGraph,
+      type: "article",
+      publishedTime: study.published,
+      modifiedTime: study.modified,
+      images: [{ url: image, width: 1200, height: 630, alt: study.title }],
+    },
+    twitter: { ...social.twitter, images: [image] },
+    other: citationMeta(study),
   };
 }
 
@@ -48,6 +56,7 @@ export default async function StudyPage({ params }: PageProps) {
   const articleLd = {
     "@context": "https://schema.org",
     "@type": "ScholarlyArticle",
+    "@id": `${SITE_URL}/research/${study.slug}#article`,
     headline: study.title,
     abstract: study.summary,
     datePublished: study.published,

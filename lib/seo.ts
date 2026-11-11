@@ -41,6 +41,7 @@ export function citationMeta(study: ResearchStudy) {
     citation_author: "Garzon, Esteban",
     citation_publication_date: study.published.replaceAll("-", "/"),
     citation_pdf_url: `${SITE_URL}${study.documents[0].href}`,
+    citation_doi: study.doi,
     citation_abstract_html_url: `${SITE_URL}/research/${study.slug}`,
     citation_language: "en",
   };

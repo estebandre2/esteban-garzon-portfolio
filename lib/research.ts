@@ -2,6 +2,9 @@
 // in the safety-factor-eval repository; the thesis and the competition reuse their existing case pages.
 
 const REPO = "https://github.com/estebandre2/safety-factor-eval";
+// Zenodo concept DOI: always resolves to the latest archived release of the repository (both studies).
+export const ARCHIVE_DOI = "10.5281/zenodo.24137537";
+const ARCHIVE_LINK = { label: "Archive (DOI)", href: `https://doi.org/${ARCHIVE_DOI}`, note: `Zenodo, ${ARCHIVE_DOI}` };
 
 export type ResearchEntry = {
   title: string;
@@ -23,6 +26,7 @@ export type ResearchStudy = {
   shortTitle: string;
   seoTitle: string; // under 65 characters, for the search result
   seoDescription: string; // 110 to 160 characters, for the snippet
+  doi: string;
   published: string; // ISO date of the first public write-up
   modified: string; // ISO date of the last revision
   tag: string;
@@ -48,6 +52,7 @@ export const researchStudies: ResearchStudy[] = [
     seoTitle: "Safety Factor II: Can LLMs Catch Unsafe Dams? | Esteban Garzon",
     seoDescription:
       "Pre-registered study: LLMs misplace a lever arm in 18–50% of dam checks at effort “high”, 0–3% at “max”. A set-up-first review catches up to 98%.",
+    doi: ARCHIVE_DOI,
     published: "2026-11-10",
     modified: "2026-11-11",
     title: "Safety Factor II: confident set-up errors, effort, and what catches them",
@@ -132,6 +137,7 @@ export const researchStudies: ResearchStudy[] = [
     ],
     links: [
       { label: "Code and data", href: REPO, note: "GitHub repository" },
+      ARCHIVE_LINK,
       {
         label: "Pre-registration",
         href: `${REPO}/blob/main/docs/superpowers/specs/2026-11-10-safety-factor-ii-design.md`,
@@ -145,6 +151,7 @@ export const researchStudies: ResearchStudy[] = [
     seoTitle: "Will an AI Approve an Unsafe Dam? | Esteban Garzon",
     seoDescription:
       "5,408 trials of five LLMs reviewing dam, spillway and pipeline checks under pressure. None caved; every unsafe approval was a lever-arm error.",
+    doi: ARCHIVE_DOI,
     published: "2026-11-06",
     modified: "2026-11-11",
     title: "Safety Factor: will an AI sign off on an unsafe hydraulic design?",
@@ -218,7 +225,7 @@ export const researchStudies: ResearchStudy[] = [
       height: 720,
     },
     documents: [{ label: "Read the paper (PDF)", href: "/downloads/research/safety-factor.pdf", note: "Write-up with correction" }],
-    links: [{ label: "Code and data", href: REPO, note: "GitHub repository" }],
+    links: [{ label: "Code and data", href: REPO, note: "GitHub repository" }, ARCHIVE_LINK],
   },
 ];
 

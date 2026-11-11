@@ -661,3 +661,75 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* Hover layer: a card that holds a link lifts 2px and its border steps up; fine pointers only. */
+.trackCard,
+.resourceCard,
+.signalCard {
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .trackCard:has(a):hover,
+  .resourceCard:has(a):hover {
+    transform: translateY(-2px);
+    border-color: rgba(150, 196, 226, 0.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trackCard,
+  .resourceCard,
+  .signalCard {
+    transition: none;
+  }
+
+  .trackCard:has(a):hover,
+  .resourceCard:has(a):hover {
+    transform: none;
+  }
+}
+
+/* Two boxes deep at most: items inside a card are ruled rows, not boxes of their own. */
+.trackPoint,
+.resourcePoint,
+.requirementCard,
+.workflowItem,
+.guideListItem {
+  padding: 14px 0;
+  border: 0;
+  border-top: 1px solid rgba(150, 196, 226, 0.16);
+  background: none;
+}
+
+.trackPoints,
+.resourcePoints,
+.requirementGrid,
+.workflowList,
+.guideList {
+  gap: 0;
+}
+
+.workflowItem span {
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: 0;
+  padding-top: 3px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--amber);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+}
+
+/* A card's stack reads as one mono line under its outcome. */
+.stackLine {
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}

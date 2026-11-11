@@ -1,0 +1,652 @@
+/* Research pages and the landing feature.
+   Blueprint identity (hairlines, mono labels, cyan and amber) laid out as a paper, not a card grid:
+   the work leads every hero, numbers sit in a ruled title block, lists close each row with a rule. */
+
+.wrap {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+}
+
+/* ── Hero: words on five columns, the study's own figure on seven ── */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+  gap: clamp(32px, 4vw, 64px);
+  align-items: start;
+  padding: 32px 0 clamp(72px, 10vh, 120px);
+}
+
+/* On desktop the hero holds the first screen alone; the next heading never peeks in. */
+@media (min-width: 1024px) {
+  .hero {
+    min-height: calc(100svh - 112px);
+  }
+}
+
+.heroText {
+  animation: rise 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.heroFigure {
+  animation: rise 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--cyan);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.kicker::before {
+  content: "";
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--cyan), transparent);
+}
+
+.title {
+  margin: 20px 0 18px;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2.2rem, 3.6vw, 3.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.meta {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.lead {
+  margin: 0;
+  max-width: 560px;
+  color: #c3d3e1;
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+/* One button pair for the whole site: the landing's cyan pill and its ghost. */
+.btn,
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-weight: 700;
+  transition: transform 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+.btn {
+  color: #041017;
+  background: linear-gradient(135deg, var(--cyan), #e7fff8);
+  box-shadow: 0 18px 40px rgba(120, 242, 223, 0.18);
+}
+
+.btnGhost {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.figure {
+  margin: 8px 0 0;
+  padding: 14px;
+  border: 1px solid rgba(150, 196, 226, 0.22);
+  background: #f7f9fb;
+}
+
+.figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.correction {
+  margin: 0 0 56px;
+  padding: 16px 20px;
+  border-left: 3px solid var(--amber);
+  background: rgba(255, 184, 111, 0.06);
+  color: #f3e3cf;
+  line-height: 1.7;
+}
+
+/* ── Sections: space, a top-aligned h2, no boxes ── */
+
+.section {
+  padding: clamp(64px, 9vh, 112px) 0;
+}
+
+.sectionHead {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(32px, 4vw, 64px);
+  margin-bottom: 40px;
+}
+
+.h2 {
+  margin: 14px 0 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.sectionLead {
+  align-self: end;
+  margin: 0;
+  color: #a9bccd;
+  line-height: 1.7;
+}
+
+/* Key numbers: a ruled strip, like the numbers row of a drawing's title block. */
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  border-top: 1px solid rgba(150, 196, 226, 0.22);
+  border-bottom: 1px solid rgba(150, 196, 226, 0.22);
+}
+
+.number {
+  padding: 28px 28px 30px 0;
+}
+
+.number + .number {
+  padding-left: 28px;
+  border-left: 1px solid rgba(150, 196, 226, 0.22);
+}
+
+.number dt {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #fff4e6;
+}
+
+.number dd {
+  margin: 14px 0 0;
+  color: #e6eef5;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.number small {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* Numbered findings, one per ruled row. */
+.findings {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid rgba(150, 196, 226, 0.18);
+}
+
+.finding {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 16px;
+  padding: 26px 0;
+  border-top: 1px solid rgba(150, 196, 226, 0.18);
+}
+
+.findingIndex {
+  color: var(--amber);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  padding-top: 4px;
+}
+
+.finding h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+  letter-spacing: -0.02em;
+}
+
+.finding p {
+  margin: 0;
+  max-width: 760px;
+  color: #a9bccd;
+  line-height: 1.7;
+}
+
+.takeaway {
+  margin: 0;
+  max-width: 980px;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+}
+
+.takeaway::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 2px;
+  margin-bottom: 24px;
+  background: var(--cyan);
+}
+
+/* Design and limitations: two ruled columns. */
+.columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(32px, 4vw, 64px);
+}
+
+.ruled {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ruled li {
+  padding: 16px 0;
+  border-top: 1px solid rgba(150, 196, 226, 0.18);
+  color: #c3d3e1;
+  line-height: 1.65;
+}
+
+.ruled li:last-child {
+  border-bottom: 1px solid rgba(150, 196, 226, 0.18);
+}
+
+.columnTitleSpaced {
+  margin-top: 40px;
+}
+
+.columnTitle {
+  margin: 0 0 18px;
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+}
+
+/* Datasheet: the drawing's title block, the one framed element on a study page. */
+.datasheet {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  border: 1px solid rgba(150, 196, 226, 0.28);
+}
+
+.datasheet div {
+  padding: 14px 16px;
+  border-right: 1px solid rgba(150, 196, 226, 0.18);
+}
+
+.datasheet div:last-child {
+  border-right: 0;
+}
+
+.datasheet dt {
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.datasheet dd {
+  margin: 6px 0 0;
+  color: #e6eef5;
+  line-height: 1.45;
+}
+
+/* ── Study list on /research: ruled rows, the title is the link ── */
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid rgba(150, 196, 226, 0.18);
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 220px) minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: start;
+  padding: 30px 0;
+  border-top: 1px solid rgba(150, 196, 226, 0.18);
+  transition: transform 180ms ease;
+}
+
+.rowIndex {
+  color: var(--amber);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  padding-top: 6px;
+}
+
+.rowMeta {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  padding-top: 6px;
+}
+
+.rowMeta strong {
+  color: var(--cyan);
+  font-weight: 400;
+}
+
+.rowTitle {
+  margin: 0 0 10px;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.rowTitle a {
+  background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
+  transition: background-size 150ms ease;
+}
+
+/* The title's link covers the row; the repository link sits above it. */
+.rowTitle a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.rowSummary {
+  margin: 0;
+  max-width: 680px;
+  color: #a9bccd;
+  line-height: 1.7;
+}
+
+.rowLinks {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 10px;
+  justify-items: end;
+  padding-top: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.rowLinks span {
+  color: var(--cyan);
+  transition: transform 150ms ease;
+}
+
+.rowLinks a {
+  color: var(--muted);
+  background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
+  transition: background-size 150ms ease, color 150ms ease;
+}
+
+.textLink {
+  color: var(--cyan);
+  background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
+  transition: background-size 150ms ease;
+}
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 28px 0 0;
+  border-top: 1px solid rgba(150, 196, 226, 0.18);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ── Landing feature band, under the hero ── */
+
+.band {
+  position: relative;
+  z-index: 2;
+  width: min(1200px, 100%);
+  margin: 24px auto 72px;
+  padding: clamp(28px, 4vw, 48px);
+  border: 1px solid rgba(150, 196, 226, 0.22);
+  background:
+    linear-gradient(var(--amber), var(--amber)) left top / 14px 1px no-repeat,
+    linear-gradient(var(--amber), var(--amber)) left top / 1px 14px no-repeat,
+    linear-gradient(var(--amber), var(--amber)) right bottom / 14px 1px no-repeat,
+    linear-gradient(var(--amber), var(--amber)) right bottom / 1px 14px no-repeat,
+    linear-gradient(180deg, rgba(9, 20, 32, 0.94), rgba(6, 14, 23, 0.94));
+  backdrop-filter: blur(6px);
+}
+
+.bandTop {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+  gap: clamp(28px, 4vw, 56px);
+  align-items: start;
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+
+.bandKicker {
+  color: var(--amber);
+}
+
+.bandKicker::before {
+  background: linear-gradient(90deg, var(--amber), transparent);
+}
+
+.bandTitle {
+  margin: 16px 0 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.bandText p {
+  margin: 0;
+  color: #a9bccd;
+  line-height: 1.7;
+}
+
+/* ── Hover and press: fine pointers only; keyboard focus shows the same state ── */
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover,
+  .btnGhost:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255, 255, 255, 0.24);
+  }
+
+  .btnGhost:hover {
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  .row:hover {
+    transform: translateY(-2px);
+  }
+
+  .row:hover .rowTitle a,
+  .rowLinks a:hover,
+  .textLink:hover {
+    background-size: 100% 1px;
+  }
+
+  .row:hover .rowLinks span {
+    transform: translateX(3px);
+  }
+
+  .rowLinks a:hover {
+    color: var(--text);
+  }
+}
+
+.btn:active,
+.btnGhost:active {
+  transform: translateY(1px) scale(0.985);
+  transition-duration: 90ms;
+}
+
+.rowTitle a:focus-visible,
+.rowLinks a:focus-visible,
+.textLink:focus-visible {
+  background-size: 100% 1px;
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroText,
+  .heroFigure {
+    animation: none;
+  }
+
+  .btn,
+  .btnGhost,
+  .row,
+  .rowLinks span {
+    transition: none;
+  }
+
+  .row:hover,
+  .btn:hover,
+  .btnGhost:hover {
+    transform: none;
+  }
+}
+
+/* ── Tablet and phone ── */
+
+@media (max-width: 1023px) {
+  .hero,
+  .sectionHead,
+  .bandTop {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .datasheet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .datasheet div:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .datasheet div:nth-child(n + 3) {
+    border-top: 1px solid rgba(150, 196, 226, 0.18);
+  }
+
+  .row {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+
+  .rowMeta,
+  .rowBody,
+  .rowLinks {
+    grid-column: 2;
+  }
+
+  .rowLinks {
+    justify-items: start;
+    grid-auto-flow: column;
+    justify-content: start;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 720px) {
+  .numbers,
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .number,
+  .number + .number {
+    padding: 24px 0;
+    border-left: 0;
+  }
+
+  .number + .number {
+    border-top: 1px solid rgba(150, 196, 226, 0.22);
+  }
+
+  .finding {
+    grid-template-columns: 44px minmax(0, 1fr);
+  }
+
+  .actions .btn,
+  .actions .btnGhost {
+    width: 100%;
+  }
+
+  .band {
+    margin: 12px auto 48px;
+  }
+
+  .figure {
+    padding: 8px;
+  }
+
+  .rowLinks span,
+  .rowLinks a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+  }
+}

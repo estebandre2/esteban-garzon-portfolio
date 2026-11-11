@@ -1,0 +1,111 @@
+/* Same look as the original .nav links in portfolio-shell.module.css; panels reuse the top bar's surface. */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.link,
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #d8e6f2;
+  font: inherit;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.link:hover,
+.trigger:hover,
+.trigger[aria-expanded="true"] {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  transition: transform 180ms ease;
+}
+
+.trigger[aria-expanded="true"] .chevron {
+  transform: rotate(180deg);
+}
+
+.group {
+  position: relative;
+}
+
+.panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 30;
+  display: grid;
+  gap: 2px;
+  min-width: 200px;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  background: rgba(7, 17, 28, 0.94);
+  backdrop-filter: blur(18px);
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.panel a {
+  display: block;
+  padding: 10px 14px;
+  border-radius: 999px;
+  color: #d8e6f2;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.panel a:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron {
+    transition: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .nav {
+    width: 100%;
+    flex-wrap: nowrap;
+    gap: 4px;
+  }
+
+  .link,
+  .trigger {
+    padding: 8px 12px;
+    font-size: 0.92rem;
+  }
+
+  /* Last group opens leftwards so its panel stays on screen. */
+  .group:last-child .panel {
+    left: auto;
+    right: 0;
+  }
+}

@@ -7,6 +7,7 @@ import {
   profile,
   techStack,
 } from "./portfolio-data.ts";
+import { researchStudies } from "./research.ts";
 
 export const SITE_URL = "https://www.estebangarzon.com";
 export const GITHUB_URL = "https://github.com/estebandre2";
@@ -87,6 +88,10 @@ export function buildLlmsTxt(): string {
   const career = [...careerEvents]
     .sort((a, b) => b.start.localeCompare(a.start))
     .map((e) => `- ${e.title}, ${e.org} (${e.start} to ${e.end ?? "present"}): ${e.summary}`);
+  const research = researchStudies.map(
+    (s) =>
+      `- [${s.title}](${SITE_URL}/research/${s.slug}) (${s.date}; [PDF](${SITE_URL}${s.documents[0].href})): ${s.summary} ${s.takeaway}`,
+  );
   const civil = civilProjects.map((p) =>
     p.unit === "MW" ? `- ${p.title} (${p.figure} MW): ${p.summary}` : `- ${p.title}: ${p.summary}`,
   );
@@ -106,9 +111,14 @@ export function buildLlmsTxt(): string {
     "## Pages",
     "",
     `- [Portfolio](${SITE_URL}/): engineering, data, AI systems, AI safety, and career`,
+    `- [Research](${SITE_URL}/research): AI-safety studies, the M.Sc. thesis, and competition work`,
     `- [Code Lab](${SITE_URL}/code): curated code samples and downloadable source bundles`,
     `- [Applied Analytics](${SITE_URL}/analytics): analytics, machine learning, and AI-safety projects`,
     `- [Resume (PDF)](${abs(profile.resumeHref)})`,
+    "",
+    "## Research",
+    "",
+    ...research,
     "",
     "## Career",
     "",

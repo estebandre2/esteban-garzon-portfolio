@@ -17,6 +17,9 @@ import { SafetyScene } from "./scenes/safety-scene";
 import { GaugingScene } from "./scenes/gauging-scene";
 import { HydrographScene } from "./scenes/hydrograph-scene";
 import { GridScene } from "./scenes/grid-scene";
+import { FeaturedResearch } from "./featured-research";
+import { SiteHeader } from "./site-header";
+import { featuredStudy } from "@/lib/research";
 
 function MagneticLink({
   href,
@@ -93,40 +96,27 @@ export function PortfolioShell() {
       <div className={styles.spotlight} />
       <div className={styles.gridGlow} />
 
-      <header className={styles.topbar}>
-        <a href="#top" className={styles.brand}>
-          {profile.name}
-        </a>
-
-        <nav className={styles.nav}>
-          <a href="#survey">Engineering</a>
-          <a href="#pipelines">Data</a>
-          <a href="#ai">AI Systems</a>
-          <a href="#safety">Safety</a>
-          <a href="#gauging">Analytics</a>
-          <a href="#career">Career</a>
-          <a href="/code">Code Lab</a>
-          <a href="#contact">Contact</a>
-          <a href={profile.linkedin} target="_blank" rel="noreferrer">
-            LinkedIn
-          </a>
-        </nav>
-      </header>
+      <SiteHeader home />
 
       <WatershedHero eyebrow={profile.heroEyebrow} title={profile.heroTitle} text={profile.heroText}>
         <div className={styles.ctaRow}>
-          <MagneticLink href="#survey">Explore work</MagneticLink>
+          <MagneticLink href={`/research/${featuredStudy.slug}`}>Latest research: AI Safety</MagneticLink>
           <MagneticLink href={profile.resumeHref} variant="ghost" target="_blank" rel="noreferrer" download>
             Download resume
           </MagneticLink>
-          <MagneticLink href="/code" variant="ghost">
-            Open Code Lab
-          </MagneticLink>
-          <MagneticLink href={profile.linkedin} variant="ghost" target="_blank" rel="noreferrer">
-            LinkedIn
-          </MagneticLink>
         </div>
       </WatershedHero>
+
+      <FeaturedResearch
+        actions={
+          <>
+            <MagneticLink href={`/research/${featuredStudy.slug}`}>Read {featuredStudy.shortTitle}</MagneticLink>
+            <MagneticLink href={featuredStudy.documents[0].href} variant="ghost">
+              Download the paper
+            </MagneticLink>
+          </>
+        }
+      />
 
       <IntakeScene />
 

@@ -60,5 +60,6 @@ test("study pages carry Google Scholar citation tags", async () => {
     assert.equal(meta.citation_author, "Garzon, Esteban");
     assert.match(meta.citation_publication_date, /^\d{4}\/\d{2}\/\d{2}$/);
     assert.equal(meta.citation_pdf_url, `${SITE_URL}${s.documents[0].href}`);
+    assert.match(meta.citation_doi, /^10\.5281\/zenodo\.\d+$/);
   }
 });

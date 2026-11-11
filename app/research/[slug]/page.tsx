@@ -66,6 +66,8 @@ export default async function StudyPage({ params }: PageProps) {
     author: { "@id": `${SITE_URL}/#person`, "@type": "Person", name: "Esteban Garzon", url: SITE_URL },
     encoding: study.documents.map((d) => ({ "@type": "MediaObject", contentUrl: `${SITE_URL}${d.href}`, encodingFormat: "application/pdf" })),
     isBasedOn: repo?.href,
+    identifier: { "@type": "PropertyValue", propertyID: "DOI", value: study.doi },
+    sameAs: `https://doi.org/${study.doi}`,
   };
 
   return (

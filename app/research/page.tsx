@@ -5,11 +5,10 @@ import { SiteHeader } from "@/components/site-header";
 import styles from "@/components/code-lab.module.css";
 import r from "@/components/research.module.css";
 import { featuredStudy, researchEntries } from "@/lib/research";
-import { pageSocial } from "@/lib/seo";
+import { RESEARCH_DESCRIPTION, RESEARCH_TITLE, pageSocial } from "@/lib/seo";
 
-const title = "Research | Esteban Garzon";
-const description =
-  "Pre-registered AI-safety studies on whether language models sign off on unsafe hydraulic designs, plus an M.Sc. forecasting thesis and a real-time structural-break model.";
+const title = RESEARCH_TITLE;
+const description = RESEARCH_DESCRIPTION;
 
 export const metadata: Metadata = {
   title,

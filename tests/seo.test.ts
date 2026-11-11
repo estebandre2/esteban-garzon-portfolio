@@ -31,3 +31,34 @@ test("llms.txt follows the format and links every indexable page", () => {
   }
   assert.ok(!txt.includes(profile.phone), "phone stays off machine-readable files");
 });
+
+test("titles fit a search result and descriptions fit a snippet", async () => {
+  const { SITE_TITLE, SITE_DESCRIPTION, RESEARCH_TITLE, RESEARCH_DESCRIPTION } = await import("../lib/seo.ts");
+  const { researchStudies } = await import("../lib/research.ts");
+  const titles = [SITE_TITLE, RESEARCH_TITLE, ...researchStudies.map((s) => s.seoTitle)];
+  const descriptions = [SITE_DESCRIPTION, RESEARCH_DESCRIPTION, ...researchStudies.map((s) => s.seoDescription)];
+  for (const t of titles) assert.ok(t.length <= 65, `title too long (${t.length}): ${t}`);
+  for (const d of descriptions) assert.ok(d.length >= 110 && d.length <= 160, `description length ${d.length}: ${d}`);
+  assert.match(SITE_TITLE, /AI safety/i, "the home title names the research");
+});
+
+test("the home graph links the person to each study as its author", async () => {
+  const { researchStudies } = await import("../lib/research.ts");
+  const graph = personJsonLd()["@graph"];
+  const articles = graph.filter((n: { "@type": string }) => n["@type"] === "ScholarlyArticle");
+  assert.equal(articles.length, researchStudies.length);
+  for (const a of articles) assert.equal(a.author["@id"], `${SITE_URL}/#person`);
+  const person = graph.find((n: { "@type": string }) => n["@type"] === "Person");
+  for (const topic of ["LLM evaluation", "Pre-registration"]) assert.ok(person.knowsAbout.includes(topic), topic);
+});
+
+test("study pages carry Google Scholar citation tags", async () => {
+  const { citationMeta } = await import("../lib/seo.ts");
+  const { researchStudies } = await import("../lib/research.ts");
+  for (const s of researchStudies) {
+    const meta = citationMeta(s);
+    assert.equal(meta.citation_author, "Garzon, Esteban");
+    assert.match(meta.citation_publication_date, /^\d{4}\/\d{2}\/\d{2}$/);
+    assert.equal(meta.citation_pdf_url, `${SITE_URL}${s.documents[0].href}`);
+  }
+});
